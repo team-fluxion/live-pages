@@ -1,0 +1,26 @@
+{
+  "name": "live-pages",
+  "version": "0.9.0",
+  "description": "A framework to build text-driven websites",
+  "main": "build/scripts/pages.js",
+  "scripts": {
+    "debug": "webpack --config webpack.dev.js",
+    "develop": "webpack --config webpack.dev.js --watch",
+    "build": "webpack --config webpack.prod.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team-fluxion/live-pages.git"
+  },
+  "bugs": {
+    "url": "https://github.com/team-fluxion/live-pages/issues"
+  },
+  "homepage": "https://github.com/team-fluxion/live-pages#readme",
+  "keywords": [
+    "website",
+    "portfolio"
+  ],
+  "author": "Mohammed Ismail Ansari <team.terminal@gmail.com>",
+  "license": "MIT"
+}
