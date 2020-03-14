@@ -14,18 +14,20 @@ const optimizeCSS = new OptimizeCssAssetsPlugin();
 module.exports = options => {
     const {
         project: {
+            templateDir,
             sourceDir,
             outputDir
-        }
+        },
+        configs
     } = options;
 
     const clean = new CleanWebpackPlugin([outputDir]);
     const copy = new CopyWebpackPlugin([
         {
-            from: `${sourceDir}/favicon.ico`
+            from: `${templateDir}/favicon.ico`
         },
         {
-            from: `${sourceDir}/icons`,
+            from: `${templateDir}/icons`,
             to: 'icons'
         }
     ]);
@@ -33,7 +35,7 @@ module.exports = options => {
     return {
         mode: 'development',
         entry: {
-            app: `./${sourceDir}/scripts/index.jsx`
+            app: `${templateDir}/scripts/index.jsx`
         },
         module: {
             rules: [

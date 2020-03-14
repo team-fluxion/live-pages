@@ -9,14 +9,16 @@ const commonConfig = require('./webpack.common.js');
 module.exports = options => {
     const {
         project: {
+            templateDir,
             sourceDir,
             outputDir
-        }
+        },
+        configs
     } = options;
 
     const copy = new CopyWebpackPlugin([
         {
-            from: `${sourceDir}/manifest.json`,
+            from: `${templateDir}/manifest.json`,
             transform: (content, path) =>
                 content.toString()
                 .replace(/#manifest-origin#/g, '/')
@@ -24,7 +26,7 @@ module.exports = options => {
     ]);
 
     const html = new HtmlWebpackPlugin({
-        template: `${sourceDir}/index.ejs`,
+        template: `${templateDir}/index.ejs`,
         templateParameters: {
             titlePrefix: '[DEBUG] ',
             baseUrl: '/'

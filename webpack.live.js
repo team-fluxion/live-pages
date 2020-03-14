@@ -8,9 +8,11 @@ const devConfig = require('./webpack.dev.js');
 module.exports = options => {
     const {
         project: {
+            templateDir,
             sourceDir,
-            outputDir
-        }
+            outputDir,
+        },
+        configs
     } = options;
 
     return WebpackMerge(
