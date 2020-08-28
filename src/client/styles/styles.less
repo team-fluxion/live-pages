@@ -1,0 +1,65 @@
+@import '../../../node_modules/effortless-css/less/all.less';
+@import '../../../node_modules/ample-alerts/build/styles/ample-alerts.dark.css';
+@import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+
+@font-face {
+    font-family: OpenSans;
+    src: url('../fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: OpenSans;
+    font-weight: bold;
+    src: url('../fonts/OpenSans-Bold.ttf');
+}
+
+html {
+    margin: 0;
+    padding: 0;
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: OpenSans;
+
+        #page {
+
+            .banner {
+                width: 100%;
+                height: 300px;
+                background-image: url('../images/pencils.jpg');
+                background-size: cover;
+                background-position: center;
+            }
+
+            .navigation {
+                background-color: #000;
+                height: 50px;
+
+                .navigation-button {
+                    float: left;
+                    height: 50px;
+                    line-height: 50px;
+                    margin: 0 10px;
+                    color: #ccc;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: #fff;
+                        text-decoration: underline;
+                    }
+
+                    &.active {
+                        color: #f77;
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .page-inner {
+                margin: 20px;
+            }
+        }
+    }
+}
