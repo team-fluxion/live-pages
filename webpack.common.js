@@ -77,6 +77,11 @@ module.exports = {
                 loader: 'babel-loader'
             },
             {
+                test: /\.handlebars$/,
+                exclude: /node_modules/,
+                loader: 'handlebars-loader'
+            },
+            {
                 test: /.html$/,
                 loader: 'html-loader'
             }

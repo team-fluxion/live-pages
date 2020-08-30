@@ -1,5 +1,6 @@
 /* global window document */
 
+let pageElement;
 let routes;
 const options = {};
 
@@ -48,6 +49,11 @@ const findChildRoute = (parentUrl, tree, urlToFind) => {
     return tree.url !== '/' || tree.url === urlToFind ? tree : null;
 };
 
+const renderPage = route => {
+    const pageTemplate = require(`./client/scripts/pages/${route.page}.handlebars`);
+    pageElement.innerHTML = pageTemplate();
+};
+
 // Function to handle state changes
 const reactToStateChange = state => {
     const { location: { pathname } } = document;
@@ -63,6 +69,10 @@ const reactToStateChange = state => {
     // Invoke action for invalid route
     if (!firstMatchingRoute && options.unknownRouteAction) {
         options.unknownRouteAction(pathname);
+    }
+
+    if (firstMatchingRoute) {
+        renderPage(firstMatchingRoute);
     }
 };
 
@@ -100,8 +110,9 @@ const onPopState = event => {
 };
 
 // Function to initialize the router
-export const init = (appRoutes, appOptions = {}) => {
+export const init = (appPageElement, appRoutes, appOptions = {}) => {
     // Set variables
+    pageElement = appPageElement;
     routes = appRoutes;
     options.unknownRouteAction = appOptions.unknownRouteAction;
 

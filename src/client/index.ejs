@@ -19,42 +19,20 @@
     </head>
 
     <body>
-        <div id="page">
+        <div id="page-container">
             <div class="banner">&nbsp;</div>
             <div class="navigation">
-                <a href="/" exact class="navigation-button" activeClassName="active">
+                <a href="/" exact class="navigation-button">
                     (<span class="fas fa-home"></span>) Home
                 </a>
-                <a href="/about" class="navigation-button" activeClassName="active">
+                <a href="/about" class="navigation-button">
                     (<span class="fas fa-info"></span>) About
                 </a>
                 <div id="pwa-install" class="navigation-button" style={{ display: 'none' }}>
                     (<span class="fas fa-plus"></span>) Install as app
                 </div>
             </div>
-            <ul>
-                <li>
-                    <a href="/">root</a>
-                </li>
-                <li>
-                    <a href="/1">one</a>
-                </li>
-                <li>
-                    <a href="/2">two</a>
-                </li>
-                <li>
-                    <a href="3">three</a>
-                </li>
-                <li>
-                    <a href="3/good">three/good</a>
-                </li>
-                <li>
-                    <a href="/3/bad">three/bad</a>
-                </li>
-                <li>
-                    <a href="/4">four</a>
-                </li>
-            </ul>
+            <div data-tf-router class="page"></div>
         </div>
     </body>
 </html>

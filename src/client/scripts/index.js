@@ -1,4 +1,4 @@
-/* global require process window module */
+/* global require process window document module */
 
 import { init } from '../../router.js';
 
@@ -13,31 +13,14 @@ import '../styles/styles.less';
 
 window.onload = () => {
     init(
+        document.querySelector('[data-tf-router]'),
         {
             url: '/',
-            data: 'This is root!',
+            page: 'home',
             subRoutes: [
                 {
-                    url: '/1',
-                    data: 'one'
-                },
-                {
-                    url: '/2',
-                    data: 'two'
-                },
-                {
-                    url: '/3',
-                    data: 'This is OK.',
-                    subRoutes: [
-                        {
-                            url: '/good',
-                            data: 'This is great!'
-                        },
-                        {
-                            url: '/bad',
-                            data: 'This is even better!'
-                        }
-                    ]
+                    url: '/about',
+                    page: 'about'
                 }
             ]
         },
