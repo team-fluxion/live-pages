@@ -10,16 +10,19 @@ const bodyParser = require('body-parser');
 
 const readFile = (basePath, filePath) => {
     try {
+        // Attempt reading file contents
         return fs.readFileSync(
-            `${basePath}/${filePath}`,
+            path.join(basePath, filePath),
             'utf8'
         );
     } catch (e) {
+        // Return error string
         return '<Data couldn\'t be read>';
     }
 };
 
 module.exports = url => {
+    // Create web-app
     const app = express();
     const basePath = path.join(__dirname, '../');
 

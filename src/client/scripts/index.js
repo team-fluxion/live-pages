@@ -3,10 +3,7 @@
 import { init } from '../../router.js';
 
 import './pwa';
-
 import '../styles/styles.less';
-
-// const configs = require('../../../configs.json');
 
 // const isProductionMode = process.env.NODE_ENV === 'production';
 // const baseUrl = isProductionMode ? configs.origin : '/';
