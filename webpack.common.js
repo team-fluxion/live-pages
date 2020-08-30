@@ -27,7 +27,7 @@ const optimizeCSS = new OptimizeCssAssetsPlugin();
 module.exports = {
     mode: 'development',
     entry: {
-        app: `./${sourceDir}/scripts/index.jsx`
+        app: `./${sourceDir}/scripts/index.js`
     },
     module: {
         rules: [
@@ -66,13 +66,13 @@ module.exports = {
                 }))
             },
             {
-                test: /\.(jsx|js)$/,
+                test: /\.js$/,
                 enforce: 'pre',
                 exclude: /node_modules/,
                 loader: 'eslint-loader'
             },
             {
-                test: /\.(jsx|js)$/,
+                test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             },
