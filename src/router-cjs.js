@@ -1,4 +1,4 @@
-/* global window document require */
+/* global window document require module */
 
 let pageElement;
 let routes;
@@ -34,7 +34,7 @@ const pushToHistory = (pathname, state) => {
 };
 
 // Function to find a matching internal route
-export const findChildRoute = (parentUrl, tree, urlToFind) => {
+const findChildRoute = (parentUrl, tree, urlToFind) => {
     for (let i = 0; i < tree.subRoutes.length; i += 1) {
         // Check if the URL pattern matches
         if (urlToFind.indexOf(joinPaths(parentUrl, tree.subRoutes[i].url)) > -1) {
@@ -128,7 +128,7 @@ const onPopState = event => {
 };
 
 // Function to initialize the router
-export const init = (appPageElement, appRoutes, appOptions = {}) => {
+const init = (appPageElement, appRoutes, appOptions = {}) => {
     // Set variables
     pageElement = appPageElement;
     routes = appRoutes;
@@ -142,7 +142,11 @@ export const init = (appPageElement, appRoutes, appOptions = {}) => {
 };
 
 // Function to destroy the router
-export const destroy = () => {
+const destroy = () => {
     document.removeEventListener('click', onDocumentClick);
     window.removeEventListener('popstate', onPopState);
 };
+
+module.exports.findChildRoute = findChildRoute;
+module.exports.init = init;
+module.exports.destroy = destroy;

@@ -1,0 +1,10 @@
+{
+    "url": "/",
+    "page": "home",
+    "subRoutes": [
+        {
+            "url": "/about",
+            "page": "about"
+        }
+    ]
+}

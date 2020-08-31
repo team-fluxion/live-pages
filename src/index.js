@@ -7,6 +7,11 @@ const fs = require('fs');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const cheerio = require('cheerio');
+const Handlebars = require('handlebars');
+
+const router = require('./router-cjs');
+const routes = require('./client/routes.json');
 
 const readFile = (basePath, filePath) => {
     try {
@@ -42,8 +47,26 @@ module.exports = url => {
     app.get(
         '*',
         ({ url }, res) => {
+            const requestUrl = url === '/sw.js' ? '/' : url;
+            const firstMatchingRoute = router.findChildRoute('/', routes, requestUrl);
+
+            // Read the parent page from file-system
+            const parentPageDomString = readFile(basePath, 'public/index.html');
+
+            // Hydrate parent page DOM from string
+            const parentPage = cheerio.load(parentPageDomString);
+
+            // Load route page template
+            const pageTemplate = Handlebars.compile(
+                readFile(basePath, `./src/client/scripts/pages/${firstMatchingRoute.page}.handlebars`)
+            );
+
+            // Get a reference of router element, load template
+            parentPage('[data-tf-router]').html(cheerio.load(pageTemplate()).html());
+
+            // Return the server rendered page string
             res.send(
-                readFile(basePath, 'public/index.html')
+                parentPage.html()
             );
         }
     );
