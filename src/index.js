@@ -32,7 +32,7 @@ module.exports = url => {
     const basePath = path.join(__dirname, '../');
 
     // Setup statics
-    app.use(express.static(path.join(basePath, 'public')));
+    app.use('/assets', express.static(path.join(basePath, 'public')));
     app.use(bodyParser.json());
 
     // Start the web server
@@ -47,8 +47,8 @@ module.exports = url => {
     app.get(
         '*',
         ({ url }, res) => {
-            const requestUrl = url === '/sw.js' ? '/' : url;
-            const firstMatchingRoute = router.findChildRoute('/', routes, requestUrl);
+            // Find matching route
+            const firstMatchingRoute = router.findChildRoute('/', routes, url);
 
             // Read the parent page from file-system
             const parentPageDomString = readFile(basePath, 'public/index.html');
