@@ -7,6 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const commonConfig = require('./webpack.common.js');
+const configs = require('./configs.json');
 
 const copy = new CopyWebpackPlugin([
     {
@@ -21,7 +22,7 @@ const html = new HtmlWebpackPlugin({
     template: `${sourceDir}/index.ejs`,
     templateParameters: {
         titlePrefix: '[DEBUG] ',
-        baseUrl: '/'
+        baseUrl: configs.domain + configs.origin
     },
     filename: 'index.html',
     chunks: ['app']
