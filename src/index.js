@@ -47,6 +47,11 @@ module.exports = url => {
     app.get(
         '*',
         ({ url }, res) => {
+            // Mask all requests to 'assets', just in case they make their way here
+            if (url.indexOf('/assets') === 0) {
+                return;
+            }
+
             // Find matching route
             const firstMatchingRoute = router.findChildRoute('/', routes, url);
 
