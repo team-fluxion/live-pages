@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const cheerio = require('cheerio');
 const Handlebars = require('handlebars');
 
-const router = require('./router-cjs');
+const router = require('./router/server');
 const routes = require('./client/routes.json');
 const configs = require('../web/configs');
 
@@ -31,6 +31,10 @@ module.exports = url => {
     // Create web-app
     const app = express();
     const basePath = path.join(__dirname, '../');
+    router.init(
+        '[data-tf-router]',
+        routes
+    );
 
     // Setup statics
     app.use(`/${configs.staticPath}`, express.static(path.join(basePath, 'public')));
@@ -53,26 +57,12 @@ module.exports = url => {
                 return;
             }
 
-            // Find matching route
-            const firstMatchingRoute = router.findChildRoute('/', routes, url);
-
-            // Read the parent page from file-system
-            const parentPageDomString = readFile(basePath, 'public/index.html');
-
-            // Hydrate parent page DOM from string
-            const parentPage = cheerio.load(parentPageDomString);
-
-            // Load route page template
-            const pageTemplate = Handlebars.compile(
-                readFile(basePath, `./src/client/scripts/pages/${firstMatchingRoute.page}.handlebars`)
-            );
-
-            // Get a reference of router element, load template
-            parentPage('[data-tf-router]').html(cheerio.load(pageTemplate()).html());
-
-            // Return the server rendered page string
+             // Return the server rendered page string
             res.send(
-                parentPage.html()
+                router.renderOnServer(
+                    url,
+                    readFile(basePath, 'public/index.html')
+                )
             );
         }
     );

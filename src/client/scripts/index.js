@@ -1,6 +1,6 @@
 /* global require process window document module */
 
-import { init } from '../../router.js';
+import { init } from '../../router/client';
 import routes from '../routes.json';
 
 import './pwa';
@@ -10,7 +10,7 @@ import '../styles/styles.less';
 
 window.onload = () => {
     init(
-        document.querySelector('[data-tf-router]'),
+        '[data-tf-router]',
         routes,
         {
             unknownRouteAction: url => {

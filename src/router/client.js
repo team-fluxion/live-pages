@@ -1,6 +1,6 @@
-/* global window document require module */
+/* global window document require */
 
-let pageElement;
+let pageElementSelector;
 let routes;
 let options;
 
@@ -34,7 +34,7 @@ const pushToHistory = (pathname, state) => {
 };
 
 // Function to find a matching internal route
-const findChildRoute = (parentUrl, tree, urlToFind) => {
+export const findChildRoute = (parentUrl, tree, urlToFind) => {
     for (let i = 0; i < tree.subRoutes.length; i += 1) {
         // Check if the URL pattern matches
         if (urlToFind.indexOf(joinPaths(parentUrl, tree.subRoutes[i].url)) > -1) {
@@ -60,10 +60,10 @@ const findChildRoute = (parentUrl, tree, urlToFind) => {
 // Function to render a route page on client
 const renderOnClient = route => {
     // Load template for route
-    const pageTemplate = require(`./client/scripts/pages/${route.page}.handlebars`);
+    const pageTemplate = require(`../client/scripts/pages/${route.page}.handlebars`);
 
     // Attach page template in router
-    pageElement.innerHTML = pageTemplate();
+    document.querySelector(pageElementSelector).innerHTML = pageTemplate();
 };
 
 // Function to handle state changes
@@ -127,9 +127,9 @@ const handleGlobalClick = event => {
 };
 
 // Function to initialize the router
-const init = (appPageElement, appRoutes, appOptions = {}) => {
+export const init = (appPageElementSelector, appRoutes, appOptions = {}) => {
     // Set variables
-    pageElement = appPageElement;
+    pageElementSelector = appPageElementSelector;
     routes = appRoutes;
     options = appOptions;
 
@@ -141,11 +141,7 @@ const init = (appPageElement, appRoutes, appOptions = {}) => {
 };
 
 // Function to destroy the router
-const destroy = () => {
+export const destroy = () => {
     document.removeEventListener('click', handleGlobalClick);
     window.removeEventListener('popstate', reactToStateChange);
 };
-
-module.exports.findChildRoute = findChildRoute;
-module.exports.init = init;
-module.exports.destroy = destroy;
