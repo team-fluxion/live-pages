@@ -20,7 +20,7 @@ if (!config.maskInvalidRoutes) {
 
 window.onload = () => {
     init(
-        '[data-tf-router]',
+        config.pageElementSelector,
         config.routes,
         options
     );

@@ -10,6 +10,7 @@ module.exports = {
         themeColor: '#000',
         backgroundColor: '#000'
     },
+    pageElementSelector: '[data-tf-router]',
     routes: {
         url: '/',
         page: 'home',

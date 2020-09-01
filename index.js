@@ -29,7 +29,7 @@ module.exports = url => {
     const app = express();
     const basePath = path.join(__dirname, './');
     init(
-        '[data-tf-router]',
+        config.pageElementSelector,
         config.routes
     );
 
