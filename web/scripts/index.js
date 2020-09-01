@@ -1,4 +1,6 @@
-/* global require process window module */
+/* global process window module */
+
+import { alert } from 'ample-alerts';
 
 import { init } from '../../router/client';
 import config from '../config';
@@ -14,7 +16,7 @@ window.onload = () => {
         config.routes,
         {
             unknownRouteAction: url => {
-                window.alert(`Invalid route: ${url}`);
+                alert(`Invalid route: ${url}`, { autoClose: 5000 });
             }
         }
     );
