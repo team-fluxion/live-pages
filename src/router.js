@@ -2,7 +2,7 @@
 
 let pageElement;
 let routes;
-const options = {};
+let options;
 
 // Function to join two paths
 const joinPaths = (path1, path2) => {
@@ -67,14 +67,17 @@ const renderOnClient = route => {
 };
 
 // Function to handle state changes
-const reactToStateChange = state => {
+const reactToStateChange = ({ state }) => {
+    // Retrieve path variables
     const { location: { pathname } } = document;
     const path = pathname.slice(0, 1) !== '/' ? `/${pathname}` : pathname;
 
     // TODO: Remove logging
     console.log('Intercepted', path, state);
 
+    // Find top-most matching route
     const firstMatchingRoute = findChildRoute('/', routes, path);
+
     // TODO: Remove logging
     console.log(firstMatchingRoute);
 
@@ -97,15 +100,16 @@ const isInternalUrl = urlToMatch =>
 // Function to navigate to a URL
 const navigate = (pathname, state = {}) => {
     pushToHistory(pathname, state);
-    reactToStateChange(state);
+    reactToStateChange({ state });
 };
 
 // Global 'click' event handler
-const onDocumentClick = event => {
+const handleGlobalClick = event => {
     const { target } = event;
 
-    // Filter events from anchor tags
+    // Respond to events only from anchor tags
     if (target.tagName === 'A') {
+        // Stop the default behavior of the event
         event.preventDefault();
 
         // Extract the `href` attribute
@@ -122,27 +126,22 @@ const onDocumentClick = event => {
     }
 };
 
-// Event handler for 'popstate'
-const onPopState = event => {
-    reactToStateChange(event.state);
-};
-
 // Function to initialize the router
 export const init = (appPageElement, appRoutes, appOptions = {}) => {
     // Set variables
     pageElement = appPageElement;
     routes = appRoutes;
-    options.unknownRouteAction = appOptions.unknownRouteAction;
+    options = appOptions;
 
-    document.addEventListener('click', onDocumentClick);
-    window.addEventListener('popstate', onPopState);
+    document.addEventListener('click', handleGlobalClick);
+    window.addEventListener('popstate', reactToStateChange);
 
-    // TODO: Figure out if we need a re-render on init
+    // TODO: Uncomment if a re-render is needed on init
     // reactToStateChange();
 };
 
 // Function to destroy the router
 export const destroy = () => {
-    document.removeEventListener('click', onDocumentClick);
-    window.removeEventListener('popstate', onPopState);
+    document.removeEventListener('click', handleGlobalClick);
+    window.removeEventListener('popstate', reactToStateChange);
 };
