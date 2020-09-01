@@ -12,6 +12,7 @@ const Handlebars = require('handlebars');
 
 const router = require('./router-cjs');
 const routes = require('./client/routes.json');
+const configs = require('../web/configs.json');
 
 const readFile = (basePath, filePath) => {
     try {
@@ -32,7 +33,7 @@ module.exports = url => {
     const basePath = path.join(__dirname, '../');
 
     // Setup statics
-    app.use('/assets', express.static(path.join(basePath, 'public')));
+    app.use(`/${configs.origin}`, express.static(path.join(basePath, 'public')));
     app.use(bodyParser.json());
 
     // Start the web server
@@ -47,8 +48,8 @@ module.exports = url => {
     app.get(
         '*',
         ({ url }, res) => {
-            // Mask all requests to 'assets', just in case they make their way here
-            if (url.indexOf('/assets') === 0) {
+            // Mask all requests to assets, just in case they make their way here
+            if (url.indexOf(`/${configs.origin}`) === 0) {
                 return;
             }
 
