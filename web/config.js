@@ -20,5 +20,6 @@ module.exports = {
             }
         ]
     },
+    maskInvalidRoutes: false,
     genericErrorText: 'There was an error while displaying this page!'
 };

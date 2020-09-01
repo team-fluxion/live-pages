@@ -50,7 +50,7 @@ const reactToStateChange = ({ state }) => {
         options.unknownRouteAction(pathname);
     } else {
         // Treat as root route
-        renderOnClient(routes);
+        navigate('/');
     }
 };
 

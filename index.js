@@ -66,8 +66,12 @@ module.exports = url => {
                 );
             } catch (ex) {
                 if (ex === ERRORS.INVALID_ROUTE) {
-                    // Redirect to root
-                    res.redirect('/');
+                    // Handle invalid route according to configuration
+                    if (config.maskInvalidRoutes) {
+                        res.redirect('/');
+                    } else {
+                        res.send(config.genericErrorText);
+                    }
                 } else {
                     // Send a generic error message
                     res.send(config.genericErrorText);

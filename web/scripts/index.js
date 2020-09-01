@@ -10,15 +10,19 @@ import '../styles/styles.less';
 
 // const isProductionMode = process.env.NODE_ENV === 'production';
 
+const options = {};
+
+if (!config.maskInvalidRoutes) {
+    options.unknownRouteAction = url => {
+        alert(`Invalid route: ${url}`, { autoClose: 5000 });
+    };
+}
+
 window.onload = () => {
     init(
         '[data-tf-router]',
         config.routes,
-        {
-            unknownRouteAction: url => {
-                alert(`Invalid route: ${url}`, { autoClose: 5000 });
-            }
-        }
+        options
     );
 };
 
