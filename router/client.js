@@ -42,14 +42,15 @@ const reactToStateChange = ({ state }) => {
     // TODO: Remove logging
     console.log(firstMatchingRoute);
 
-    // Check for invalid routes and invoke action
-    if (!firstMatchingRoute && options.unknownRouteAction) {
-        options.unknownRouteAction(pathname);
-    }
-
-    // Render page for matched route
     if (firstMatchingRoute) {
+        // Render page for matched route
         renderOnClient(firstMatchingRoute);
+    } else if (options.unknownRouteAction) {
+        // Invoke action for invalid route
+        options.unknownRouteAction(pathname);
+    } else {
+        // Treat as root route
+        renderOnClient(routes);
     }
 };
 
