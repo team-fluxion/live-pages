@@ -11,7 +11,7 @@ const cheerio = require('cheerio');
 const Handlebars = require('handlebars');
 
 const router = require('./router/server');
-const routes = require('./client/routes.json');
+const routes = require('../web/routes.json');
 const configs = require('../web/configs');
 
 const readFile = (basePath, filePath) => {

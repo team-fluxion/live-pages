@@ -1,7 +1,7 @@
 /* global require process window document module */
 
 import { init } from '../../router/client';
-import routes from '../routes.json';
+import routes from '../../../web/routes.json';
 
 import './pwa';
 import '../styles/styles.less';
