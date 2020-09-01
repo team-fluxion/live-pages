@@ -1,5 +1,6 @@
 /* global require module */
 
+const templatesDir = 'templates';
 const sourceDir = 'web';
 
 const path = require('path');
@@ -21,7 +22,7 @@ const copy = new CopyWebpackPlugin([
             .replace(/#sw-origin#/g, `/${config.staticPath}/`)
     },
     {
-        from: `${sourceDir}/manifest.json`,
+        from: `${templatesDir}/manifest.json`,
         transform: (content, path) =>
             content.toString()
             .replace(/#short-name#/g, `${config.appName}`)
