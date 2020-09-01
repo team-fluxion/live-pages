@@ -1,7 +1,7 @@
 /* global require process window document module */
 
 import { init } from '../../router/client';
-import routes from '../../../web/routes.json';
+import config from '../../../web/config';
 
 import './pwa';
 import '../styles/styles.less';
@@ -11,7 +11,7 @@ import '../styles/styles.less';
 window.onload = () => {
     init(
         '[data-tf-router]',
-        routes,
+        config.routes,
         {
             unknownRouteAction: url => {
                 window.alert(`Invalid route: ${url}`);

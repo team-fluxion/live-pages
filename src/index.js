@@ -11,8 +11,7 @@ const cheerio = require('cheerio');
 const Handlebars = require('handlebars');
 
 const router = require('./router/server');
-const routes = require('../web/routes.json');
-const configs = require('../web/configs');
+const config = require('../web/config');
 
 const readFile = (basePath, filePath) => {
     try {
@@ -33,11 +32,11 @@ module.exports = url => {
     const basePath = path.join(__dirname, '../');
     router.init(
         '[data-tf-router]',
-        routes
+        config.routes
     );
 
     // Setup statics
-    app.use(`/${configs.staticPath}`, express.static(path.join(basePath, 'public')));
+    app.use(`/${config.staticPath}`, express.static(path.join(basePath, 'public')));
     app.use(bodyParser.json());
 
     // Start the web server
@@ -53,7 +52,7 @@ module.exports = url => {
         '*',
         ({ url }, res) => {
             // Mask all requests to assets, just in case they make their way here
-            if (url.indexOf(`/${configs.staticPath}`) === 0) {
+            if (url.indexOf(`/${config.staticPath}`) === 0) {
                 return;
             }
 

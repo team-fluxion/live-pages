@@ -10,7 +10,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const commonConfig = require('./webpack.common.js');
-const configs = require('./web/configs');
+const config = require('./web/config');
 
 const copy = new CopyWebpackPlugin([
     {
@@ -18,20 +18,20 @@ const copy = new CopyWebpackPlugin([
         transform: (content, path) =>
             content.toString()
             .replace(/#sw-cache-string#/g, (new Date().getTime()))
-            .replace(/#sw-origin#/g, `/${configs.staticPath}/`)
+            .replace(/#sw-origin#/g, `/${config.staticPath}/`)
     },
     {
         from: `${sourceDir}/manifest.json`,
         transform: (content, path) =>
             content.toString()
-            .replace(/#manifest-origin#/g, `/${configs.staticPath}/`)
+            .replace(/#manifest-origin#/g, `/${config.staticPath}/`)
     }
 ]);
 const html = new HtmlWebpackPlugin({
     template: `${sourceDir}/index.ejs`,
     templateParameters: {
         titlePrefix: '',
-        baseUrl: `${configs.domain}/${configs.staticPath}/`
+        baseUrl: `${config.domain}/${config.staticPath}/`
     },
     filename: 'index.html',
     chunks: ['app'],
