@@ -33,7 +33,7 @@ module.exports = url => {
     const basePath = path.join(__dirname, '../');
 
     // Setup statics
-    app.use(`/${configs.origin}`, express.static(path.join(basePath, 'public')));
+    app.use(`/${configs.staticPath}`, express.static(path.join(basePath, 'public')));
     app.use(bodyParser.json());
 
     // Start the web server
@@ -49,7 +49,7 @@ module.exports = url => {
         '*',
         ({ url }, res) => {
             // Mask all requests to assets, just in case they make their way here
-            if (url.indexOf(`/${configs.origin}`) === 0) {
+            if (url.indexOf(`/${configs.staticPath}`) === 0) {
                 return;
             }
 

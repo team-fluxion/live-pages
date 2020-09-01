@@ -2,5 +2,5 @@
 
 module.exports = {
     domain: 'http://localhost:8000',
-    origin: 'assets'
+    staticPath: 'assets'
 };

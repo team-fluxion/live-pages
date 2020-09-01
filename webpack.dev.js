@@ -22,7 +22,7 @@ const html = new HtmlWebpackPlugin({
     template: `${sourceDir}/index.ejs`,
     templateParameters: {
         titlePrefix: '[DEBUG] ',
-        baseUrl: `${configs.domain}/${configs.origin}/`
+        baseUrl: `${configs.domain}/${configs.staticPath}/`
     },
     filename: 'index.html',
     chunks: ['app']

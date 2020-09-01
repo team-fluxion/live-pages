@@ -18,20 +18,20 @@ const copy = new CopyWebpackPlugin([
         transform: (content, path) =>
             content.toString()
             .replace(/#sw-cache-string#/g, (new Date().getTime()))
-            .replace(/#sw-origin#/g, `/${configs.origin}/`)
+            .replace(/#sw-origin#/g, `/${configs.staticPath}/`)
     },
     {
         from: `${sourceDir}/manifest.json`,
         transform: (content, path) =>
             content.toString()
-            .replace(/#manifest-origin#/g, `/${configs.origin}/`)
+            .replace(/#manifest-origin#/g, `/${configs.staticPath}/`)
     }
 ]);
 const html = new HtmlWebpackPlugin({
     template: `${sourceDir}/index.ejs`,
     templateParameters: {
         titlePrefix: '',
-        baseUrl: `${configs.domain}/${configs.origin}/`
+        baseUrl: `${configs.domain}/${configs.staticPath}/`
     },
     filename: 'index.html',
     chunks: ['app'],
