@@ -1,7 +1,7 @@
-/* global require process window document module */
+/* global require process window module */
 
 import { init } from '../../router/client';
-import config from '../../../web/config';
+import config from '../config';
 
 import './pwa';
 import '../styles/styles.less';

@@ -1,3 +1,3 @@
 /* global require */
 
-require('./src')('8000');
+require('./')('8000');

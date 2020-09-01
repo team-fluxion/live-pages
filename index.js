@@ -11,7 +11,7 @@ const cheerio = require('cheerio');
 const Handlebars = require('handlebars');
 
 const router = require('./router/server');
-const config = require('../web/config');
+const config = require('./web/config');
 
 const readFile = (basePath, filePath) => {
     try {
@@ -29,7 +29,7 @@ const readFile = (basePath, filePath) => {
 module.exports = url => {
     // Create web-app
     const app = express();
-    const basePath = path.join(__dirname, '../');
+    const basePath = path.join(__dirname, './');
     router.init(
         '[data-tf-router]',
         config.routes

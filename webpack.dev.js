@@ -1,6 +1,6 @@
 /* global require module */
 
-const sourceDir = 'src/client';
+const sourceDir = 'web';
 
 const WebpackMerge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');

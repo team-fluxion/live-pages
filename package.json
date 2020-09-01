@@ -2,7 +2,7 @@
   "name": "live-pages",
   "version": "0.9.0",
   "description": "A framework to build text-driven websites",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "debug": "webpack --config webpack.dev.js",
     "develop": "webpack --config webpack.dev.js --watch",

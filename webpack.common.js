@@ -1,6 +1,6 @@
 /* global require module __dirname */
 
-const sourceDir = 'src/client';
+const sourceDir = 'web';
 const outputDir = 'public';
 
 const path = require('path');

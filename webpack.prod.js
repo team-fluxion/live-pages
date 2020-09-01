@@ -1,6 +1,6 @@
 /* global require module */
 
-const sourceDir = 'src/client';
+const sourceDir = 'web';
 
 const path = require('path');
 const webpack = require('webpack');
