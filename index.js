@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const cheerio = require('cheerio');
 const Handlebars = require('handlebars');
 
-const router = require('./router/server');
+const { init, renderOnServer } = require('./router/server');
 const config = require('./web/config');
 
 const readFile = (basePath, filePath) => {
@@ -30,7 +30,7 @@ module.exports = url => {
     // Create web-app
     const app = express();
     const basePath = path.join(__dirname, './');
-    router.init(
+    init(
         '[data-tf-router]',
         config.routes
     );
@@ -58,7 +58,7 @@ module.exports = url => {
 
              // Return the server rendered page string
             res.send(
-                router.renderOnServer(
+                renderOnServer(
                     url,
                     readFile(basePath, 'public/index.html')
                 )
