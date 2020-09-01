@@ -1,6 +1,6 @@
 {
-  "short_name": "that-web-app",
-  "name": "that-web-app: A framework to build text-driven websites",
+  "short_name": "#short-name#",
+  "name": "#long-name#",
   "icons": [
     {
       "src": "icons/launcher-icon-1x.png",
@@ -18,8 +18,8 @@
       "sizes": "192x192"
     }
   ],
-  "start_url": "#manifest-origin#?launcher=true",
+  "start_url": "/?launcher=true",
   "display": "standalone",
-  "background_color": "#000",
-  "theme_color": "#000"
+  "background_color": "#background-color#",
+  "theme_color": "#theme-color#"
 }

@@ -24,7 +24,10 @@ const copy = new CopyWebpackPlugin([
         from: `${sourceDir}/manifest.json`,
         transform: (content, path) =>
             content.toString()
-            .replace(/#manifest-origin#/g, `/${config.staticPath}/`)
+            .replace(/#short-name#/g, `${config.appName}`)
+            .replace(/#long-name#/g, `${config.friendlyName}: ${config.description}`)
+            .replace(/#background-color#/g, `${config.colors.backgroundColor}`)
+            .replace(/#theme-color#/g, `${config.colors.themeColor}`)
     }
 ]);
 const html = new HtmlWebpackPlugin({

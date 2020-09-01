@@ -1,7 +1,5 @@
 /* global module require __dirname */
 
-const appName = 'that-web-app';
-
 const path = require('path');
 const fs = require('fs');
 
@@ -43,7 +41,7 @@ module.exports = url => {
     app.listen(
         url,
         () => {
-            console.log(appName, 'started on', url);
+            console.log(config.appName, 'started on', url);
         }
     );
 
