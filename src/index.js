@@ -12,7 +12,7 @@ const Handlebars = require('handlebars');
 
 const router = require('./router-cjs');
 const routes = require('./client/routes.json');
-const configs = require('../web/configs.json');
+const configs = require('../web/configs');
 
 const readFile = (basePath, filePath) => {
     try {

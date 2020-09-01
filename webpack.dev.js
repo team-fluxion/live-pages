@@ -7,7 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const commonConfig = require('./webpack.common.js');
-const configs = require('./web/configs.json');
+const configs = require('./web/configs');
 
 const copy = new CopyWebpackPlugin([
     {
