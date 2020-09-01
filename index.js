@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const cheerio = require('cheerio');
 const Handlebars = require('handlebars');
 
-const { init, renderOnServer } = require('./router/server');
+const { init, renderOnServer, ERRORS } = require('./router/server');
 const config = require('./web/config');
 
 const readFile = (basePath, filePath) => {
@@ -56,13 +56,23 @@ module.exports = url => {
                 path = '/';
             }
 
-             // Return the server rendered page string
-            res.send(
-                renderOnServer(
-                    path,
-                    readFile(basePath, 'public/index.html')
-                )
-            );
+            try {
+                // Construct HTML string
+                res.send(
+                    renderOnServer(
+                        path,
+                        readFile(basePath, 'public/index.html')
+                    )
+                );
+            } catch (ex) {
+                if (ex === ERRORS.INVALID_ROUTE) {
+                    // Redirect to root
+                    res.redirect('/');
+                } else {
+                    // Send a generic error message
+                    res.send('There was an error!');
+                }
+            }
         }
     );
 };

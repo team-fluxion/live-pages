@@ -10,9 +10,18 @@ let pageElementSelector;
 let routes;
 let options;
 
+const ERRORS = {
+    INVALID_ROUTE: 'Invalid route'
+};
+
 const renderOnServer = (url, parentPageDomString) => {
     // Find matching route
     const firstMatchingRoute = findChildRoute('/', routes, url);
+
+    // Throw an error if no matching route is found
+    if (!firstMatchingRoute) {
+        throw ERRORS.INVALID_ROUTE;
+    }
 
     // Hydrate parent page DOM from string
     const parentPage = cheerio.load(parentPageDomString);
@@ -39,6 +48,7 @@ const init = (appPageElementSelector, appRoutes, appOptions = {}) => {
     options = appOptions;
 };
 
+module.exports.ERRORS = ERRORS;
 module.exports.renderOnServer = renderOnServer;
 module.exports.init = init;
 
