@@ -19,5 +19,6 @@ module.exports = {
                 page: 'about'
             }
         ]
-    }
+    },
+    genericErrorText: 'There was an error while displaying this page!'
 };

@@ -70,7 +70,7 @@ module.exports = url => {
                     res.redirect('/');
                 } else {
                     // Send a generic error message
-                    res.send('There was an error!');
+                    res.send(config.genericErrorText);
                 }
             }
         }
