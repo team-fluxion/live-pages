@@ -26,6 +26,7 @@ const copy = new CopyWebpackPlugin([
             content.toString()
             .replace(/#short-name#/g, `${config.appName}`)
             .replace(/#long-name#/g, `${config.friendlyName}: ${config.description}`)
+            .replace(/#static-path#/g, `${config.staticPath}`)
             .replace(/#background-color#/g, `${config.colors.backgroundColor}`)
             .replace(/#theme-color#/g, `${config.colors.themeColor}`)
     }

@@ -49,15 +49,17 @@ module.exports = url => {
     app.get(
         '*',
         ({ url }, res) => {
-            // Mask all requests to assets, just in case they make their way here
+            let path = url;
+
+            // Mask all requests to assets, for example from progressive app launch
             if (url.indexOf(`/${config.staticPath}`) === 0) {
-                return;
+                path = '/';
             }
 
              // Return the server rendered page string
             res.send(
                 renderOnServer(
-                    url,
+                    path,
                     readFile(basePath, 'public/index.html')
                 )
             );
