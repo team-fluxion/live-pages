@@ -11,7 +11,11 @@ const config = require('./web/config');
 const html = new HtmlWebpackPlugin({
     template: `${sourceDir}/index.ejs`,
     templateParameters: {
-        titlePrefix: '[DEBUG] ',
+        name: config.friendlyName,
+        title: `[DEBUG] ${config.friendlyName}: ${config.description}`,
+        description: config.description,
+        type: config.type,
+        domain: config.domain,
         baseUrl: `${config.domain}/${config.staticPath}/`
     },
     filename: 'index.html',

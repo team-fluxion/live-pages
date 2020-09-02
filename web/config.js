@@ -4,6 +4,7 @@ module.exports = {
     appName: 'that-web-app',
     friendlyName: 'That Web App',
     description: 'A framework to build text-driven websites',
+    type: 'article',
     domain: 'http://localhost:8000',
     staticPath: 'assets',
     colors: {

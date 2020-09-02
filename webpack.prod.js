@@ -35,7 +35,11 @@ const copy = new CopyWebpackPlugin([
 const html = new HtmlWebpackPlugin({
     template: `${sourceDir}/index.ejs`,
     templateParameters: {
-        titlePrefix: '',
+        name: config.friendlyName,
+        title: `${config.friendlyName}: ${config.description}`,
+        description: config.description,
+        type: config.type,
+        domain: config.domain,
         baseUrl: `${config.domain}/${config.staticPath}/`
     },
     filename: 'index.html',
