@@ -1,5 +1,6 @@
 /* global require module */
 
+const templatesDir = 'templates';
 const sourceDir = 'web';
 
 const WebpackMerge = require('webpack-merge');
@@ -9,7 +10,7 @@ const commonConfig = require('./webpack.common.js');
 const config = require('./web/config');
 
 const html = new HtmlWebpackPlugin({
-    template: `${sourceDir}/index.ejs`,
+    template: `${templatesDir}/index.ejs`,
     templateParameters: {
         name: config.friendlyName,
         title: `[DEBUG] ${config.friendlyName}: ${config.description}`,

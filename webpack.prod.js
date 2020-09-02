@@ -33,7 +33,7 @@ const copy = new CopyWebpackPlugin([
     }
 ]);
 const html = new HtmlWebpackPlugin({
-    template: `${sourceDir}/index.ejs`,
+    template: `${templatesDir}/index.ejs`,
     templateParameters: {
         name: config.friendlyName,
         title: `${config.friendlyName}: ${config.description}`,

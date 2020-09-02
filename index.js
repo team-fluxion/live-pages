@@ -5,6 +5,7 @@ const fs = require('fs');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const Handlebars = require('handlebars');
 
 const { init, renderOnServer, ERRORS } = require('./router/server');
 const config = require('./web/config');
@@ -54,12 +55,16 @@ module.exports = url => {
                 path = '/';
             }
 
+            // Gather landing HTML page string components
+            const htmlPageString = readFile(basePath, 'public/index.html');
+            const bodyTemplate = Handlebars.compile(readFile(basePath, 'web/body.html'));
+
             try {
                 // Construct HTML string
                 res.send(
                     renderOnServer(
                         path,
-                        readFile(basePath, 'public/index.html')
+                        htmlPageString.replace('<!--body-tag-placeholder-->', bodyTemplate())
                     )
                 );
             } catch (ex) {
