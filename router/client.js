@@ -21,7 +21,7 @@ const pushToHistory = (pathname, state) => {
 // Function to render a route page on client
 const renderOnClient = route => {
     // Load template for route
-    const pageTemplate = require(`../web/scripts/pages/${route.page}.handlebars`);
+    const pageTemplate = require(`../web/pages/${route.page}.handlebars`);
 
     // Attach page template in router
     document.querySelector(pageElementSelector).innerHTML = pageTemplate();
