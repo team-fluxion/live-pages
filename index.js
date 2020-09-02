@@ -5,8 +5,6 @@ const fs = require('fs');
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const cheerio = require('cheerio');
-const Handlebars = require('handlebars');
 
 const { init, renderOnServer, ERRORS } = require('./router/server');
 const config = require('./web/config');
