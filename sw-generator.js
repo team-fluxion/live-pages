@@ -22,6 +22,8 @@ const inflateInput = (inputDirs, parentDir = './') =>
           []
       );
 
+log('Generating service-worker file...');
+
 // Generate list of files in 'public' directory
 const listOfFiles = inflateInput(['public']);
 
@@ -46,3 +48,5 @@ const compiledContentOfOutputFile = swTemplateString
 
 // Write final sw.js to public directory
 writeFileSync('./public/sw.js', compiledContentOfOutputFile);
+
+log('Service-worker file generated!');
