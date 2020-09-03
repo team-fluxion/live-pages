@@ -14,13 +14,6 @@ const config = require('./web/config');
 
 const copy = new CopyWebpackPlugin([
     {
-        from: `${templatesDir}/sw.js`,
-        transform: (content, path) =>
-            content.toString()
-            .replace(/#sw-cache-string#/g, (new Date().getTime()))
-            .replace(/#sw-origin#/g, `/${config.staticPath}/`)
-    },
-    {
         from: `${templatesDir}/manifest.json`,
         transform: (content, path) =>
             content.toString()

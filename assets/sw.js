@@ -1,30 +1,12 @@
 /* global caches fetch skipWaiting */
 
-const cacheName = '#sw-cache-string#',
-    origin = '#sw-origin#';
-
 this.addEventListener(
     'install',
     event => {
         event.waitUntil(
-            caches.open(cacheName)
+            caches.open('swCacheString')
                 .then(
-                    cache => cache.addAll(
-                        [
-                            origin,
-                            origin + 'index.html',
-                            origin + 'styles/styles.css',
-                            origin + 'scripts/app.js',
-                            origin + 'images/pencils.jpg',
-                            origin + 'fonts/OpenSans-Regular.ttf',
-                            origin + 'fonts/fa-solid-900.woff2',
-                            origin + 'icons/launcher-icon-1x.png',
-                            origin + 'icons/launcher-icon-2x.png',
-                            origin + 'icons/launcher-icon-4x.png',
-                            origin + 'manifest.json',
-                            origin + 'favicon.ico'
-                        ]
-                    )
+                    cache => cache.addAll('outputFileList')
                 )
                 .catch(
                     err => {
@@ -63,7 +45,7 @@ this.addEventListener(
                     keyList => Promise.all(
                         keyList.map(
                             key => {
-                                if (key !== cacheName) {
+                                if (key !== 'swCacheString') {
                                     return caches.delete(key);
                                 } else {
                                     return null;
