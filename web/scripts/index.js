@@ -1,31 +1,14 @@
-/* global process window module */
+/* global window */
 
-import { alert } from 'ample-alerts';
+import init from '../../assets/client-init';
 
-import { init } from '../../router/client';
-import config from '../config';
+const main = () => {
+    // Note: This is required
+    init();
 
-import '../../assets/pwa';
-import '../styles/styles.less';
-
-// const isProductionMode = process.env.NODE_ENV === 'production';
-
-const options = {};
-
-if (!config.maskInvalidRoutes) {
-    options.unknownRouteAction = url => {
-        alert(`Invalid route: ${url}`, { autoClose: 5000 });
-    };
-}
-
-window.onload = () => {
-    init(
-        config.pageElementSelector,
-        config.routes,
-        options
-    );
+    // Custom scripts follow this line...
+    console.log('The app is now running...');
 };
 
-if (module.hot) {
-    module.hot.accept();
-}
+// Run 'main' when ready
+window.onload = main;
