@@ -1,6 +1,6 @@
 /* global require module */
 
-const templatesDir = 'templates';
+const templatesDir = 'assets';
 
 const WebpackMerge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');

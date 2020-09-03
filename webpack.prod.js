@@ -1,6 +1,6 @@
 /* global require module */
 
-const templatesDir = 'templates';
+const templatesDir = 'assets';
 const sourceDir = 'web';
 
 const path = require('path');
