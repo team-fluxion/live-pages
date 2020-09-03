@@ -26,7 +26,7 @@ const inflateInput = (inputDirs, parentDir = './') =>
 const listOfFiles = inflateInput(['public']);
 
 // Read sw.js template as string
-const swTemplateString = readFileSync('./assets/sw.js', 'utf8');
+const swTemplateString = readFileSync('./assets/sw-template.js', 'utf8');
 
 // Get stringified list of files with static path
 const stringifiedOutputFileList = JSON.stringify(
