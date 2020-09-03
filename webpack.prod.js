@@ -1,7 +1,6 @@
 /* global require module */
 
 const templatesDir = 'assets';
-const sourceDir = 'web';
 
 const path = require('path');
 const webpack = require('webpack');
@@ -15,7 +14,7 @@ const config = require('./web/config');
 
 const copy = new CopyWebpackPlugin([
     {
-        from: `${sourceDir}/sw.js`,
+        from: `${templatesDir}/sw.js`,
         transform: (content, path) =>
             content.toString()
             .replace(/#sw-cache-string#/g, (new Date().getTime()))
