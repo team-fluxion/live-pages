@@ -5,7 +5,7 @@ import { alert } from 'ample-alerts';
 import { init } from '../../router/client';
 import config from '../config';
 
-import './pwa';
+import '../../assets/pwa';
 import '../styles/styles.less';
 
 // const isProductionMode = process.env.NODE_ENV === 'production';
