@@ -19,7 +19,7 @@ const readFile = (basePath, filePath) => {
         );
     } catch (e) {
         // Return error string
-        return '<Data couldn\'t be read>';
+        return config.genericErrorText;
     }
 };
 
