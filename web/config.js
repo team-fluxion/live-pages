@@ -15,6 +15,9 @@ module.exports = {
     routes: {
         url: '/',
         page: 'home',
+        data: () => ({
+            timeRightNow: new Date()
+        }),
         subRoutes: [
             {
                 url: '/about',

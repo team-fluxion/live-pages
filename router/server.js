@@ -4,7 +4,7 @@ const fs = require('fs');
 const cheerio = require('cheerio');
 const Handlebars = require('handlebars');
 
-const { findChildRoute } = require('./common');
+const { findChildRoute, fillTemplateWithData } = require('./common');
 
 let pageElementSelector;
 let routes;
@@ -35,7 +35,12 @@ const renderOnServer = (url, parentPageDomString) => {
     );
 
     // Get a reference of router element, load template
-    parentPage(pageElementSelector).html(cheerio.load(pageTemplate()).html());
+    parentPage(pageElementSelector)
+        .html(
+            cheerio.load(
+                fillTemplateWithData(pageTemplate, firstMatchingRoute)
+            ).html()
+        );
 
     // Return the server rendered page string
     return parentPage.html();

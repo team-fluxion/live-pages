@@ -26,4 +26,16 @@ const findChildRoute = (parentUrl, tree, urlToFind) => {
     return tree.url !== '/' || tree.url === urlToFind ? tree : null;
 };
 
+// Function to fetch and fill data in for a template
+const fillTemplateWithData = (template, route) => {
+    // Check if the route has data specification
+    if (route.data) {
+        return template(route.data());
+    }
+
+    // Return the static template
+    return template();
+};
+
 module.exports.findChildRoute = findChildRoute;
+module.exports.fillTemplateWithData = fillTemplateWithData;

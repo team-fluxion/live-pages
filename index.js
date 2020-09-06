@@ -64,7 +64,10 @@ module.exports = url => {
                 res.send(
                     renderOnServer(
                         path,
-                        htmlPageString.replace('<!--body-tag-placeholder-->', bodyTemplate())
+                        htmlPageString.replace(
+                            '<!--body-tag-placeholder-->',
+                            bodyTemplate()
+                        )
                     )
                 );
             } catch (ex) {

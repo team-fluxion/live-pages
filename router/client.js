@@ -3,7 +3,7 @@
 const path = require('path');
 const url = require('url');
 
-const { findChildRoute } = require('./common');
+const { findChildRoute, fillTemplateWithData } = require('./common');
 
 let pageElementSelector;
 let routes;
@@ -24,7 +24,8 @@ const renderOnClient = route => {
     const pageTemplate = require(`../web/pages/${route.page}.handlebars`);
 
     // Attach page template in router
-    document.querySelector(pageElementSelector).innerHTML = pageTemplate();
+    document.querySelector(pageElementSelector)
+        .innerHTML = fillTemplateWithData(pageTemplate, route);
 };
 
 // Function to handle state changes
