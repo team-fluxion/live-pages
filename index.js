@@ -70,10 +70,10 @@ module.exports = url => {
             } catch (ex) {
                 if (ex === ERRORS.INVALID_ROUTE) {
                     // Handle invalid route according to configuration
-                    if (config.maskInvalidRoutes) {
+                    if (!config.invalidRouteMessage) {
                         res.redirect('/');
                     } else {
-                        res.send(config.genericErrorText);
+                        res.send(config.invalidRouteMessage);
                     }
                 } else {
                     // Send a generic error message

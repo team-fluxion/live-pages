@@ -1,4 +1,6 @@
-/* global module */
+/* global require module */
+
+const { alert } = require('ample-alerts');
 
 module.exports = {
     appName: 'that-web-app',
@@ -25,6 +27,9 @@ module.exports = {
             }
         ]
     },
-    maskInvalidRoutes: false,
+    invalidRouteAction: url => {
+        alert(`Invalid route: ${url}`, { autoClose: 5000 });
+    },
+    invalidRouteMessage: 'You navigated to a URL that doesn\'t exist!',
     genericErrorText: 'There was an error while displaying this page!'
 };

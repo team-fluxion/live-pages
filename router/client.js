@@ -44,9 +44,9 @@ const reactToStateChange = ({ state }) => {
     if (firstMatchingRoute) {
         // Render page for matched route
         renderOnClient(firstMatchingRoute);
-    } else if (appConfig.options.unknownRouteAction) {
+    } else if (appConfig.invalidRouteAction) {
         // Invoke action for invalid route
-        appConfig.options.unknownRouteAction(pathname);
+        appConfig.invalidRouteAction(pathname);
     } else {
         // Treat as root route
         navigate('/');
