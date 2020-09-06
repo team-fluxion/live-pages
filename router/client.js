@@ -26,20 +26,14 @@ const renderOnClient = route => {
         .innerHTML = fillTemplateWithData(pageTemplate, route);
 };
 
-// Function to handle state changes
-const reactToStateChange = ({ state }) => {
+// Function to handle route changes on client
+const handleRoute = ({ state }) => {
     // Retrieve path variables
     const { location: { pathname } } = document;
     const interceptedPath = pathname.slice(0, 1) !== '/' ? `/${pathname}` : pathname;
 
-    // TODO: Remove logging
-    console.log('Intercepted', interceptedPath, state);
-
     // Find top-most matching route
     const firstMatchingRoute = findChildRoute('/', appConfig.routes, interceptedPath);
-
-    // TODO: Remove logging
-    console.log(firstMatchingRoute);
 
     if (firstMatchingRoute) {
         // Render page for matched route
@@ -61,7 +55,7 @@ const isInternalUrl = urlToMatch =>
 // Function to navigate to a URL
 const navigate = (pathname, state = {}) => {
     pushToHistory(pathname, state);
-    reactToStateChange({ state });
+    handleRoute({ state });
 };
 
 // Global 'click' event handler
@@ -92,14 +86,14 @@ export const init = config => {
     appConfig = config;
 
     document.addEventListener('click', handleGlobalClick);
-    window.addEventListener('popstate', reactToStateChange);
+    window.addEventListener('popstate', handleRoute);
 
     // TODO: Uncomment if a re-render is needed on init
-    // reactToStateChange();
+    // handleRoute();
 };
 
 // Function to destroy the router
 export const destroy = () => {
     document.removeEventListener('click', handleGlobalClick);
-    window.removeEventListener('popstate', reactToStateChange);
+    window.removeEventListener('popstate', handleRoute);
 };

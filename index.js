@@ -7,7 +7,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Handlebars = require('handlebars');
 
-const { init, renderOnServer, ERRORS } = require('./router/server');
+const { init, handleRoute } = require('./router/server');
 const config = require('./web/config');
 
 const readFile = (basePath, filePath) => {
@@ -53,33 +53,15 @@ module.exports = url => {
             }
 
             // Gather landing HTML page string components
-            const htmlPageString = readFile(basePath, 'public/index.html');
+            const landingPageTemplate = readFile(basePath, 'public/index.html');
             const bodyTemplate = Handlebars.compile(readFile(basePath, 'web/body.html'));
+            const parentPageDomString = landingPageTemplate.replace(
+                '<!--body-tag-placeholder-->',
+                bodyTemplate()
+            );
 
-            try {
-                // Construct HTML string
-                res.send(
-                    renderOnServer(
-                        path,
-                        htmlPageString.replace(
-                            '<!--body-tag-placeholder-->',
-                            bodyTemplate()
-                        )
-                    )
-                );
-            } catch (ex) {
-                if (ex === ERRORS.INVALID_ROUTE) {
-                    // Handle invalid route according to configuration
-                    if (!config.invalidRouteMessage) {
-                        res.redirect('/');
-                    } else {
-                        res.send(config.invalidRouteMessage);
-                    }
-                } else {
-                    // Send a generic error message
-                    res.send(config.genericErrorText);
-                }
-            }
+            // Handle route with server router
+            handleRoute(path, parentPageDomString, res);
         }
     );
 };
