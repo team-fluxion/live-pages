@@ -6,9 +6,7 @@ const Handlebars = require('handlebars');
 
 const { findChildRoute, fillTemplateWithData } = require('./common');
 
-let pageElementSelector;
-let routes;
-let options;
+let appConfig;
 
 const ERRORS = {
     INVALID_ROUTE: 'Invalid route'
@@ -16,7 +14,7 @@ const ERRORS = {
 
 const renderOnServer = (url, parentPageDomString) => {
     // Find matching route
-    const firstMatchingRoute = findChildRoute('/', routes, url);
+    const firstMatchingRoute = findChildRoute('/', appConfig.routes, url);
 
     // Throw an error if no matching route is found
     if (!firstMatchingRoute) {
@@ -35,7 +33,7 @@ const renderOnServer = (url, parentPageDomString) => {
     );
 
     // Get a reference of router element, load template
-    parentPage(pageElementSelector)
+    parentPage(appConfig.pageElementSelector)
         .html(
             cheerio.load(
                 fillTemplateWithData(pageTemplate, firstMatchingRoute)
@@ -46,11 +44,8 @@ const renderOnServer = (url, parentPageDomString) => {
     return parentPage.html();
 };
 
-const init = (appPageElementSelector, appRoutes, appOptions = {}) => {
-    // Set variables
-    pageElementSelector = appPageElementSelector;
-    routes = appRoutes;
-    options = appOptions;
+const init = config => {
+    appConfig = config;
 };
 
 module.exports.ERRORS = ERRORS;

@@ -27,10 +27,7 @@ module.exports = url => {
     // Create web-app
     const app = express();
     const basePath = path.join(__dirname, './');
-    init(
-        config.pageElementSelector,
-        config.routes
-    );
+    init(config);
 
     // Setup statics
     app.use(`/${config.staticPath}`, express.static(path.join(basePath, 'public')));

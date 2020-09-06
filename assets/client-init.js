@@ -1,6 +1,6 @@
 import { alert } from 'ample-alerts';
 
-import { init as initRouter } from '../router/client';
+import { init } from '../router/client';
 import config from '../web/config';
 
 import './pwa';
@@ -15,9 +15,5 @@ if (!config.maskInvalidRoutes) {
 }
 
 export default () => {
-    initRouter(
-        config.pageElementSelector,
-        config.routes,
-        options
-    );
+    init(config);
 };

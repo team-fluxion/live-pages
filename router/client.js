@@ -5,9 +5,7 @@ const url = require('url');
 
 const { findChildRoute, fillTemplateWithData } = require('./common');
 
-let pageElementSelector;
-let routes;
-let options;
+let appConfig;
 
 // Function to push a navigation state to browser history
 const pushToHistory = (pathname, state) => {
@@ -24,7 +22,7 @@ const renderOnClient = route => {
     const pageTemplate = require(`../web/pages/${route.page}.handlebars`);
 
     // Attach page template in router
-    document.querySelector(pageElementSelector)
+    document.querySelector(appConfig.pageElementSelector)
         .innerHTML = fillTemplateWithData(pageTemplate, route);
 };
 
@@ -38,7 +36,7 @@ const reactToStateChange = ({ state }) => {
     console.log('Intercepted', interceptedPath, state);
 
     // Find top-most matching route
-    const firstMatchingRoute = findChildRoute('/', routes, interceptedPath);
+    const firstMatchingRoute = findChildRoute('/', appConfig.routes, interceptedPath);
 
     // TODO: Remove logging
     console.log(firstMatchingRoute);
@@ -46,9 +44,9 @@ const reactToStateChange = ({ state }) => {
     if (firstMatchingRoute) {
         // Render page for matched route
         renderOnClient(firstMatchingRoute);
-    } else if (options.unknownRouteAction) {
+    } else if (appConfig.options.unknownRouteAction) {
         // Invoke action for invalid route
-        options.unknownRouteAction(pathname);
+        appConfig.options.unknownRouteAction(pathname);
     } else {
         // Treat as root route
         navigate('/');
@@ -90,11 +88,8 @@ const handleGlobalClick = event => {
 };
 
 // Function to initialize the router
-export const init = (appPageElementSelector, appRoutes, appOptions = {}) => {
-    // Set variables
-    pageElementSelector = appPageElementSelector;
-    routes = appRoutes;
-    options = appOptions;
+export const init = config => {
+    appConfig = config;
 
     document.addEventListener('click', handleGlobalClick);
     window.addEventListener('popstate', reactToStateChange);
