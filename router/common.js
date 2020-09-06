@@ -2,11 +2,6 @@
 
 const path = require('path');
 
-// Enum for error types
-const ERRORS = {
-    INVALID_ROUTE: 'Invalid route'
-};
-
 // Function to find a matching internal route
 const findChildRoute = (parentUrl, tree, urlToFind) => {
     for (let i = 0; i < tree.subRoutes.length; i += 1) {
@@ -42,6 +37,5 @@ const fillTemplateWithData = (template, route) => {
     return template();
 };
 
-module.exports.ERRORS = ERRORS;
 module.exports.findChildRoute = findChildRoute;
 module.exports.fillTemplateWithData = fillTemplateWithData;

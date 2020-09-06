@@ -17,7 +17,7 @@ const pushToHistory = (pathname, state) => {
 };
 
 // Function to render a route page on client
-const renderOnClient = route => {
+const renderOnClient = (route, currentUrl) => {
     // Load template for route
     const pageTemplate = require(`../web/pages/${route.page}.handlebars`);
 
@@ -37,7 +37,7 @@ const handleRoute = ({ state }) => {
 
     if (firstMatchingRoute) {
         // Render page for matched route
-        renderOnClient(firstMatchingRoute);
+        renderOnClient(firstMatchingRoute, interceptedPath);
     } else if (appConfig.invalidRouteAction) {
         // Invoke action for invalid route
         appConfig.invalidRouteAction(pathname);
