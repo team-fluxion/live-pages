@@ -9,7 +9,7 @@ const { findChildRoute, fillTemplateWithData } = require('./common');
 let appConfig;
 
 // Function to render a route page on server
-const renderOnServer = (route, currentUrl, parentPageDomString) => {
+const renderOnServer = (route, currentUrl, parentPageDomString, res) => {
     // Hydrate parent page DOM from string
     const parentPage = cheerio.load(parentPageDomString);
 
@@ -30,7 +30,7 @@ const renderOnServer = (route, currentUrl, parentPageDomString) => {
         );
 
     // Return the server rendered page string
-    return parentPage.html();
+    res.send(parentPage.html());
 };
 
 // Function to handle route on server
@@ -40,12 +40,11 @@ const handleRoute = (currentUrl, parentPageDomString, res) => {
 
     if (firstMatchingRoute) {
         // Render page for matched route
-        res.send(
-            renderOnServer(
-                firstMatchingRoute,
-                currentUrl,
-                parentPageDomString
-            )
+        renderOnServer(
+            firstMatchingRoute,
+            currentUrl,
+            parentPageDomString,
+            res
         );
     } else if (appConfig.invalidRouteMessage) {
         // Render the configured message for invalid route
