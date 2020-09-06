@@ -21,9 +21,15 @@ const renderOnClient = (route, currentUrl) => {
     // Load template for route
     const pageTemplate = require(`../web/pages/${route.page}.handlebars`);
 
-    // Attach page template in router
-    document.querySelector(appConfig.pageElementSelector)
-        .innerHTML = fillTemplateWithData(pageTemplate, route);
+    // Get template filled with data for route, for currentUrl
+    fillTemplateWithData(pageTemplate, route, currentUrl)
+        .then(
+            template => {
+                // Attach page template in router
+                document.querySelector(appConfig.pageElementSelector)
+                    .innerHTML = template;
+            }
+        );
 };
 
 // Function to handle route changes on client

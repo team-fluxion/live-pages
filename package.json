@@ -27,6 +27,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.7.1",
     "ample-alerts": "1.4.4",
+    "bluebird": "3.7.2",
     "body-parser": "1.18.3",
     "cheerio": "1.0.0-rc.3",
     "express": "4.16.4",

@@ -21,16 +21,20 @@ const renderOnServer = (route, currentUrl, parentPageDomString, res) => {
         )
     );
 
-    // Get a reference of router element, load template
-    parentPage(appConfig.pageElementSelector)
-        .html(
-            cheerio.load(
-                fillTemplateWithData(pageTemplate, route)
-            ).html()
-        );
+    // Get template filled with data for route, for currentUrl
+    fillTemplateWithData(pageTemplate, route, currentUrl)
+        .then(
+            template => {
+                // Get a reference of router element, load template
+                parentPage(appConfig.pageElementSelector)
+                    .html(
+                        cheerio.load(template).html()
+                    );
 
-    // Return the server rendered page string
-    res.send(parentPage.html());
+                // Return the server rendered page string
+                res.send(parentPage.html());
+            }
+        );
 };
 
 // Function to handle route on server

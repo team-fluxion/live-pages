@@ -1,6 +1,7 @@
 /* global require module */
 
 const path = require('path');
+const Promise = require('bluebird');
 
 // Function to find a matching internal route
 const findChildRoute = (parentUrl, tree, urlToFind) => {
@@ -27,15 +28,21 @@ const findChildRoute = (parentUrl, tree, urlToFind) => {
 };
 
 // Function to fetch and fill data in for a template
-const fillTemplateWithData = (template, route) => {
-    // Check if the route has data specification
-    if (route.data) {
-        return template(route.data());
-    }
+const fillTemplateWithData = (template, route, currentUrl) =>
+    new Promise(
+        (resolve, reject) => {
+            // Check if the route has no data specification
+            if (!route.data) {
+                resolve(template());
+            }
 
-    // Return the static template
-    return template();
-};
+            // Get result of data function
+            const data = route.data();
+
+            // Return the static template
+            resolve(template(data));
+        }
+    );
 
 module.exports.findChildRoute = findChildRoute;
 module.exports.fillTemplateWithData = fillTemplateWithData;
