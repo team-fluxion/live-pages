@@ -21,7 +21,10 @@ module.exports = {
         subRoutes: [
             {
                 url: '/about',
-                page: 'about'
+                page: 'about',
+                data: {
+                    who: 'me'
+                }
             }
         ]
     },

@@ -31,15 +31,20 @@ const findChildRoute = (parentUrl, tree, urlToFind) => {
 const fillTemplateWithData = (template, route, currentUrl) =>
     new Promise(
         (resolve, reject) => {
-            // Check if the route has no data specification
+            // For a route with no data specification
             if (!route.data) {
                 resolve(template());
+            }
+
+            // For a route with data as a literal object
+            if (typeof route.data === 'object') {
+                resolve(template(route.data));
             }
 
             // Get result of data function
             const data = route.data();
 
-            // Return the static template
+            // Return the template with generated data
             resolve(template(data));
         }
     );
