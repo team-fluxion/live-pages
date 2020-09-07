@@ -27,6 +27,10 @@ const findChildRoute = (parentUrl, tree, urlToFind) => {
     return tree.url !== '/' || tree.url === urlToFind ? tree : null;
 };
 
+// Function to get individual elements of a URL
+const getUrlParams = url =>
+    url.split('/').slice(1);
+
 // Function to fetch and fill data in for a template
 const fillTemplateWithData = (template, route, currentUrl) =>
     new Promise(
@@ -42,7 +46,7 @@ const fillTemplateWithData = (template, route, currentUrl) =>
             }
 
             // Evaluate the data specification
-            const data = route.data();
+            const data = route.data(...getUrlParams(currentUrl));
 
             // Check if the data function returned a promise
             if (data.then) {
