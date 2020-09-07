@@ -41,11 +41,19 @@ const fillTemplateWithData = (template, route, currentUrl) =>
                 resolve(template(route.data));
             }
 
-            // Get result of data function
+            // Evaluate the data specification
             const data = route.data();
 
-            // Return the template with generated data
-            resolve(template(data));
+            // Check if the data function returned a promise
+            if (data.then) {
+                // Send response after the promise resolves
+                data.then(
+                    d => { resolve(template(d)); }
+                );
+            } else {
+                // Return the template with generated data
+                resolve(template(data));
+            }
         }
     );
 
