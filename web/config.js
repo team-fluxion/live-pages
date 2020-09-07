@@ -20,11 +20,45 @@ module.exports = {
         }),
         subRoutes: [
             {
-                url: '/about',
+                url: 'about',
                 page: 'about',
                 data: {
                     who: 'me'
                 }
+            },
+            {
+                url: 'epoch',
+                page: 'epoch',
+                data: () => new Promise(
+                    resolve => {
+                        resolve({ epoch: new Date().getTime() });
+                    }
+                )
+            },
+            {
+                url: 'calc',
+                subRoutes: [
+                    {
+                        url: 'add',
+                        page: 'calc',
+                        data: (x, y, a, b) => ({
+                            operation: '+',
+                            a,
+                            b,
+                            result: +a + +b
+                        })
+                    },
+                    {
+                        url: 'multiply',
+                        page: 'calc',
+                        data: (x, y, a, b) => ({
+                            operation: '*',
+                            a,
+                            b,
+                            result: +a * +b
+                        })
+                    }
+                ]
             }
         ]
     },
