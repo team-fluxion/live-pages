@@ -58,10 +58,17 @@ const isInternalUrl = urlToMatch =>
     urlToMatch.indexOf('://') < 0
         && urlToMatch.indexOf('//');
 
+// Function to check whether a route is duplicate
+const isRouteDuplicate = pathname =>
+    pathname === window.location.pathname;
+
 // Function to navigate to a URL
 const navigate = (pathname, state = {}) => {
-    pushToHistory(pathname, state);
-    handleRoute({ state });
+    // Only act if route is not duplicate
+    if (!isRouteDuplicate(pathname)) {
+        pushToHistory(pathname, state);
+        handleRoute({ state });
+    }
 };
 
 // Global 'click' event handler
