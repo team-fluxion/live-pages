@@ -73,15 +73,15 @@ const navigate = (pathname, state = {}) => {
 
 // Global 'click' event handler
 const handleGlobalClick = event => {
-    const { target } = event;
+    const { currentTarget: { activeElement } } = event;
 
     // Respond to events only from anchor tags
-    if (target.tagName === 'A') {
+    if (activeElement.tagName === 'A') {
         // Stop the default behavior of the event
         event.preventDefault();
 
         // Extract the `href` attribute
-        const href = target.getAttribute('href');
+        const href = activeElement.getAttribute('href');
 
         // Check whether URL is internal or external
         if (isInternalUrl(path.join('/', href))) {
