@@ -31,10 +31,27 @@ const findChildRoute = (parentUrl, tree, urlToFind) => {
 const getUrlParams = url =>
     url.split('/').slice(1);
 
+// Function to obtain data from a data function
+const getDataFromFunction = (template, route, currentUrl, onDone) => {
+    // Evaluate the data specification
+    const data = route.data(...getUrlParams(currentUrl));
+
+    // Check if the data function returned a promise
+    if (data.then) {
+        // Send response after the promise resolves
+        data.then(
+            d => { onDone(template(d)); }
+        );
+    } else {
+        // Return the template with generated data
+        onDone(template(data));
+    }
+};
+
 // Function to fetch and fill data in for a template
 const fillTemplateWithData = (template, route, currentUrl) =>
     new Promise(
-        (resolve, reject) => {
+        resolve => {
             // For a route with no data specification
             if (!route.data) {
                 resolve(template());
@@ -45,19 +62,8 @@ const fillTemplateWithData = (template, route, currentUrl) =>
                 resolve(template(route.data));
             }
 
-            // Evaluate the data specification
-            const data = route.data(...getUrlParams(currentUrl));
-
-            // Check if the data function returned a promise
-            if (data.then) {
-                // Send response after the promise resolves
-                data.then(
-                    d => { resolve(template(d)); }
-                );
-            } else {
-                // Return the template with generated data
-                resolve(template(data));
-            }
+            // Get data by executing the data function
+            getDataFromFunction(template, route, currentUrl, resolve);
         }
     );
 
