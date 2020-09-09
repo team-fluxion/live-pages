@@ -1,34 +1,51 @@
 /* global require module window */
 
 module.exports = {
+    // Name of the app, not displayed to users
     appName: 'that-web-app',
+    // Name of the app that's actually visible to users
     friendlyName: 'That Web App',
+    // Description used in HTML open-graph and manifest
     description: 'A framework to build text-driven websites',
+    // Type of web-app, only used in HTML open-graph
     type: 'article',
+    // Domain of the web-app, the final web-address
     domain: 'http://localhost:8000',
+    // Name of the directory to hold static assets
     staticPath: 'assets',
+    // Colors to use for the progressive web-app
     colors: {
         themeColor: '#000',
         backgroundColor: '#000'
     },
+    // Selector for the element where routing will occur
     pageElementSelector: '[data-tf-router]',
+    // Routes for the web-app
     routes: {
+        // This is the mandatory route every web-app should have (`/`)
         url: '/',
+        // Name of the template to be used for this route
         page: 'home',
+        // The data dependency for this route
         data: () => ({
             timeRightNow: new Date()
         }),
+        // Subroutes for this route as nested routes
         subRoutes: [
             {
+                // Represents `/about`
                 url: 'about',
                 page: 'about',
+                // The data for this route comes from a hard-coded literal object
                 data: {
                     who: 'me'
                 }
             },
             {
+                // Represents `/epoch`
                 url: 'epoch',
                 page: 'epoch',
+                // The data for this route comes from a function that returns a promise
                 data: () => new Promise(
                     resolve => {
                         resolve({ epoch: new Date().getTime() });
@@ -36,11 +53,16 @@ module.exports = {
                 )
             },
             {
+                // Represents `/calc` (partial route)
                 url: 'calc',
+                // More nesting as you can have virtually unlimited nested routes
                 subRoutes: [
                     {
+                        // Represents `/calc/add/{x}/{y}`
                         url: 'add',
                         page: 'calc',
+                        // The data for this route depends on the route parameters,
+                        // sum of the last two: `/calc/add/2/3` gives `5`
                         data: (x, y, a, b) => ({
                             operation: '+',
                             a,
@@ -49,8 +71,11 @@ module.exports = {
                         })
                     },
                     {
+                        // Represents `/calc/multiply/{x}/{y}`
                         url: 'multiply',
                         page: 'calc',
+                        // The data for this route depends on the route parameters,
+                        // product of the last two: `/calc/multiply/2/3` gives `6`
                         data: (x, y, a, b) => ({
                             operation: '*',
                             a,
@@ -62,9 +87,12 @@ module.exports = {
             }
         ]
     },
+    // Handler for invalid routes in case the web-app lands on such a route
     invalidRouteAction: url => {
         window.alert(`Invalid route: ${url}`, { autoClose: 5000 });
     },
+    // Error message to be used on the server for routes that don't exist in the web-app
     invalidRouteMessage: 'You navigated to a URL that doesn\'t exist!',
+    // The error message that can be used for all other kinds of errors
     genericErrorText: 'There was an error while displaying this page!'
 };
