@@ -1,3 +1,11 @@
 <div class="page-inner">
-     {{a}}{{operation}}{{b}}={{result}}
+    <b>{{a}}</b> {{operation}} <b>{{b}}</b> = <b>{{result}}</b>
+    <hr />
+    <code>
+This is the page for /calc route.
+This route has only been created to hold its nested routes and cannot be used independently.
+When you're on <b>{{operationName}}</b>, the result of <b>{{operation}}</b> of two values from the routes (<b>{{a}}</b> and <b>{{b}}</b> is made available. This is to demonstrate that routes in <b>live-pages</b> can also be dynamic through the URL, such that the data dependency can actually use the route parameters as function arguments.
+
+A point to note is that if the parent route would've been configured with a <b>page</b> property, it could've been used as an independent route as well, obviously along with its nested child routes with even more arguments.
+    </code>
 </div>

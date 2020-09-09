@@ -1,3 +1,8 @@
 <div class="page-inner">
-     EPOCH: {{epoch}}
+    <b>EPOCH:</b> {{epoch}}
+    <hr />
+    <code>
+This is the page for /epoch route.
+The EPOCH displayed comes from the data function configured for this route and it provides this Handlebars template a value for `epoch` through a promise. This makes this page dynamic such that everytime you land here, you'll always see the latest EPOCH value. This example is just to demonstrate that a data dependency can also be resolved from a promise.
+    </code>
 </div>

@@ -65,6 +65,7 @@ module.exports = {
                         // sum of the last two: `/calc/add/2/3` gives `5`
                         data: (x, y, a, b) => ({
                             operation: '+',
+                            operationName: y,
                             a,
                             b,
                             result: +a + +b
@@ -78,6 +79,7 @@ module.exports = {
                         // product of the last two: `/calc/multiply/2/3` gives `6`
                         data: (x, y, a, b) => ({
                             operation: '*',
+                            operationName: y,
                             a,
                             b,
                             result: +a * +b
