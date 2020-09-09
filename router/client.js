@@ -41,7 +41,7 @@ const handleRoute = ({ state }) => {
     // Find top-most matching route
     const firstMatchingRoute = findChildRoute('/', appConfig.routes, interceptedPath);
 
-    if (firstMatchingRoute) {
+    if (firstMatchingRoute && firstMatchingRoute.page) {
         // Render page for matched route
         renderOnClient(firstMatchingRoute, interceptedPath);
     } else if (appConfig.invalidRouteAction) {

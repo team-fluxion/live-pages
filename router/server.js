@@ -42,7 +42,7 @@ const handleRoute = (currentUrl, parentPageDomString, res) => {
     // Find matching route
     const firstMatchingRoute = findChildRoute('/', appConfig.routes, currentUrl);
 
-    if (firstMatchingRoute) {
+    if (firstMatchingRoute && firstMatchingRoute.page) {
         // Render page for matched route
         renderOnServer(
             firstMatchingRoute,
