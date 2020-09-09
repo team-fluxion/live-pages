@@ -10,6 +10,8 @@ const Handlebars = require('handlebars');
 const { init, handleRoute } = require('./router/server');
 const config = require('./web/config');
 
+const basePath = path.join(__dirname, './');
+
 const readFile = (basePath, filePath) => {
     try {
         // Attempt reading file contents
@@ -23,10 +25,29 @@ const readFile = (basePath, filePath) => {
     }
 };
 
+const serveRequest = ({ url }, res) => {
+    let path = url;
+
+    // Mask all requests to assets, for example from progressive app launch
+    if (url.indexOf(`/${config.staticPath}`) === 0) {
+        path = '/';
+    }
+
+    // Gather landing HTML page string components
+    const landingPageTemplate = readFile(basePath, 'public/index.html');
+    const bodyTemplate = Handlebars.compile(readFile(basePath, 'web/body.html'));
+    const parentPageDomString = landingPageTemplate.replace(
+        '<!--body-tag-placeholder-->',
+        bodyTemplate()
+    );
+
+    // Handle route with server router
+    handleRoute(path, parentPageDomString, res);
+};
+
 module.exports = url => {
-    // Create web-app
+    // Create web-app and perform init
     const app = express();
-    const basePath = path.join(__dirname, './');
     init(config);
 
     // Setup statics
@@ -42,26 +63,5 @@ module.exports = url => {
     );
 
     // Serve index page
-    app.get(
-        '*',
-        ({ url }, res) => {
-            let path = url;
-
-            // Mask all requests to assets, for example from progressive app launch
-            if (url.indexOf(`/${config.staticPath}`) === 0) {
-                path = '/';
-            }
-
-            // Gather landing HTML page string components
-            const landingPageTemplate = readFile(basePath, 'public/index.html');
-            const bodyTemplate = Handlebars.compile(readFile(basePath, 'web/body.html'));
-            const parentPageDomString = landingPageTemplate.replace(
-                '<!--body-tag-placeholder-->',
-                bodyTemplate()
-            );
-
-            // Handle route with server router
-            handleRoute(path, parentPageDomString, res);
-        }
-    );
+    app.get('*', serveRequest);
 };
