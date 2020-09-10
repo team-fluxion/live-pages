@@ -21,7 +21,7 @@ That is only a small part of the horror story developers find themselves learnin
 
 * A sufficiently configured web-server using [Express](https://expressjs.com)
 * A comprehensive [webpack](https://webpack.js.org) configuration that takes care of the heavy-lifting of building your web-app
-* A simple-to-use router that's totally invisible works almost exactly the same on the server as it does on the client
+* A simple-to-use router that's totally invisible works almost exactly the same on the server as it does on the client, supports implicit loading indication and active link annotation
 * Automatic generation of service-worker scripts so that your implementation can also work offline as a progressive web-app
 * Support for open-graph tags without needing to configure them manually
 * A pre-configured linting setup using [ESLint](https://eslint.org)
