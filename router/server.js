@@ -8,6 +8,11 @@ const { findChildRoute, fillTemplateWithData } = require('./common');
 
 let appConfig;
 
+// Function to mark active link
+const markActiveLink = (page, currentUrl) => {
+    page(`a[href='${currentUrl}']`).addClass(appConfig.activeLinkClassName);
+};
+
 // Function to render a route page on server
 const renderOnServer = (route, currentUrl, parentPageDomString, res) => {
     // Hydrate parent page DOM from string
@@ -30,6 +35,9 @@ const renderOnServer = (route, currentUrl, parentPageDomString, res) => {
                     .html(
                         cheerio.load(template).html()
                     );
+
+                // Mark active link
+                markActiveLink(parentPage, currentUrl);
 
                 // Return the server rendered page string
                 res.send(parentPage.html());

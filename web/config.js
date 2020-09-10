@@ -22,6 +22,8 @@ module.exports = {
     pageElementSelector: '[data-tf-router]',
     // Class to be appended on body while loading
     loadingClassName: 'live-pages-loading',
+    // Class to be appended to the active anchor tag, if present
+    activeLinkClassName: 'live-pages-active-link',
     // Routes for the web-app
     routes: {
         // This is the mandatory route every web-app should have (`/`)

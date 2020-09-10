@@ -16,6 +16,19 @@ const pushToHistory = (pathname, state) => {
     );
 };
 
+// Function to mark active link
+const markActiveLink = currentUrl => {
+    const previouslyActiveLink = document.querySelector(`.${appConfig.activeLinkClassName}`);
+
+    // Unmark previously active link
+    previouslyActiveLink.className = previouslyActiveLink.className
+        .replace(appConfig.activeLinkClassName)
+        .trim();
+
+    // Mark currently active link
+    document.querySelector(`a[href='${currentUrl}']`).className += ` ${appConfig.activeLinkClassName}`;
+};
+
 // Function to toggle visual loading state
 const setLoading = isLoading => {
     let bodyClassName = document.body.className || '';
@@ -41,6 +54,9 @@ const renderOnClient = (route, currentUrl) => {
                 // Attach page template in router
                 document.querySelector(appConfig.pageElementSelector)
                     .innerHTML = template;
+
+                // Mark active link
+                markActiveLink(currentUrl);
 
                 // Reset loading
                 setLoading(false);
