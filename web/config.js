@@ -20,6 +20,8 @@ module.exports = {
     },
     // Selector for the element where routing will occur
     pageElementSelector: '[data-tf-router]',
+    // Class to be appended on body while loading
+    loadingClassName: 'live-pages-loading',
     // Routes for the web-app
     routes: {
         // This is the mandatory route every web-app should have (`/`)
@@ -48,7 +50,12 @@ module.exports = {
                 // The data for this route comes from a function that returns a promise
                 data: () => new Promise(
                     resolve => {
-                        resolve({ epoch: new Date().getTime() });
+                        setTimeout(
+                            () => {
+                                resolve({ epoch: new Date().getTime() });
+                            },
+                            3000
+                        );
                     }
                 )
             },

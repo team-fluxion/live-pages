@@ -16,6 +16,19 @@ const pushToHistory = (pathname, state) => {
     );
 };
 
+// Function to toggle visual loading state
+const setLoading = isLoading => {
+    let bodyClassName = document.body.className || '';
+
+    bodyClassName = bodyClassName.replace(` ${appConfig.loadingClassName}`, '');
+
+    if (isLoading) {
+        document.body.className = `${bodyClassName} ${appConfig.loadingClassName}`;
+    } else {
+        document.body.className = bodyClassName;
+    }
+};
+
 // Function to render a route page on client
 const renderOnClient = (route, currentUrl) => {
     // Load template for route
@@ -28,12 +41,18 @@ const renderOnClient = (route, currentUrl) => {
                 // Attach page template in router
                 document.querySelector(appConfig.pageElementSelector)
                     .innerHTML = template;
+
+                // Reset loading
+                setLoading(false);
             }
         );
 };
 
 // Function to handle route changes on client
 const handleRoute = ({ state }) => {
+    // Set loading
+    setLoading(true);
+
     // Retrieve path variables
     const { location: { pathname } } = document;
     const interceptedPath = pathname.slice(0, 1) !== '/' ? `/${pathname}` : pathname;

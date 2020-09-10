@@ -22,6 +22,22 @@ html {
         padding: 0;
         font-family: OpenSans;
 
+        &.live-pages-loading {
+
+            &::after {
+                content: 'Loading...';
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            > * {
+                .opacity(0.3);
+                .transition(1s);
+                .transform(scale(0.9));
+            }
+        }
+
         #page-container {
 
             .banner {
