@@ -22,7 +22,7 @@ const markActiveLink = currentUrl => {
 
     // Unmark previously active link
     previouslyActiveLink.className = previouslyActiveLink.className
-        .replace(appConfig.activeLinkClassName)
+        .replace(appConfig.activeLinkClassName, '')
         .trim();
 
     // Mark currently active link
