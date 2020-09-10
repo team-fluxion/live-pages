@@ -11,7 +11,7 @@ A tool/template to quickly build text-driven websites
 
 ## Background
 
-Since websites have become web-apps, there's much more to them than just markup, styling, and some simple interaction logic. Instead, there's so much to a "typical" web-app: the user expects minimal hops between pages, look pretty, and offline operation when the situation demands, and much more. This adds a lot of extra work on the development side where the developer finds themselves working with code that is not even remotely related to the actual web-app being developed. Much of it is repetitive, mostly working with boilerplate code that still needs to be just a little different for every single web-app that gets deployed to production.
+Since websites have become web-apps, there's much more to them than just markup, styling, and some simple interaction logic. In a "typical" web-app: users expect minimal hops between pages, pretty visuals, offline operation when the situation demands, and much more. This adds a lot of extra work on the development side where the developer finds themselves working with code that is not even remotely related to the actual web-app being developed. Much of it is repetitive, mostly working with boilerplate code that still needs to be just a little different for every single web-app that gets deployed to production.
 
 That is only a small part of the horror story developers find themselves learning a framework or library than to develop the web-app itself, that is only if they could decide on which one to use.
 
@@ -55,4 +55,3 @@ If you just want to deploy your web-app on a machine, simply running `npm run st
 ## To-Do
 
 * Add support for [Sass](https://sass-lang.com)
-* Implement modular loading-indicator for route transitions and more
