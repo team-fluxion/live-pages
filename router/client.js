@@ -82,6 +82,9 @@ const handleRoute = ({ state }) => {
     } else if (appConfig.invalidRouteAction) {
         // Invoke action for invalid route
         appConfig.invalidRouteAction(pathname);
+
+        // Disable loading as not required
+        setLoading(false);
     } else {
         // Treat as root route
         navigate('/');
