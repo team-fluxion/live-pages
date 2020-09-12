@@ -21,7 +21,9 @@ module.exports = {
     // Selector for the element where routing will occur
     pageElementSelector: '[data-tf-router]',
     // Class to be appended on body while navigating
-    navigatingClassName: 'live-pages-navigating',
+    navigationClassNamesPrefix: 'live-pages-nav',
+    // Animation delay for navigation in milliseconds
+    navigationAnimationDelay: 500,
     // Class to be appended to the active anchor tag, if present
     activeLinkClassName: 'live-pages-active-link',
     // Routes for the web-app

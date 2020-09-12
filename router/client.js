@@ -43,17 +43,59 @@ const addOrRemoveClass = (cssClass, shouldAdd) => {
 };
 
 // Function to mark navigation in progress
-const markNavigation = () => {
-    addOrRemoveClass(appConfig.navigatingClassName, true);
+const markNavigationStart = horizontalDirection => {
+    // Mark navigation start
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-live`, true);
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-out`, true);
+
+    window.setTimeout(
+        () => {
+            addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${horizontalDirection ? 'forward' : 'backward'}`, true);
+
+            window.setTimeout(
+                () => {
+                    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-out`, false);
+                },
+                appConfig.navigationAnimationDelay
+            );
+        },
+        50
+    );
 };
 
-// Function to unmark navigation
+// Function to mark navigation end
+const markNavigationEnd = horizontalDirection => {
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${horizontalDirection ? 'forward' : 'backward'}`, false);
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${!horizontalDirection ? 'forward' : 'backward'}`, true);
+
+    window.setTimeout(
+        () => {
+            addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-in`, true);
+            addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${!horizontalDirection ? 'forward' : 'backward'}`, false);
+
+            window.setTimeout(
+                () => {
+                    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-in`, false);
+                    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-live`, false);
+                },
+                appConfig.navigationAnimationDelay
+            );
+        },
+        50
+    );
+};
+
+// Function to stop/cancel/unmark navigation
 const unmarkNavigation = () => {
-    addOrRemoveClass(appConfig.navigatingClassName, false);
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-live`, false);
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-out`, false);
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-in`, false);
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-backward`, false);
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-forward`, false);
 };
 
 // Function to render a route page on client
-const renderOnClient = (route, currentUrl) => {
+const renderOnClient = (route, currentUrl, horizontalDirection) => {
     // Load template for route
     const pageTemplate = require(`../web/pages/${route.page}.handlebars`);
 
@@ -61,44 +103,56 @@ const renderOnClient = (route, currentUrl) => {
     fillTemplateWithData(pageTemplate, route, currentUrl)
         .then(
             template => {
-                // Attach page template in router
-                document.querySelector(appConfig.pageElementSelector)
-                    .innerHTML = template;
+                // Wait for the animation delay
+                window.setTimeout(
+                    () => {
+                        // Attach page template in router
+                        document.querySelector(appConfig.pageElementSelector)
+                            .innerHTML = template;
 
-                // Mark active link
-                markActiveLink(currentUrl);
+                        // Mark active link
+                        markActiveLink(currentUrl);
 
-                // Reset navigation progress
-                unmarkNavigation();
+                        // Start marking navigation end
+                        markNavigationEnd(horizontalDirection);
+                    },
+                    appConfig.navigationAnimationDelay
+                );
             }
         );
 };
 
 // Function to handle route changes on client
-const handleRoute = ({ state }) => {
+const handleRoute = ({ state }, horizontalDirection = false) => {
     // Set navigation progress
-    markNavigation();
+    markNavigationStart(horizontalDirection ? 1 : 0);
 
-    // Retrieve path variables
-    const { location: { pathname } } = document;
-    const interceptedPath = pathname.slice(0, 1) !== '/' ? `/${pathname}` : pathname;
+    // Wait for the animation delay
+    window.setTimeout(
+        () => {
+            // Retrieve path variables
+            const { location: { pathname } } = document;
+            const interceptedPath = pathname.slice(0, 1) !== '/' ? `/${pathname}` : pathname;
 
-    // Find top-most matching route
-    const firstMatchingRoute = findChildRoute('/', appConfig.routes, interceptedPath);
+            // Find top-most matching route
+            const firstMatchingRoute = findChildRoute('/', appConfig.routes, interceptedPath);
 
-    if (firstMatchingRoute && firstMatchingRoute.page) {
-        // Render page for matched route
-        renderOnClient(firstMatchingRoute, interceptedPath);
-    } else if (appConfig.invalidRouteAction) {
-        // Invoke action for invalid route
-        appConfig.invalidRouteAction(pathname);
+            if (firstMatchingRoute && firstMatchingRoute.page) {
+                // Render page for matched route
+                renderOnClient(firstMatchingRoute, interceptedPath, horizontalDirection);
+            } else if (appConfig.invalidRouteAction) {
+                // Invoke action for invalid route
+                appConfig.invalidRouteAction(pathname);
 
-        // Disable navigation progress as not required
-        unmarkNavigation();
-    } else {
-        // Treat as root route
-        navigate('/');
-    }
+                // Disable navigation progress as not required
+                unmarkNavigation();
+            } else {
+                // Treat as root route
+                navigate('/');
+            }
+        },
+        appConfig.navigationAnimationDelay
+    );
 };
 
 // Function to check whether a URL is internal
@@ -115,7 +169,7 @@ const navigate = (pathname, state = {}) => {
     // Only act if route is not duplicate
     if (!isRouteDuplicate(pathname)) {
         pushToHistory(pathname, state);
-        handleRoute({ state });
+        handleRoute({ state }, true);
     }
 };
 
