@@ -42,9 +42,9 @@ const addOrRemoveClass = (cssClass, shouldAdd) => {
     }
 };
 
-// Function to toggle visual loading state
-const setLoading = isLoading => {
-    addOrRemoveClass(appConfig.loadingClassName, isLoading);
+// Function to toggle visual navigating state
+const setNavigating = isNavigating => {
+    addOrRemoveClass(appConfig.navigatingClassName, isNavigating);
 };
 
 // Function to render a route page on client
@@ -63,16 +63,16 @@ const renderOnClient = (route, currentUrl) => {
                 // Mark active link
                 markActiveLink(currentUrl);
 
-                // Reset loading
-                setLoading(false);
+                // Reset navigation progress
+                setNavigating(false);
             }
         );
 };
 
 // Function to handle route changes on client
 const handleRoute = ({ state }) => {
-    // Set loading
-    setLoading(true);
+    // Set navigation progress
+    setNavigating(true);
 
     // Retrieve path variables
     const { location: { pathname } } = document;
@@ -88,8 +88,8 @@ const handleRoute = ({ state }) => {
         // Invoke action for invalid route
         appConfig.invalidRouteAction(pathname);
 
-        // Disable loading as not required
-        setLoading(false);
+        // Disable navigation progress as not required
+        setNavigating(false);
     } else {
         // Treat as root route
         navigate('/');
