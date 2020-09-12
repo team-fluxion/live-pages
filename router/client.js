@@ -29,17 +29,22 @@ const markActiveLink = currentUrl => {
     document.querySelector(`a[href='${currentUrl}']`).className += ` ${appConfig.activeLinkClassName}`;
 };
 
-// Function to toggle visual loading state
-const setLoading = isLoading => {
+// Function to add or remove a CSS class from body
+const addOrRemoveClass = (cssClass, shouldAdd) => {
     let bodyClassName = document.body.className || '';
 
-    bodyClassName = bodyClassName.replace(` ${appConfig.loadingClassName}`, '');
+    bodyClassName = bodyClassName.replace(` ${cssClass}`, '');
 
-    if (isLoading) {
-        document.body.className = `${bodyClassName} ${appConfig.loadingClassName}`;
+    if (shouldAdd) {
+        document.body.className = `${bodyClassName} ${cssClass}`;
     } else {
         document.body.className = bodyClassName;
     }
+};
+
+// Function to toggle visual loading state
+const setLoading = isLoading => {
+    addOrRemoveClass(appConfig.loadingClassName, isLoading);
 };
 
 // Function to render a route page on client
