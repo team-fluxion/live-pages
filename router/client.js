@@ -42,9 +42,14 @@ const addOrRemoveClass = (cssClass, shouldAdd) => {
     }
 };
 
-// Function to toggle visual navigating state
-const setNavigating = isNavigating => {
-    addOrRemoveClass(appConfig.navigatingClassName, isNavigating);
+// Function to mark navigation in progress
+const markNavigation = () => {
+    addOrRemoveClass(appConfig.navigatingClassName, true);
+};
+
+// Function to unmark navigation
+const unmarkNavigation = () => {
+    addOrRemoveClass(appConfig.navigatingClassName, false);
 };
 
 // Function to render a route page on client
@@ -64,7 +69,7 @@ const renderOnClient = (route, currentUrl) => {
                 markActiveLink(currentUrl);
 
                 // Reset navigation progress
-                setNavigating(false);
+                unmarkNavigation();
             }
         );
 };
@@ -72,7 +77,7 @@ const renderOnClient = (route, currentUrl) => {
 // Function to handle route changes on client
 const handleRoute = ({ state }) => {
     // Set navigation progress
-    setNavigating(true);
+    markNavigation();
 
     // Retrieve path variables
     const { location: { pathname } } = document;
@@ -89,7 +94,7 @@ const handleRoute = ({ state }) => {
         appConfig.invalidRouteAction(pathname);
 
         // Disable navigation progress as not required
-        setNavigating(false);
+        unmarkNavigation();
     } else {
         // Treat as root route
         navigate('/');
