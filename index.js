@@ -26,13 +26,6 @@ const readFile = (basePath, filePath) => {
 };
 
 const serveRequest = ({ url }, res) => {
-    let path = url;
-
-    // Mask all requests to assets, for example from progressive app launch
-    if (url.indexOf(`/${config.staticPath}`) === 0) {
-        path = '/';
-    }
-
     // Gather landing HTML page string components
     const landingPageTemplate = readFile(basePath, 'public/index.html');
     const bodyTemplate = Handlebars.compile(readFile(basePath, 'web/body.html'));
@@ -42,7 +35,7 @@ const serveRequest = ({ url }, res) => {
     );
 
     // Handle route with server router
-    handleRoute(path, parentPageDomString, res);
+    handleRoute(url, parentPageDomString, res);
 };
 
 module.exports = url => {
