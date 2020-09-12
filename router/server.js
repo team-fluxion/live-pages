@@ -39,6 +39,9 @@ const renderOnServer = (route, currentUrl, parentPageDomString, res) => {
                 // Mark active link
                 markActiveLink(parentPage, currentUrl);
 
+                // Mark active path
+                parentPage('body').attr('data-path', currentUrl);
+
                 // Return the server rendered page string
                 res.send(parentPage.html());
             }

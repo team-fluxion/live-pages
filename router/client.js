@@ -113,6 +113,9 @@ const renderOnClient = (route, currentUrl, horizontalDirection) => {
                         // Mark active link
                         markActiveLink(currentUrl);
 
+                        // Mark active path
+                        document.body.setAttribute('data-path', currentUrl);
+
                         // Start marking navigation end
                         markNavigationEnd(horizontalDirection);
                     },
