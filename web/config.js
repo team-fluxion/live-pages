@@ -20,7 +20,14 @@ module.exports = {
     },
     // Selector for the element where routing will occur
     pageElementSelector: '[data-tf-router]',
-    // Class to be appended on body while navigating
+    // Prefix for CSS classnames to be appended on body while navigating
+    // `${prefix}-live` stays for the entire navigation period
+    // `${prefix}-out` is used while the page is being removed
+    // `${prefix}-forward` is used for navigation through links
+    // `${prefix}-backward` is used for navigation using browser history
+    // `${prefix}-down` is used for route changes lower (and/or) deeper in the routes tree
+    // `${prefix}-up` is used for route changes upwards (and/or) shallower in the routes tree
+    // `${prefix}-in` is used while the page is being brought back
     navigationClassNamesPrefix: 'live-pages-nav',
     // Animation delay for navigation in milliseconds
     navigationAnimationDelay: 500,
