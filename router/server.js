@@ -36,10 +36,8 @@ const renderOnServer = (route, currentUrl, parentPageDomString, res) => {
                         cheerio.load(template).html()
                     );
 
-                // Mark active link
+                // Mark active link and current path
                 markActiveLink(parentPage, currentUrl);
-
-                // Mark active path
                 parentPage('body').attr('data-path', currentUrl);
 
                 // Return the server rendered page string

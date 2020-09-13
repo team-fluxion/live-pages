@@ -13,6 +13,7 @@ const addWeightsToRoutes = (tree, level = 0) => {
     for (let i = 0; i < tree.subRoutes.length; i += 1) {
         tree.subRoutes[i].weight = (10 ** level) + i;
 
+        // Recurse for sub-routes
         if (tree.subRoutes[i].subRoutes) {
             addWeightsToRoutes(tree.subRoutes[i], level + 1);
         }
@@ -51,11 +52,13 @@ const markNavigationStart = (horizontalDirection, verticalDirection) => {
 
     window.setTimeout(
         () => {
+            // Mark navigation direction
             addClassesToBody([
                 `${appConfig.navigationClassNamesPrefix}-${horizontalDirection ? 'forward' : 'backward'}`,
                 `${appConfig.navigationClassNamesPrefix}-${verticalDirection ? 'down' : 'up'}`
             ]);
 
+            // Unmark navigation start
             window.setTimeout(
                 () => {
                     removeClassesFromBody([
@@ -71,11 +74,11 @@ const markNavigationStart = (horizontalDirection, verticalDirection) => {
 
 // Function to mark navigation end
 const markNavigationEnd = (horizontalDirection, verticalDirection) => {
+    // Flip navigation direction
     removeClassesFromBody([
         `${appConfig.navigationClassNamesPrefix}-${horizontalDirection ? 'forward' : 'backward'}`,
         `${appConfig.navigationClassNamesPrefix}-${verticalDirection ? 'down' : 'up'}`
     ]);
-
     addClassesToBody([
         `${appConfig.navigationClassNamesPrefix}-${!horizontalDirection ? 'forward' : 'backward'}`,
         `${appConfig.navigationClassNamesPrefix}-${!verticalDirection ? 'down' : 'up'}`
@@ -83,10 +86,12 @@ const markNavigationEnd = (horizontalDirection, verticalDirection) => {
 
     window.setTimeout(
         () => {
+            // Prepare for navigation end
             addClassesToBody([
                 `${appConfig.navigationClassNamesPrefix}-in`
             ]);
 
+            // Unmark navigation direction
             removeClassesFromBody([
                 `${appConfig.navigationClassNamesPrefix}-${!horizontalDirection ? 'forward' : 'backward'}`,
                 `${appConfig.navigationClassNamesPrefix}-${!verticalDirection ? 'down' : 'up'}`
@@ -94,6 +99,7 @@ const markNavigationEnd = (horizontalDirection, verticalDirection) => {
 
             window.setTimeout(
                 () => {
+                    // End navigation
                     removeClassesFromBody([
                         `${appConfig.navigationClassNamesPrefix}-in`,
                         `${appConfig.navigationClassNamesPrefix}-live`
@@ -128,17 +134,14 @@ const renderOnClient = (route, currentUrl, horizontalDirection, verticalDirectio
     fillTemplateWithData(pageTemplate, route, currentUrl)
         .then(
             template => {
-                // Wait for the animation delay
                 window.setTimeout(
                     () => {
                         // Attach page template in router
                         document.querySelector(appConfig.pageElementSelector)
                             .innerHTML = template;
 
-                        // Mark active link
+                        // Mark active link and current path
                         markActiveLink(currentUrl);
-
-                        // Mark active path
                         document.body.setAttribute('data-path', currentUrl);
 
                         // Start marking navigation end
@@ -167,19 +170,14 @@ const handleRoute = ({ state }, horizontalDirection = false) => {
     const { location: { pathname } } = document;
     const interceptedPath = pathname.slice(0, 1) !== '/' ? `/${pathname}` : pathname;
 
-    // Find top-most matching route
+    // Find matching route, determine vertical direction
     const firstMatchingRoute = findChildRoute('/', appConfig.routes, interceptedPath);
-
-    // Find the previous route
     const previousRoute = findChildRoute('/', appConfig.routes, document.body.getAttribute('data-path'));
-
-    // Determine vertical direction of route
     const verticalDirection = getVerticalDirectionForNavigation(previousRoute, firstMatchingRoute);
 
     // Set navigation progress
     markNavigationStart(horizontalDirection, verticalDirection);
 
-    // Wait for the animation delay
     window.setTimeout(
         () => {
             if (firstMatchingRoute && firstMatchingRoute.page) {
@@ -256,9 +254,6 @@ export const init = config => {
     // Add event listeners
     document.addEventListener('click', handleGlobalClick);
     window.addEventListener('popstate', handleRoute);
-
-    // TODO: Uncomment if a re-render is needed on init
-    // handleRoute();
 };
 
 // Function to destroy the router
