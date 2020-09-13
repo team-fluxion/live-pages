@@ -72,9 +72,8 @@ const markNavigationStart = (horizontalDirection, verticalDirection) => {
     );
 };
 
-// Function to mark navigation end
-const markNavigationEnd = (horizontalDirection, verticalDirection) => {
-    // Flip navigation direction
+// Function to flip navigation direction
+const flipNavigationDirection = (horizontalDirection, verticalDirection) => {
     removeClassesFromBody([
         `${appConfig.navigationClassNamesPrefix}-${horizontalDirection ? 'forward' : 'backward'}`,
         `${appConfig.navigationClassNamesPrefix}-${verticalDirection ? 'down' : 'up'}`
@@ -83,6 +82,12 @@ const markNavigationEnd = (horizontalDirection, verticalDirection) => {
         `${appConfig.navigationClassNamesPrefix}-${!horizontalDirection ? 'forward' : 'backward'}`,
         `${appConfig.navigationClassNamesPrefix}-${!verticalDirection ? 'down' : 'up'}`
     ]);
+};
+
+// Function to mark navigation end
+const markNavigationEnd = (horizontalDirection, verticalDirection) => {
+    // Flip navigation direction
+    flipNavigationDirection(horizontalDirection, verticalDirection);
 
     window.setTimeout(
         () => {
