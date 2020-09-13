@@ -30,7 +30,7 @@ module.exports = {
     // `${prefix}-in` is used while the page is being brought back
     navigationClassNamesPrefix: 'live-pages-nav',
     // Animation delay for navigation in milliseconds
-    navigationAnimationDelay: 500,
+    navigationAnimationDelay: 250,
     // Class to be appended to the active anchor tag, if present
     activeLinkClassName: 'live-pages-active-link',
     // Routes for the web-app
