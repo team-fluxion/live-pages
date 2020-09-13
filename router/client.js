@@ -4,6 +4,7 @@ const path = require('path');
 const url = require('url');
 
 const { findChildRoute, fillTemplateWithData } = require('./common');
+const { addClassesToBody, removeClassesFromBody } = require('./dom');
 
 let appConfig;
 
@@ -40,33 +41,26 @@ const markActiveLink = currentUrl => {
     document.querySelector(`a[href='${currentUrl}']`).className += ` ${appConfig.activeLinkClassName}`;
 };
 
-// Function to add or remove a CSS class from body
-const addOrRemoveClass = (cssClass, shouldAdd) => {
-    let bodyClassName = document.body.className || '';
-
-    bodyClassName = bodyClassName.replace(` ${cssClass}`, '');
-
-    if (shouldAdd) {
-        document.body.className = `${bodyClassName} ${cssClass}`;
-    } else {
-        document.body.className = bodyClassName;
-    }
-};
-
 // Function to mark navigation in progress
 const markNavigationStart = (horizontalDirection, verticalDirection) => {
     // Mark navigation start
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-live`, true);
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-out`, true);
+    addClassesToBody([
+        `${appConfig.navigationClassNamesPrefix}-live`,
+        `${appConfig.navigationClassNamesPrefix}-out`
+    ]);
 
     window.setTimeout(
         () => {
-            addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${horizontalDirection ? 'forward' : 'backward'}`, true);
-            addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${verticalDirection ? 'down' : 'up'}`, true);
+            addClassesToBody([
+                `${appConfig.navigationClassNamesPrefix}-${horizontalDirection ? 'forward' : 'backward'}`,
+                `${appConfig.navigationClassNamesPrefix}-${verticalDirection ? 'down' : 'up'}`
+            ]);
 
             window.setTimeout(
                 () => {
-                    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-out`, false);
+                    removeClassesFromBody([
+                        `${appConfig.navigationClassNamesPrefix}-out`
+                    ]);
                 },
                 appConfig.navigationAnimationDelay
             );
@@ -77,21 +71,33 @@ const markNavigationStart = (horizontalDirection, verticalDirection) => {
 
 // Function to mark navigation end
 const markNavigationEnd = (horizontalDirection, verticalDirection) => {
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${horizontalDirection ? 'forward' : 'backward'}`, false);
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${verticalDirection ? 'down' : 'up'}`, false);
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${!horizontalDirection ? 'forward' : 'backward'}`, true);
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${!verticalDirection ? 'down' : 'up'}`, true);
+    removeClassesFromBody([
+        `${appConfig.navigationClassNamesPrefix}-${horizontalDirection ? 'forward' : 'backward'}`,
+        `${appConfig.navigationClassNamesPrefix}-${verticalDirection ? 'down' : 'up'}`
+    ]);
+
+    addClassesToBody([
+        `${appConfig.navigationClassNamesPrefix}-${!horizontalDirection ? 'forward' : 'backward'}`,
+        `${appConfig.navigationClassNamesPrefix}-${!verticalDirection ? 'down' : 'up'}`
+    ]);
 
     window.setTimeout(
         () => {
-            addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-in`, true);
-            addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${!horizontalDirection ? 'forward' : 'backward'}`, false);
-            addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${!verticalDirection ? 'down' : 'up'}`, false);
+            addClassesToBody([
+                `${appConfig.navigationClassNamesPrefix}-in`
+            ]);
+
+            removeClassesFromBody([
+                `${appConfig.navigationClassNamesPrefix}-${!horizontalDirection ? 'forward' : 'backward'}`,
+                `${appConfig.navigationClassNamesPrefix}-${!verticalDirection ? 'down' : 'up'}`
+            ]);
 
             window.setTimeout(
                 () => {
-                    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-in`, false);
-                    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-live`, false);
+                    removeClassesFromBody([
+                        `${appConfig.navigationClassNamesPrefix}-in`,
+                        `${appConfig.navigationClassNamesPrefix}-live`
+                    ]);
                 },
                 appConfig.navigationAnimationDelay
             );
@@ -102,13 +108,15 @@ const markNavigationEnd = (horizontalDirection, verticalDirection) => {
 
 // Function to stop/cancel/unmark navigation
 const unmarkNavigation = () => {
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-live`, false);
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-out`, false);
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-in`, false);
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-backward`, false);
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-forward`, false);
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-down`, false);
-    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-up`, false);
+    removeClassesFromBody([
+        `${appConfig.navigationClassNamesPrefix}-live`,
+        `${appConfig.navigationClassNamesPrefix}-out`,
+        `${appConfig.navigationClassNamesPrefix}-in`,
+        `${appConfig.navigationClassNamesPrefix}-backward`,
+        `${appConfig.navigationClassNamesPrefix}-forward`,
+        `${appConfig.navigationClassNamesPrefix}-down`,
+        `${appConfig.navigationClassNamesPrefix}-up`
+    ]);
 };
 
 // Function to render a route page on client
