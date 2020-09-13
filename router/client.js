@@ -7,6 +7,17 @@ const { findChildRoute, fillTemplateWithData } = require('./common');
 
 let appConfig;
 
+// Function to add incremental weights to routes
+const addWeightsToRoutes = (tree, level = 0) => {
+    for (let i = 0; i < tree.subRoutes.length; i += 1) {
+        tree.subRoutes[i].weight = (10 ** level) + i;
+
+        if (tree.subRoutes[i].subRoutes) {
+            addWeightsToRoutes(tree.subRoutes[i], level + 1);
+        }
+    }
+};
+
 // Function to push a navigation state to browser history
 const pushToHistory = (pathname, state) => {
     window.history.pushState(
@@ -43,7 +54,7 @@ const addOrRemoveClass = (cssClass, shouldAdd) => {
 };
 
 // Function to mark navigation in progress
-const markNavigationStart = horizontalDirection => {
+const markNavigationStart = (horizontalDirection, verticalDirection) => {
     // Mark navigation start
     addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-live`, true);
     addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-out`, true);
@@ -51,6 +62,7 @@ const markNavigationStart = horizontalDirection => {
     window.setTimeout(
         () => {
             addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${horizontalDirection ? 'forward' : 'backward'}`, true);
+            addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${verticalDirection ? 'down' : 'up'}`, true);
 
             window.setTimeout(
                 () => {
@@ -64,14 +76,17 @@ const markNavigationStart = horizontalDirection => {
 };
 
 // Function to mark navigation end
-const markNavigationEnd = horizontalDirection => {
+const markNavigationEnd = (horizontalDirection, verticalDirection) => {
     addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${horizontalDirection ? 'forward' : 'backward'}`, false);
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${verticalDirection ? 'down' : 'up'}`, false);
     addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${!horizontalDirection ? 'forward' : 'backward'}`, true);
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${!verticalDirection ? 'down' : 'up'}`, true);
 
     window.setTimeout(
         () => {
             addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-in`, true);
             addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${!horizontalDirection ? 'forward' : 'backward'}`, false);
+            addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-${!verticalDirection ? 'down' : 'up'}`, false);
 
             window.setTimeout(
                 () => {
@@ -92,10 +107,12 @@ const unmarkNavigation = () => {
     addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-in`, false);
     addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-backward`, false);
     addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-forward`, false);
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-down`, false);
+    addOrRemoveClass(`${appConfig.navigationClassNamesPrefix}-up`, false);
 };
 
 // Function to render a route page on client
-const renderOnClient = (route, currentUrl, horizontalDirection) => {
+const renderOnClient = (route, currentUrl, horizontalDirection, verticalDirection) => {
     // Load template for route
     const pageTemplate = require(`../web/pages/${route.page}.handlebars`);
 
@@ -117,7 +134,7 @@ const renderOnClient = (route, currentUrl, horizontalDirection) => {
                         document.body.setAttribute('data-path', currentUrl);
 
                         // Start marking navigation end
-                        markNavigationEnd(horizontalDirection);
+                        markNavigationEnd(horizontalDirection, verticalDirection);
                     },
                     appConfig.navigationAnimationDelay
                 );
@@ -125,24 +142,46 @@ const renderOnClient = (route, currentUrl, horizontalDirection) => {
         );
 };
 
+// Function to get vertical direction of route change
+const getVerticalDirectionForNavigation = (previousRoute, currentRoute) => {
+    if (!previousRoute || !currentRoute) {
+        // Default to downward
+        return true;
+    } else {
+        // Compare weights, positive meaning downward
+        return (currentRoute.weight || 0) - (previousRoute.weight || 0) > 0;
+    }
+};
+
 // Function to handle route changes on client
 const handleRoute = ({ state }, horizontalDirection = false) => {
+    // Retrieve path variables
+    const { location: { pathname } } = document;
+    const interceptedPath = pathname.slice(0, 1) !== '/' ? `/${pathname}` : pathname;
+
+    // Find top-most matching route
+    const firstMatchingRoute = findChildRoute('/', appConfig.routes, interceptedPath);
+
+    // Find the previous route
+    const previousRoute = findChildRoute('/', appConfig.routes, document.body.getAttribute('data-path'));
+
+    // Determine vertical direction of route
+    const verticalDirection = getVerticalDirectionForNavigation(previousRoute, firstMatchingRoute);
+
     // Set navigation progress
-    markNavigationStart(horizontalDirection ? 1 : 0);
+    markNavigationStart(horizontalDirection, verticalDirection);
 
     // Wait for the animation delay
     window.setTimeout(
         () => {
-            // Retrieve path variables
-            const { location: { pathname } } = document;
-            const interceptedPath = pathname.slice(0, 1) !== '/' ? `/${pathname}` : pathname;
-
-            // Find top-most matching route
-            const firstMatchingRoute = findChildRoute('/', appConfig.routes, interceptedPath);
-
             if (firstMatchingRoute && firstMatchingRoute.page) {
                 // Render page for matched route
-                renderOnClient(firstMatchingRoute, interceptedPath, horizontalDirection);
+                renderOnClient(
+                    firstMatchingRoute,
+                    interceptedPath,
+                    horizontalDirection,
+                    verticalDirection
+                );
             } else if (appConfig.invalidRouteAction) {
                 // Invoke action for invalid route
                 appConfig.invalidRouteAction(pathname);
@@ -203,6 +242,10 @@ const handleGlobalClick = event => {
 export const init = config => {
     appConfig = config;
 
+    // Add weights to routes
+    addWeightsToRoutes(appConfig.routes);
+
+    // Add event listeners
     document.addEventListener('click', handleGlobalClick);
     window.addEventListener('popstate', handleRoute);
 
@@ -212,6 +255,7 @@ export const init = config => {
 
 // Function to destroy the router
 export const destroy = () => {
+    // Remove event listeners
     document.removeEventListener('click', handleGlobalClick);
     window.removeEventListener('popstate', handleRoute);
 };
