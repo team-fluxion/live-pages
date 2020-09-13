@@ -68,7 +68,7 @@ const markNavigationStart = (horizontalDirection, verticalDirection) => {
                 appConfig.navigationAnimationDelay
             );
         },
-        50
+        20
     );
 };
 
@@ -108,7 +108,7 @@ const markNavigationEnd = (horizontalDirection, verticalDirection) => {
                 appConfig.navigationAnimationDelay
             );
         },
-        50
+        20
     );
 };
 
