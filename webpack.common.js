@@ -93,6 +93,9 @@ module.exports = {
         extractCSS,
         optimizeCSS
     ],
+    node: {
+        fs: 'empty'
+    },
     output: {
         filename: 'scripts/[name].js',
         path: path.resolve(__dirname, outputDir),
