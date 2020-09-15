@@ -65,7 +65,7 @@ const markNavigationStart = (horizontalDirection, verticalDirection) => {
                         `${appConfig.navigationClassNamesPrefix}-out`
                     ]);
                 },
-                appConfig.navigationAnimationDelay
+                appConfig.navigationAnimationDelay / 2
             );
         },
         20
@@ -110,7 +110,7 @@ const markNavigationEnd = (horizontalDirection, verticalDirection) => {
                         `${appConfig.navigationClassNamesPrefix}-live`
                     ]);
                 },
-                appConfig.navigationAnimationDelay
+                appConfig.navigationAnimationDelay / 2
             );
         },
         20
@@ -152,7 +152,7 @@ const renderOnClient = (route, currentUrl, horizontalDirection, verticalDirectio
                         // Start marking navigation end
                         markNavigationEnd(horizontalDirection, verticalDirection);
                     },
-                    appConfig.navigationAnimationDelay
+                    appConfig.navigationAnimationDelay / 2
                 );
             }
         );
@@ -204,7 +204,7 @@ const handleRoute = ({ state }, horizontalDirection = false) => {
                 navigate('/');
             }
         },
-        appConfig.navigationAnimationDelay
+        appConfig.navigationAnimationDelay / 2
     );
 };
 
