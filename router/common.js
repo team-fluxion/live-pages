@@ -41,10 +41,15 @@ const getDataFromWebApiHandler = (template, route, currentUrl, appConfig, onDone
     let result;
     if (typeof window === 'undefined') {
         // For server
-        result = webApi.handler(currentUrl);
+        result = webApi.handler({
+            url: `${webApi.url}?path=${currentUrl}`,
+            query: {
+                path: currentUrl
+            }
+        });
     } else {
         // For client
-        result = axios.get(nodeUrl.resolve(appConfig.domain, route.data));
+        result = axios.get(`${nodeUrl.resolve(appConfig.domain, route.data)}?path=${currentUrl}`);
     }
 
     // Check if the result is a promise

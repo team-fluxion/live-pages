@@ -67,7 +67,10 @@ module.exports = url => {
             app.get(
                 url,
                 (req, res) => {
-                    res.send(handler(req.url));
+                    res.send(handler({
+                        url: req.url,
+                        query: req.query
+                    }));
                 }
             );
         }
