@@ -33,13 +33,19 @@ const pushToHistory = (pathname, state) => {
 const markActiveLink = currentUrl => {
     const previouslyActiveLink = document.querySelector(`.${appConfig.activeLinkClassName}`);
 
-    // Unmark previously active link
-    previouslyActiveLink.className = previouslyActiveLink.className
-        .replace(appConfig.activeLinkClassName, '')
-        .trim();
+    // Unmark previously active link, if any
+    if (previouslyActiveLink) {
+        previouslyActiveLink.className = previouslyActiveLink.className
+            .replace(appConfig.activeLinkClassName, '')
+            .trim();
+    }
 
-    // Mark currently active link
-    document.querySelector(`a[href='${currentUrl}']`).className += ` ${appConfig.activeLinkClassName}`;
+    const currentlyActiveLink = document.querySelector(`a[href='${currentUrl}']`);
+
+    // Mark currently active link, if any
+    if (currentlyActiveLink) {
+        currentlyActiveLink.className += ` ${appConfig.activeLinkClassName}`;
+    }
 };
 
 // Function to mark navigation in progress
