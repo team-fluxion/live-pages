@@ -239,7 +239,7 @@ const handleGlobalClick = event => {
         const href = activeElement.getAttribute('href');
 
         // Check whether URL is internal or external
-        if (isInternalUrl(path.join('/', href))) {
+        if (isInternalUrl(url.resolve('/', href))) {
             // Navigate internally for internal URLs
             navigate(href);
         } else {
