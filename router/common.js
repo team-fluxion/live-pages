@@ -51,11 +51,11 @@ const getDataFromWebApiHandler = (template, route, currentUrl, appConfig, onDone
     if (result.then) {
         // Send response after the promise resolves
         result.then(
-            ({ data }) => { onDone(template({ data })); }
+            ({ data }) => { onDone(template(data)); }
         );
     } else {
         // Return the template with generated result
-        onDone(template({ data: result }));
+        onDone(template(result));
     }
 };
 
