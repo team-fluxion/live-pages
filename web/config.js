@@ -1,6 +1,8 @@
 /* global require module window */
 
 module.exports = {
+    // Version of config file format, only for validation purpose
+    configVersion: 1,
     // Name of the app, not displayed to users
     appName: 'that-web-app',
     // Name of the app that's actually visible to users

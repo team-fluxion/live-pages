@@ -7,6 +7,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Handlebars = require('handlebars');
 
+const { validate } = require('./config-validator');
 const { init, handleRoute } = require('./router/server');
 const config = require('./web/config');
 
@@ -39,6 +40,11 @@ const serveRequest = ({ url }, res) => {
 };
 
 module.exports = url => {
+    // Validate configs
+    if (!validate(config)) {
+        return;
+    }
+
     // Create web-app and perform init
     const app = express();
     init(config);
