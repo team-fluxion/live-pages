@@ -27,7 +27,7 @@ const renderOnServer = (route, currentUrl, parentPageDomString, res) => {
     );
 
     // Get template filled with data for route, for currentUrl
-    fillTemplateWithData(pageTemplate, route, currentUrl)
+    fillTemplateWithData(pageTemplate, route, currentUrl, appConfig)
         .then(
             template => {
                 // Get a reference of router element, load template

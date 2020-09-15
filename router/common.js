@@ -1,7 +1,9 @@
 /* global require module */
 
 const path = require('path');
+const nodeUrl = require('url');
 const Promise = require('bluebird');
+const axios = require('axios');
 
 // Function to find a matching internal route
 const findChildRoute = (parentUrl, tree, urlToFind) => {
@@ -31,6 +33,32 @@ const findChildRoute = (parentUrl, tree, urlToFind) => {
 const getUrlParams = url =>
     url.split('/').slice(1);
 
+// Function to retrieve data from WebAPI handler
+const getDataFromWebApiHandler = (template, route, currentUrl, appConfig, onDone) => {
+    // Find the first matching handler in config
+    const webApi = appConfig.webApis.filter(a => route.data.indexOf(a.url) > -1)[0];
+
+    let result;
+    if (typeof window === 'undefined') {
+        // For server
+        result = webApi.handler(currentUrl);
+    } else {
+        // For client
+        result = axios.get(nodeUrl.resolve(appConfig.domain, route.data));
+    }
+
+    // Check if the result is a promise
+    if (result.then) {
+        // Send response after the promise resolves
+        result.then(
+            ({ data }) => { onDone(template({ data })); }
+        );
+    } else {
+        // Return the template with generated result
+        onDone(template({ data: result }));
+    }
+};
+
 // Function to obtain data from a data function
 const getDataFromFunction = (template, route, currentUrl, onDone) => {
     // Evaluate the data specification
@@ -49,7 +77,7 @@ const getDataFromFunction = (template, route, currentUrl, onDone) => {
 };
 
 // Function to fetch and fill data in for a template
-const fillTemplateWithData = (template, route, currentUrl) =>
+const fillTemplateWithData = (template, route, currentUrl, appConfig) =>
     new Promise(
         resolve => {
             // For a route with no data specification
@@ -60,6 +88,12 @@ const fillTemplateWithData = (template, route, currentUrl) =>
             // For a route with data as a literal object
             if (typeof route.data === 'object') {
                 resolve(template(route.data));
+            }
+
+            // For a route associated with a WebAPI request
+            if (typeof route.data === 'string') {
+                getDataFromWebApiHandler(template, route, currentUrl, appConfig, resolve);
+                return;
             }
 
             // Get data by executing the data function

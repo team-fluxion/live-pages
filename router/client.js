@@ -142,7 +142,7 @@ const renderOnClient = (route, currentUrl, horizontalDirection, verticalDirectio
     const pageTemplate = require(`../web/pages/${route.page}.handlebars`);
 
     // Get template filled with data for route, for currentUrl
-    fillTemplateWithData(pageTemplate, route, currentUrl)
+    fillTemplateWithData(pageTemplate, route, currentUrl, appConfig)
         .then(
             template => {
                 window.setTimeout(

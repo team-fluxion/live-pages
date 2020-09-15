@@ -42,9 +42,7 @@ module.exports = {
         // Name of the template to be used for this route
         page: 'home',
         // The data dependency for this route
-        data: () => ({
-            timeRightNow: new Date()
-        }),
+        data: '/api/time',
         // Subroutes for this route as nested routes
         subRoutes: [
             {
@@ -109,6 +107,13 @@ module.exports = {
             }
         ]
     },
+    // Web API handlers to be hosted on the server
+    webApis: [
+        {
+            url: '/api/time',
+            handler: () => new Date()
+        }
+    ],
     // Handler for invalid routes in case the web-app lands on such a route
     invalidRouteAction: url => {
         window.alert(`Invalid route: ${url}`, { autoClose: 5000 });

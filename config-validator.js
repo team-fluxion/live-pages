@@ -17,6 +17,7 @@ const knownConfigs = {
         'navigationAnimationDelay',
         'activeLinkClassName',
         'routes',
+        'webApis',
         'invalidRouteAction',
         'invalidRouteMessage',
         'genericErrorText'

@@ -61,6 +61,18 @@ module.exports = url => {
         }
     );
 
+    // Host all Web API handlers
+    config.webApis.forEach(
+        ({ url, handler }) => {
+            app.get(
+                url,
+                (req, res) => {
+                    res.send(handler(req.url));
+                }
+            );
+        }
+    );
+
     // Serve index page
     app.get('*', serveRequest);
 };
