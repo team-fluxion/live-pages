@@ -20,6 +20,7 @@ const knownConfigs = {
         'webApis',
         'additionalAssetsToInclude',
         'exceptionsForStaticDirectory',
+        'redirects',
         'invalidRouteAction',
         'invalidRouteMessage',
         'genericErrorText'

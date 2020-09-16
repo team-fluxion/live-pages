@@ -123,6 +123,10 @@ module.exports = {
     exceptionsForStaticDirectory: [
         '/sample.txt'
     ],
+    // Redirects
+    redirects: {
+        '/time': '/'
+    },
     // Handler for invalid routes in case the web-app lands on such a route
     invalidRouteAction: url => {
         window.alert(`Invalid route: ${url}`, { autoClose: 5000 });

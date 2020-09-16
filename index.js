@@ -27,8 +27,10 @@ const readFile = (basePath, filePath) => {
 };
 
 const serveRequest = ({ url }, res) => {
-    // Check for files to be served from root as an exception
-    if (config.exceptionsForStaticDirectory.indexOf(url) > -1) {
+    if (config.redirects[url]) {
+        // Use the known redirect
+        res.redirect(config.redirects[url]);
+    } else if (config.exceptionsForStaticDirectory.indexOf(url) > -1) {
         // Serve the file and end the response
         res.send(readFile(basePath, `public${url}`));
     } else {
