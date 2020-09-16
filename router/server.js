@@ -1,5 +1,6 @@
 /* global require module */
 
+const path = require('path');
 const fs = require('fs');
 const cheerio = require('cheerio');
 const Handlebars = require('handlebars');
@@ -14,14 +15,14 @@ const markActiveLinks = (page, currentUrl) => {
 };
 
 // Function to render a route page on server
-const renderOnServer = (route, currentUrl, parentPageDomString, res) => {
+const renderOnServer = (route, currentUrl, parentPageDomString, res, basePath) => {
     // Hydrate parent page DOM from string
     const parentPage = cheerio.load(parentPageDomString);
 
     // Load route page template
     const pageTemplate = Handlebars.compile(
         fs.readFileSync(
-            `./web/pages/${route.page}.handlebars`,
+            path.join(basePath, `./web/pages/${route.page}.handlebars`),
             'utf8'
         )
     );
@@ -47,7 +48,7 @@ const renderOnServer = (route, currentUrl, parentPageDomString, res) => {
 };
 
 // Function to handle route on server
-const handleRoute = (currentUrl, parentPageDomString, res) => {
+const handleRoute = (currentUrl, parentPageDomString, res, basePath) => {
     // Find matching route
     const firstMatchingRoute = findChildRoute('/', appConfig.routes, currentUrl);
 
@@ -57,7 +58,8 @@ const handleRoute = (currentUrl, parentPageDomString, res) => {
             firstMatchingRoute,
             currentUrl,
             parentPageDomString,
-            res
+            res,
+            basePath
         );
     } else if (appConfig.invalidRouteMessage) {
         // Render the configured message for invalid route

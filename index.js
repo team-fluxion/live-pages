@@ -43,7 +43,7 @@ const serveRequest = ({ url }, res) => {
         );
 
         // Handle route with server router
-        handleRoute(url, parentPageDomString, res);
+        handleRoute(url, parentPageDomString, res, basePath);
     }
 };
 
