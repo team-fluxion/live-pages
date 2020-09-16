@@ -114,6 +114,10 @@ module.exports = {
             handler: () => new Date()
         }
     ],
+    // Assets to be copied to the `public` directory, relative to this directory
+    additionalAssetsToInclude: [
+        'images'
+    ],
     // Handler for invalid routes in case the web-app lands on such a route
     invalidRouteAction: url => {
         window.alert(`Invalid route: ${url}`, { autoClose: 5000 });

@@ -11,8 +11,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+const config = require('./web/config');
+
 const clean = new CleanWebpackPlugin([outputDir]);
-const copy = new CopyWebpackPlugin([
+const assetsToBeCopied = [
     {
         from: `${sourceDir}/favicon.ico`
     },
@@ -20,7 +22,15 @@ const copy = new CopyWebpackPlugin([
         from: `${sourceDir}/icons`,
         to: 'icons'
     }
-]);
+];
+const copy = new CopyWebpackPlugin(
+    assetsToBeCopied
+        .concat(
+            config.additionalAssetsToInclude.map(
+                a => ({ from: `${sourceDir}/${a}`, to: a })
+            )
+        )
+);
 const extractCSS = new ExtractTextPlugin('styles/styles.css');
 const optimizeCSS = new OptimizeCssAssetsPlugin();
 

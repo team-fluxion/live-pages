@@ -18,6 +18,7 @@ const knownConfigs = {
         'activeLinkClassName',
         'routes',
         'webApis',
+        'additionalAssetsToInclude',
         'invalidRouteAction',
         'invalidRouteMessage',
         'genericErrorText'
