@@ -9,7 +9,7 @@ const { findChildRoute, fillTemplateWithData } = require('./common');
 let appConfig;
 
 // Function to mark active link
-const markActiveLink = (page, currentUrl) => {
+const markActiveLinks = (page, currentUrl) => {
     page(`a[href='${currentUrl}']`).addClass(appConfig.activeLinkClassName);
 };
 
@@ -37,7 +37,7 @@ const renderOnServer = (route, currentUrl, parentPageDomString, res) => {
                     );
 
                 // Mark active link and current path
-                markActiveLink(parentPage, currentUrl);
+                markActiveLinks(parentPage, currentUrl);
                 parentPage('body').attr('data-path', currentUrl);
 
                 // Return the server rendered page string

@@ -30,21 +30,21 @@ const pushToHistory = (pathname, state) => {
 };
 
 // Function to mark active link
-const markActiveLink = currentUrl => {
-    const previouslyActiveLink = document.querySelector(`.${appConfig.activeLinkClassName}`);
+const markActiveLinks = currentUrl => {
+    const previouslyActiveLinks = document.querySelectorAll(`.${appConfig.activeLinkClassName}`);
 
-    // Unmark previously active link, if any
-    if (previouslyActiveLink) {
-        previouslyActiveLink.className = previouslyActiveLink.className
+    // Unmark previously active links
+    for (let i = 0; i < previouslyActiveLinks.length; i += 1) {
+        previouslyActiveLinks[i].className = previouslyActiveLinks[i].className
             .replace(appConfig.activeLinkClassName, '')
             .trim();
     }
 
-    const currentlyActiveLink = document.querySelector(`a[href='${currentUrl}']`);
+    const currentlyActiveLinks = document.querySelectorAll(`a[href='${currentUrl}']`);
 
-    // Mark currently active link, if any
-    if (currentlyActiveLink) {
-        currentlyActiveLink.className += ` ${appConfig.activeLinkClassName}`;
+    // Mark currently active links
+    for (let i = 0; i < currentlyActiveLinks.length; i += 1) {
+        currentlyActiveLinks[i].className += ` ${appConfig.activeLinkClassName}`;
     }
 };
 
@@ -152,7 +152,7 @@ const renderOnClient = (route, currentUrl, horizontalDirection, verticalDirectio
                             .innerHTML = template;
 
                         // Mark active link and current path
-                        markActiveLink(currentUrl);
+                        markActiveLinks(currentUrl);
                         document.body.setAttribute('data-path', currentUrl);
 
                         // Start marking navigation end
