@@ -165,13 +165,25 @@ const renderOnClient = (route, currentUrl, horizontalDirection, verticalDirectio
 };
 
 // Function to get vertical direction of route change
-const getVerticalDirectionForNavigation = (previousRoute, currentRoute) => {
+const getVerticalDirectionForNavigation = (
+    previousRoute,
+    previousUrl,
+    currentRoute,
+    currentUrl
+) => {
     if (!previousRoute || !currentRoute) {
         // Default to downward
         return true;
     } else {
+        const currentWeight = currentRoute.weight || 0;
+        const previousWeight = previousRoute.weight || 0;
+
         // Compare weights, positive meaning downward
-        return (currentRoute.weight || 0) - (previousRoute.weight || 0) > 0;
+        if (currentWeight !== previousWeight) {
+            return currentWeight >= previousWeight;
+        } else {
+            return currentUrl.split('/').length >= previousUrl.split('/').length;
+        }
     }
 };
 
@@ -183,8 +195,14 @@ const handleRoute = ({ state }, horizontalDirection = false) => {
 
     // Find matching route, determine vertical direction
     const firstMatchingRoute = findChildRoute('/', appConfig.routes, interceptedPath);
-    const previousRoute = findChildRoute('/', appConfig.routes, document.body.getAttribute('data-path'));
-    const verticalDirection = getVerticalDirectionForNavigation(previousRoute, firstMatchingRoute);
+    const previousUrl = document.body.getAttribute('data-path');
+    const previousRoute = findChildRoute('/', appConfig.routes, previousUrl);
+    const verticalDirection = getVerticalDirectionForNavigation(
+        previousRoute,
+        previousUrl,
+        firstMatchingRoute,
+        interceptedPath
+    );
 
     // Set navigation progress
     markNavigationStart(horizontalDirection, verticalDirection);
