@@ -19,6 +19,7 @@ const knownConfigs = {
         'routes',
         'webApis',
         'additionalAssetsToInclude',
+        'exceptionsForStaticDirectory',
         'invalidRouteAction',
         'invalidRouteMessage',
         'genericErrorText'

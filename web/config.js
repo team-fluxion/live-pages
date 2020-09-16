@@ -116,7 +116,12 @@ module.exports = {
     ],
     // Assets to be copied to the `public` directory, relative to this directory
     additionalAssetsToInclude: [
-        'images'
+        'images',
+        'sample.txt'
+    ],
+    // Files to be served at root as an exception
+    exceptionsForStaticDirectory: [
+        '/sample.txt'
     ],
     // Handler for invalid routes in case the web-app lands on such a route
     invalidRouteAction: url => {

@@ -27,16 +27,22 @@ const readFile = (basePath, filePath) => {
 };
 
 const serveRequest = ({ url }, res) => {
-    // Gather landing HTML page string components
-    const landingPageTemplate = readFile(basePath, 'public/index.html');
-    const bodyTemplate = Handlebars.compile(readFile(basePath, 'web/body.html'));
-    const parentPageDomString = landingPageTemplate.replace(
-        '<!--body-tag-placeholder-->',
-        bodyTemplate()
-    );
+    // Check for files to be served from root as an exception
+    if (config.exceptionsForStaticDirectory.indexOf(url) > -1) {
+        // Serve the file and end the response
+        res.send(readFile(basePath, `public${url}`));
+    } else {
+        // Gather landing HTML page string components
+        const landingPageTemplate = readFile(basePath, 'public/index.html');
+        const bodyTemplate = Handlebars.compile(readFile(basePath, 'web/body.html'));
+        const parentPageDomString = landingPageTemplate.replace(
+            '<!--body-tag-placeholder-->',
+            bodyTemplate()
+        );
 
-    // Handle route with server router
-    handleRoute(url, parentPageDomString, res);
+        // Handle route with server router
+        handleRoute(url, parentPageDomString, res);
+    }
 };
 
 module.exports = url => {
