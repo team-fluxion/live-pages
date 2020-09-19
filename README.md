@@ -54,6 +54,11 @@ If you just want to deploy your web-app on a machine, simply running `npm run st
 
 ## To-Do
 
-* Add support for [Sass](https://sass-lang.com)
-* Improve documentation
+* Update documentation with details on recent features
+* Create a wiki
+* Implement pattern matching for routes
+* Implement master page/template
+* Implement global template substitution
 * Externalize router
+* Make the example more clear
+* Simplify placement of example, separate from actual web directory if possible
