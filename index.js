@@ -71,8 +71,39 @@ module.exports = url => {
 
     // Host all Web API handlers
     config.webApis.forEach(
-        ({ url, handler }) => {
-            app.get(
+        ({ url, handler, verb }) => {
+            app.methodToBeUsed = undefined;
+
+            switch (verb) {
+                case 'POST':
+                    app.methodToBeUsed = app.post;
+                    break;
+                case 'PUT':
+                    app.methodToBeUsed = app.put;
+                    break;
+                case 'PATCH':
+                    app.methodToBeUsed = app.patch;
+                    break;
+                case 'DELETE':
+                    app.methodToBeUsed = app.delete;
+                    break;
+                case 'HEAD':
+                    app.methodToBeUsed = app.head;
+                    break;
+                case 'OPTIONS':
+                    app.methodToBeUsed = app.options;
+                    break;
+                case 'CONNECT':
+                    app.methodToBeUsed = app.connect;
+                    break;
+                case 'TRACE':
+                    app.methodToBeUsed = app.trace;
+                    break;
+                default:
+                    app.methodToBeUsed = app.get;
+            }
+
+            app.methodToBeUsed(
                 url,
                 (req, res) => {
                     res.send(handler({

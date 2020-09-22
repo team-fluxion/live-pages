@@ -111,7 +111,8 @@ module.exports = {
     webApis: [
         {
             url: '/api/time',
-            handler: () => new Date()
+            handler: () => new Date(),
+            verb: 'GET'
         }
     ],
     // Elements of the page with dynamic values depending on the active route, etc.
