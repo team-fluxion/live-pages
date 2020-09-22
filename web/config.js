@@ -111,7 +111,8 @@ module.exports = {
     webApis: [
         {
             url: '/api/time',
-            handler: () => new Date()
+            handler: () => new Date(),
+            verb: 'GET'
         }
     ],
     // Assets to be copied to the `public` directory, relative to this directory
