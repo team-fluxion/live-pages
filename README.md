@@ -58,7 +58,6 @@ If you just want to deploy your web-app on a machine, simply running `npm run st
 * Create a wiki
 * Implement pattern matching for routes
 * Implement master page/template
-* Implement global template substitution
 * Externalize router
 * Make the example more clear
 * Simplify placement of example, separate from actual web directory if possible

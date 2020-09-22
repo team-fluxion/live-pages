@@ -136,6 +136,19 @@ const unmarkNavigation = () => {
     ]);
 };
 
+// Function to set values to dynamic elements
+const setValuesToDynamicElements = (route, currentUrl) => {
+    appConfig.dynamicElements.forEach(
+        ({ domSelector, assignValue }) => {
+            const element = document.querySelector(domSelector);
+
+            if (element) {
+                element.innerHTML = assignValue(route, currentUrl);
+            }
+        }
+    );
+};
+
 // Function to render a route page on client
 const renderOnClient = (route, currentUrl, horizontalDirection, verticalDirection) => {
     // Load template for route
@@ -154,6 +167,9 @@ const renderOnClient = (route, currentUrl, horizontalDirection, verticalDirectio
                         // Mark active link and current path
                         markActiveLinks(currentUrl);
                         document.body.setAttribute('data-path', currentUrl);
+
+                        // Set dynamic DOM node values
+                        setValuesToDynamicElements(route, currentUrl);
 
                         // Start marking navigation end
                         markNavigationEnd(horizontalDirection, verticalDirection);

@@ -14,6 +14,19 @@ const markActiveLinks = (page, currentUrl) => {
     page(`a[href='${currentUrl}']`).addClass(appConfig.activeLinkClassName);
 };
 
+// Function to set values to dynamic elements
+const setValuesToDynamicElements = (pageDom, route, currentUrl) => {
+    appConfig.dynamicElements.forEach(
+        ({ domSelector, assignValue }) => {
+            const element = pageDom(domSelector);
+
+            if (element) {
+                element.html(assignValue(route, currentUrl));
+            }
+        }
+    );
+};
+
 // Function to render a route page on server
 const renderOnServer = (route, currentUrl, parentPageDomString, res, basePath) => {
     // Hydrate parent page DOM from string
@@ -40,6 +53,9 @@ const renderOnServer = (route, currentUrl, parentPageDomString, res, basePath) =
                 // Mark active link and current path
                 markActiveLinks(parentPage, currentUrl);
                 parentPage('body').attr('data-path', currentUrl);
+
+                // Set dynamic DOM node values
+                setValuesToDynamicElements(parentPage, route, currentUrl);
 
                 // Return the server rendered page string
                 res.send(parentPage.html());

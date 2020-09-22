@@ -114,6 +114,16 @@ module.exports = {
             handler: () => new Date()
         }
     ],
+    // Elements of the page with dynamic values depending on the active route, etc.
+    dynamicElements: [
+        {
+            // Almost any valid DOM selector to pick the dynamic element
+            domSelector: '#current-route-label',
+            // The function gets passed the active route and current URL
+            assignValue: (route, url) =>
+                `The currently active route is '${route.url}' and current URL is '${url}'`
+        }
+    ],
     // Assets to be copied to the `public` directory, relative to this directory
     additionalAssetsToInclude: [
         'images',

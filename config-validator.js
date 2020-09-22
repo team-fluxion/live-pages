@@ -18,6 +18,7 @@ const knownConfigs = {
         'activeLinkClassName',
         'routes',
         'webApis',
+        'dynamicElements',
         'additionalAssetsToInclude',
         'exceptionsForStaticDirectory',
         'redirects',
