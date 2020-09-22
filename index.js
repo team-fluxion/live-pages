@@ -106,10 +106,15 @@ module.exports = url => {
             app.methodToBeUsed(
                 url,
                 (req, res) => {
-                    res.send(handler({
+                    const response = handler({
                         url: req.url,
-                        query: req.query
-                    }));
+                        req: req,
+                        res: res
+                    });
+
+                    if (response) {
+                        res.send(response);
+                    }
                 }
             );
         }
