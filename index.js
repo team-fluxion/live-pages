@@ -9,57 +9,95 @@ const webpackConfigDev = require('./webpack.dev');
 const webpackConfigProd = require('./webpack.prod');
 const startWebServer = require('./web-server');
 
-// Function to validate input arguments
-const validateInputArguments = () => {
-    // TODO: Implement validations
+// Function to handle response from webpack compiler
+const webpackCompilerHandler = (err, stats) => {
+    if (err) {
+        console.error(err.stack || err);
+        if (err.details) {
+            console.error(err.details);
+        }
+        return;
+    }
+
+    const info = stats.toJson();
+
+    if (stats.hasErrors()) {
+        console.error(info.errors);
+    }
+
+    if (stats.hasWarnings()) {
+        console.warn(info.warnings);
+    }
 };
 
 // Function to compile client code in debug mode
 const compileClientInDebugMode = () => {
-    // TODO: Implement
-    // webpack --config webpack.dev.js
+    webpack(webpackConfigDev).run(
+        webpackCompilerHandler
+    );
 };
 
 // Function to compile client code in develop mode
 const compileClientInDevelopMode = () => {
-    // TODO: Implement
-    // webpack --config webpack.dev.js --watch
+    webpack(webpackConfigDev).watch(
+        {},
+        webpackCompilerHandler
+    );
 };
 
 // Function to compile client code in production mode
-const compileClientInProductionMode = () => {
-    // TODO: Implement
-    // webpack --config webpack.prod.js && node sw-generator.js
+const compileClientInReleaseMode = () => {
+    webpack(webpackConfigProd).run(
+        webpackCompilerHandler
+    );
 };
 
 // Function to compile with watch and start web-server
-const develop = () => {
-    // TODO: Implement
-    // compileClientInDevelopMode(); startWebserver(portNumber);
+const develop = port => {
+    compileClientInDevelopMode();
+    startWebServer(port);
 };
 
 // Function to compile in release and start web-server
-const start = () => {
-    // TODO: Implement
-    // compileClientInProductionMode(); startWebServer(portNumber);
+const start = port => {
+    compileClientInReleaseMode();
+    startWebServer(port);
+};
+
+// Function to throw a message about a missing argument
+const reportErrorForArgument = argumentName => {
+    console.log(`Please specify value for '${argumentName}'!`);
 };
 
 // The 'main' function
 const main = () => {
-    console.log('nice!');
-    console.log(yargs);
+    if (yargs.compile) {
+        switch (yargs.mode) {
+        case 'debug':
+            compileClientInDebugMode();
+            break;
+        case 'develop':
+            compileClientInDevelopMode();
+            break;
+        case 'release':
+            compileClientInReleaseMode();
+            break;
+        default:
+            console.log('Please specify a mode for \'compile\': debug, develop or release');
+        }
+    } else {
+        if (!yargs.port) {
+            reportErrorForArgument('port');
+        }
 
-    // TODO: Validate arguments
-
-    // TODO: Check for 'start'
-
-    // TODO: Check for 'develop'
-
-    // TODO: Check for 'compile'
-
-    // // TODO: Check for 'webpack-debug'
-    // // TODO: Check for 'webpack-develop
-    // // TODO: Check for 'webpack'
+        if (yargs.start) {
+            start(yargs.port);
+        } else if (yargs.develop) {
+            develop(yargs.port);
+        } else if (yargs.serve) {
+            startWebServer(yargs.port);
+        }
+    }
 };
 
 // Start 'main'
