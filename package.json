@@ -2,7 +2,7 @@
   "name": "live-pages",
   "version": "0.9.0",
   "description": "A framework to build text-driven websites",
-  "main": "web-server.js",
+  "bin": "index.js",
   "scripts": {
     "client-debug": "webpack --config webpack.dev.js",
     "client-develop": "webpack --config webpack.dev.js --watch",
@@ -63,6 +63,7 @@
     "webpack": "4.25.1",
     "webpack-cli": "3.2.1",
     "webpack-dev-server": "3.1.14",
-    "webpack-merge": "4.2.1"
+    "webpack-merge": "4.2.1",
+    "yargs": "16.0.3"
   }
 }
