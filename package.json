@@ -2,12 +2,12 @@
   "name": "live-pages",
   "version": "0.9.0",
   "description": "A framework to build text-driven websites",
-  "main": "index.js",
+  "main": "web-server.js",
   "scripts": {
     "client-debug": "webpack --config webpack.dev.js",
     "client-develop": "webpack --config webpack.dev.js --watch",
     "client-build": "webpack --config webpack.prod.js && node sw-generator.js",
-    "server-start": "nodemon starter.js",
+    "server-start": "node starter.js",
     "develop": "npm run client-develop & npm run server-start",
     "start": "npm run client-build && npm run server-start"
   },
