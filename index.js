@@ -8,32 +8,38 @@ const webpack = require('webpack');
 const webpackConfigDev = require('./webpack.dev');
 const webpackConfigProd = require('./webpack.prod');
 const startWebServer = require('./web-server');
+const { generateSW } = require('./sw-generator');
 
-// Function to handle response from webpack compiler
-const webpackCompilerHandler = (err, stats) => {
-    if (err) {
-        console.error(err.stack || err);
-        if (err.details) {
-            console.error(err.details);
-        }
-        return;
-    }
+// Function to generate handler for webpack compiler response
+const getHandlerForWebpackCompiler = isReleaseMode =>
+      (err, stats) => {
+          if (err) {
+              console.error(err.stack || err);
+              if (err.details) {
+                  console.error(err.details);
+              }
+              return;
+          }
 
-    const info = stats.toJson();
+          const info = stats.toJson();
 
-    if (stats.hasErrors()) {
-        console.error(info.errors);
-    }
+          if (stats.hasErrors()) {
+              console.error(info.errors);
+          }
 
-    if (stats.hasWarnings()) {
-        console.warn(info.warnings);
-    }
-};
+          if (stats.hasWarnings()) {
+              console.warn(info.warnings);
+          }
+
+          if (isReleaseMode) {
+              generateSW();
+          }
+      };
 
 // Function to compile client code in debug mode
 const compileClientInDebugMode = () => {
     webpack(webpackConfigDev).run(
-        webpackCompilerHandler
+        getHandlerForWebpackCompiler()
     );
 };
 
@@ -41,14 +47,14 @@ const compileClientInDebugMode = () => {
 const compileClientInDevelopMode = () => {
     webpack(webpackConfigDev).watch(
         {},
-        webpackCompilerHandler
+        getHandlerForWebpackCompiler()
     );
 };
 
 // Function to compile client code in production mode
 const compileClientInReleaseMode = () => {
     webpack(webpackConfigProd).run(
-        webpackCompilerHandler
+        getHandlerForWebpackCompiler(true)
     );
 };
 
