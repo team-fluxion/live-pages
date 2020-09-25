@@ -1,8 +1,8 @@
 import { init } from '../router/client';
-import config from '../web/config';
+import config from '../../../src/config';
 
 import './pwa';
-import '../web/styles/styles.less';
+import '../../../src/styles/styles.less';
 
 export default () => {
     init(config);

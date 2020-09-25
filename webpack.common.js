@@ -1,7 +1,7 @@
 /* global require module __dirname */
 
-const sourceDir = 'web';
-const outputDir = 'public';
+const sourceDir = 'src';
+const outputDir = '../../public';
 
 const path = require('path');
 
@@ -11,7 +11,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-const config = require('./web/config');
+const config = require('../../src/config');
 
 const clean = new CleanWebpackPlugin([outputDir]);
 const assetsToBeCopied = [

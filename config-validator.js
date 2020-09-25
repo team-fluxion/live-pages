@@ -1,6 +1,6 @@
 /* global require module */
 
-const appConfig = require('./web/config');
+const appConfig = require('../../src/config');
 
 const knownConfigs = {
     1: [

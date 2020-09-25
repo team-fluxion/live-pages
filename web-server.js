@@ -9,7 +9,7 @@ const Handlebars = require('handlebars');
 
 const { validate } = require('./config-validator');
 const { init, handleRoute } = require('./router/server');
-const config = require('./web/config');
+const config = require('../../src/config');
 
 const basePath = path.join(__dirname, './');
 
@@ -35,8 +35,8 @@ const serveRequest = ({ url }, res) => {
         res.send(readFile(basePath, `public${url}`));
     } else {
         // Gather landing HTML page string components
-        const landingPageTemplate = readFile(basePath, 'public/index.html');
-        const bodyTemplate = Handlebars.compile(readFile(basePath, 'web/body.html'));
+        const landingPageTemplate = readFile(basePath, '../../public/index.html');
+        const bodyTemplate = Handlebars.compile(readFile(basePath, 'src/body.html'));
         const parentPageDomString = landingPageTemplate.replace(
             '<!--body-tag-placeholder-->',
             bodyTemplate()
@@ -58,7 +58,7 @@ module.exports = url => {
     init(config);
 
     // Setup statics
-    app.use(`/${config.staticPath}`, express.static(path.join(basePath, 'public')));
+    app.use(`/${config.staticPath}`, express.static(path.join(basePath, '../../public')));
     app.use(bodyParser.json());
 
     // Start the web server

@@ -35,7 +35,7 @@ const renderOnServer = (route, currentUrl, parentPageDomString, res, basePath) =
     // Load route page template
     const pageTemplate = Handlebars.compile(
         fs.readFileSync(
-            path.join(basePath, `./web/pages/${route.page}.handlebars`),
+            path.join(basePath, `../../../src/pages/${route.page}.handlebars`),
             'utf8'
         )
     );

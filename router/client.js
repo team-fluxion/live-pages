@@ -152,7 +152,7 @@ const setValuesToDynamicElements = (route, currentUrl) => {
 // Function to render a route page on client
 const renderOnClient = (route, currentUrl, horizontalDirection, verticalDirection) => {
     // Load template for route
-    const pageTemplate = require(`../web/pages/${route.page}.handlebars`);
+    const pageTemplate = require(`../../../src/pages/${route.page}.handlebars`);
 
     // Get template filled with data for route, for currentUrl
     fillTemplateWithData(pageTemplate, route, currentUrl, appConfig)

@@ -6,7 +6,7 @@ const WebpackMerge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const commonConfig = require('./webpack.common.js');
-const config = require('./web/config');
+const config = require('../../src/config');
 
 const html = new HtmlWebpackPlugin({
     template: `${templatesDir}/index.ejs`,

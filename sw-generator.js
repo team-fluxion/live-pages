@@ -5,7 +5,7 @@ const { join } = require('path');
 
 const { log } = console;
 
-const config = require('./web/config');
+const config = require('../../src/config');
 
 // Function to get a recursive list of files in a folder
 const inflateInput = (inputDirs, parentDir = './') =>
@@ -26,7 +26,7 @@ const generateSW = () => {
     log('Generating service-worker file...');
 
     // Generate list of files in 'public' directory
-    const listOfFiles = inflateInput(['public']);
+    const listOfFiles = inflateInput(['./public']);
 
     // Read sw.js template as string
     const swTemplateString = readFileSync('./assets/sw-template.js', 'utf8');
@@ -48,7 +48,7 @@ const generateSW = () => {
           .replace(/'outputFileList'/g, stringifiedOutputFileList);
 
     // Write final sw.js to public directory
-    writeFileSync('./public/sw.js', compiledContentOfOutputFile);
+    writeFileSync('../../public/sw.js', compiledContentOfOutputFile);
 
     log('Service-worker file generated!');
 };
