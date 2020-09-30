@@ -42,13 +42,15 @@ Apart from Node.js, you'll need a command terminal to be able to run the web-ser
 
 ## How to use
 
-*live-pages* has at least two moving parts that you need to run in order to use it: client and server.
+*live-pages* has at least two moving parts that you need to run in order to use it: client and server. You almost won't have to worry about the server and can only focus on what's important: the client code comprising of your pages and visuals.
 
-You almost won't have to worry about the server and can only focus on the rest, which is the client. Place your web-app code in [web](web) directory and *live-pages* will take care of the rest. The sample web-app contains plenty of comments to explain the **what**s and **how**s as much as possible.
+On your development machine (and the one where your web-app will run), *live-pages* will reside as the containing project and your web-app will reside in a directory called **web**.
 
-Before anything is usable, you need to install the dependencies that *live-pages* depends on. In order to do that, simply run `npm install` in a terminal anywhere in the project directory.
+As it goes without saying, before anything is usable, you need to install the dependencies that *live-pages* depends on. In order to do that, simply run `npm install` in a terminal anywhere in the project directory.
 
-During development, just running `npm run develop` in a terminal window should take care of everything from building your code into a website and starting a local web-server, to making sure that you can debug your web-app in your web-browser's developer tools. It will also keep rebuilding the website and restarting the server on every change that you make with a delay or only a second or two.
+Place your web-app code in **web** directory at the root and *live-pages* will take care of the rest. One quick way to get started is to run `npm run init` and the [example](example) directory will be cloned as **web** directory so that you can use the example and build from there right away. The sample web-app contains plenty of comments to explain the **what**s and **how**s as much as possible.
+
+During development, just running `npm run develop` in a terminal window should take care of everything from building your code into a website and starting a local web-server, to making sure that you can debug your web-app in your web-browser's developer tools. It will also keep rebuilding the website and restarting the server on every change that you make with a delay of only a second or two.
 
 If you just want to deploy your web-app on a machine, simply running `npm run start` or `npm start` should take care of everything for you.
 
@@ -60,4 +62,3 @@ If you just want to deploy your web-app on a machine, simply running `npm run st
 * Implement master page/template
 * Externalize router
 * Make the example more clear
-* Simplify placement of example, separate from actual web directory if possible

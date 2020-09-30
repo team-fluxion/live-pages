@@ -4,6 +4,7 @@
   "description": "A framework to build text-driven websites",
   "main": "index.js",
   "scripts": {
+    "init": "node init.js",
     "client-debug": "webpack --config webpack.dev.js",
     "client-develop": "webpack --config webpack.dev.js --watch",
     "client-build": "webpack --config webpack.prod.js && node sw-generator.js",
@@ -32,6 +33,7 @@
     "body-parser": "1.18.3",
     "cheerio": "1.0.0-rc.3",
     "express": "4.16.4",
+    "fs-extra": "9.0.1",
     "handlebars": "4.7.6",
     "nodemon": "2.0.4"
   },
