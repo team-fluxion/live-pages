@@ -26,8 +26,11 @@ const readFile = (basePath, filePath) => {
     }
 };
 
-const serveRequest = ({ url }, res) => {
-    if (config.redirects[url]) {
+const serveRequest = ({ headers, url }, res) => {
+    if (headers['x-forwarded-proto'] === 'http') {
+        // Force redirection to https
+        res.redirect(`https://${headers.host}${url}`);
+    } else if (config.redirects[url]) {
         // Use the known redirect
         res.redirect(config.redirects[url]);
     } else if (config.exceptionsForStaticDirectory.indexOf(url) > -1) {
