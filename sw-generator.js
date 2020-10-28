@@ -36,7 +36,7 @@ const stringifiedOutputFileList = JSON.stringify(
         .concat(
             listOfFiles
                 .map(
-                    filename => filename.replace('public', config.staticPath)
+                    filename => filename.replace('public', `/${config.staticPath}`)
                 )
         )
 );
