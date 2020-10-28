@@ -33,6 +33,10 @@ const serveRequest = ({ headers, url }, res) => {
     } else if (config.redirects[url]) {
         // Use the known redirect
         res.redirect(config.redirects[url]);
+    } else if (url === '/sw.js') {
+        // Serve the service worker script
+        res.set('Content-Type', 'text/javascript');
+        res.send(readFile(basePath, `public${url}`));
     } else if (config.exceptionsForStaticDirectory.indexOf(url) > -1) {
         // Serve the file and end the response
         res.send(readFile(basePath, `public${url}`));

@@ -93,7 +93,7 @@ if ('serviceWorker' in navigator) {
         'load',
         () => {
             navigator.serviceWorker
-                .register('sw.js')
+                .register('/sw.js')
                 .then(
                     reg => {
                         console.log('ServiceWorker registration successful with scope: ', reg.scope);
