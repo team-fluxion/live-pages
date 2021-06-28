@@ -44,7 +44,7 @@ const getDataFromWebApiHandler = (template, route, currentUrl, appConfig, onDone
         result = webApi.handler({
             url: `${webApi.url}?path=${currentUrl}`,
             query: {
-                path: currentUrl
+                path: decodeURIComponent(currentUrl)
             }
         });
     } else {
