@@ -76,7 +76,7 @@ module.exports = url => {
     // Host all Web API handlers
     config.webApis.forEach(
         ({ url, handler }) => {
-            app.get(
+            app.post(
                 url,
                 (req, res) => {
                     res.send(handler(req));

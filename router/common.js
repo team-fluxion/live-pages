@@ -33,23 +33,49 @@ const findChildRoute = (parentUrl, tree, urlToFind) => {
 const getUrlParams = url =>
     url.split('/').slice(1);
 
+// Function to contruct query object for a URL
+const parseActionAndQueryFromUrl = url => {
+    // Capture the query string from the URL
+    const [action, queryString] = url.split('?');
+
+    return {
+        action,
+        query: queryString
+            && queryString
+                .split('&')
+                .reduce(
+                    (a, c) => {
+                        const [key, value] = c.split('=');
+
+                        a[key] = value;
+
+                        return a;
+                    },
+                    {}
+                )
+    };
+};
+
 // Function to retrieve data from WebAPI handler
-const getDataFromWebApiHandler = (template, route, currentUrl, appConfig, onDone) => {
+const getDataFromWebApiHandler = (template, route, url, appConfig, onDone) => {
     // Find the first matching handler in config
     const webApi = appConfig.webApis.filter(a => route.data.indexOf(a.url) > -1)[0];
+
+    // Split action and query
+    const { action, query } = parseActionAndQueryFromUrl(url);
 
     let result;
     if (typeof window === 'undefined') {
         // For server
         result = webApi.handler({
-            url: `${webApi.url}?url=${currentUrl}`,
-            query: {
-                url: decodeURIComponent(currentUrl)
-            }
+            body: { url, action, query }
         });
     } else {
         // For client
-        result = axios.get(`${nodeUrl.resolve(appConfig.domain, route.data)}?url=${currentUrl}`);
+        result = axios.post(
+            `${nodeUrl.resolve(appConfig.domain, route.data)}`,
+            { url, action, query }
+        );
     }
 
     // Check if the result is a promise
