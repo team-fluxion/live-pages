@@ -255,7 +255,7 @@ const isInternalUrl = urlToMatch =>
 
 // Function to check whether a route is duplicate
 const isRouteDuplicate = pathname =>
-    pathname === window.location.pathname;
+    pathname === `${window.location.pathname}${window.location.search}`;
 
 // Function to navigate to a URL
 const navigate = (pathname, state = {}) => {
