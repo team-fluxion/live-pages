@@ -11,18 +11,18 @@ A tool/template to quickly build text-driven websites
 
 ## Background
 
-Since websites have become web-apps, there's much more to them than just markup, styling, and some simple interaction logic. In a "typical" web-app: users expect minimal hops between pages, pretty visuals, offline operation when the situation demands, and much more. This adds a lot of extra work on the development side where the developer finds themselves working with code that is not even remotely related to the actual web-app being developed. Much of it is repetitive, mostly working with boilerplate code that still needs to be just a little different for every single web-app that gets deployed to production.
+Since websites have become web apps, there's much more to them than just markup, styling, and some simple interaction logic. In a "typical" web app: users expect minimal hops between pages, pretty visuals, offline operation when the situation demands, and much more. This adds a lot of extra work on the development side where the developer finds themselves working with code that is not even remotely related to the actual web app being developed. Much of it is repetitive, mostly working with boilerplate code that still needs to be just a little different for every single web app that gets deployed to production.
 
-That is only a small part of the horror story developers find themselves learning a framework or library than to develop the web-app itself, that is only if they could decide on which one to use.
+That is only a small part of the horror story developers find themselves learning a framework or library than to develop the web app itself, that is only if they could decide on which one to use.
 
-*live-pages* aims to solve that problem by abstracting as much part of that *trivial* and *boring* code of your web-app into a template so that you almost only have to worry about the actual stuff that the users eventually see.
+*live-pages* aims to solve that problem by abstracting as much part of that *trivial* and *boring* code of your web app into a template so that you almost only have to worry about the actual stuff that the users eventually see.
 
 ## Features
 
 * A sufficiently configured web-server using [Express](https://expressjs.com)
-* A comprehensive [webpack](https://webpack.js.org) configuration that takes care of the heavy-lifting of building your web-app
-* A simple-to-use router that's totally invisible, works almost exactly the same on the server as it does on the client, supports implicit loading indication and active link annotation, and is even transition animation friendly
-* Automatic generation of service-worker scripts so that your implementation can also work offline as a progressive web-app with no extra code
+* A comprehensive [webpack](https://webpack.js.org) configuration that takes care of all the heavy-lifting of building your web-app
+* A simple-to-use router remains invisible, works almost exactly the same on the server as it does on the client, supports implicit loading indication and active link annotation, and is even transition animation friendly
+* Automatic generation of service-worker scripts so that your implementation can also work offline as a progressive web app with no extra code
 * Support for open-graph tags without needing to configure them manually
 * A pre-configured linting setup using [ESLint](https://eslint.org)
 * Single-file configuration for metadata, routes, and other preferences
@@ -30,29 +30,29 @@ That is only a small part of the horror story developers find themselves learnin
 * [ample-alerts](https://npmjs.com/package/ample-alerts) as an alert library to replace boring native web-browser alerts, confirmations, and prompts
 * [{less}](http://lesscss.org) support for CSS along with a bunch of ready-made mixins from [effortless-css](https://www.npmjs.com/package/effortless-css)
 * Support for latest ES standards using Babel transpilation
-* Full support for JavaScript promises using [bluebird](https://www.npmjs.com/package/bluebird) so that you don't have to depend on user's web-browser for support
+* Full support for JavaScript promises using [bluebird](https://www.npmjs.com/package/bluebird) so that you don't have to depend on the user's web browser for support
 * Support for [Handlebars](https://handlebarsjs.com) templates for pages and views
 * Much more...
 
 ## Pre-requisites
 
-If nothing else, you'll definitely need [Node.js](https://nodejs.org) installed on both, the development and the hosting machine. You may refer to the [official website] for steps on installing Node.js on your computer.
+At a minimum, you'll need [Node.js](https://nodejs.org) installed on both, the development and the hosting machine. You may refer to the [official website](https://nodejs.org) for steps on installing Node.js.
 
-Apart from Node.js, you'll need a command terminal to be able to run the web-server and anything that allows you to edit text to configure *live-pages*.
+Apart from Node.js, you'll need a command terminal to be able to run the webserver and anything that allows you to edit text to configure *live-pages*.
 
 ## How to use
 
 *live-pages* has at least two moving parts that you need to run in order to use it: client and server. You almost won't have to worry about the server and can only focus on what's important: the client code comprising of your pages and visuals.
 
-On your development machine (and the one where your web-app will run), *live-pages* will reside as the containing project and your web-app will reside in a directory called **web**.
+On your development machine (and the one where your web app will run), *live-pages* will reside as the containing project and your web app will reside in a directory called **web**.
 
 As it goes without saying, before anything is usable, you need to install the dependencies that *live-pages* depends on. In order to do that, simply run `npm install` in a terminal anywhere in the project directory.
 
-Place your web-app code in **web** directory at the root and *live-pages* will take care of the rest. One quick way to get started is to run `npm run init` and the [example](example) directory will be cloned as **web** directory so that you can use the example and build from there right away. The sample web-app contains plenty of comments to explain the **what**s and **how**s as much as possible.
+Place your web-app code in **web** directory at the root and *live-pages* will take care of the rest. One quick way to get started is to run `npm run init` and the [example](example) directory will be cloned as **web** directory so that you can use the example and build from there right away. The sample web app contains plenty of comments to explain the **what**s and **how**s as much as possible.
 
-During development, just running `npm run develop` in a terminal window should take care of everything from building your code into a website and starting a local web-server, to making sure that you can debug your web-app in your web-browser's developer tools. It will also keep rebuilding the website and restarting the server on every change that you make with a delay of only a second or two.
+During development, just running `npm run develop` in a terminal window should take care of everything from building your code into a website and starting a local web server, to making sure that you can debug your web app in your web browser's developer tools. It will also keep rebuilding the website and restarting the server on every change that you make with a delay of only a second or two.
 
-If you just want to deploy your web-app on a machine, simply running `npm run start` or `npm start` should take care of everything for you.
+If you just want to deploy your web app on a machine, simply running `npm run start` or `npm start` should take care of everything for you.
 
 ## To-Do
 
@@ -61,4 +61,4 @@ If you just want to deploy your web-app on a machine, simply running `npm run st
 * Implement pattern matching for routes
 * Implement master page/template
 * Externalize router
-* Make the example more clear
+* Make the example clearer
