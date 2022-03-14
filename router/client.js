@@ -197,6 +197,11 @@ const getVerticalDirectionForNavigation = (
         // Compare weights, positive meaning downward
         if (currentWeight !== previousWeight) {
             return currentWeight >= previousWeight;
+        } else if (previousUrl.indexOf('=') > -1 && currentUrl.indexOf('=') > -1) {
+            const indexA = +previousUrl.split('=')[1];
+            const indexB = +currentUrl.split('=')[1];
+
+            return indexB >= indexA;
         } else {
             return currentUrl.split('/').length >= previousUrl.split('/').length;
         }
