@@ -124,6 +124,10 @@ module.exports = {
                 `The currently active route is '${route.url}' and current URL is '${url}'`
         }
     ],
+    // Callback to execute after each successful navigation on the client
+    onNavigate: (route, url) => {
+        console.log(`Navigated to "${url}"`);
+    },
     // Assets to be copied to the `public` directory, relative to this directory
     additionalAssetsToInclude: [
         'images',

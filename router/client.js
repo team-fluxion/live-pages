@@ -149,6 +149,13 @@ const setValuesToDynamicElements = (route, currentUrl) => {
     );
 };
 
+// Function to invoke post-navigation callback, if supplied
+const invokePostNavigationCallback = (route, currentUrl) => {
+    if (appConfig.onNavigate) {
+        appConfig.onNavigate(route, currentUrl);
+    }
+};
+
 // Function to render a route page on client
 const renderOnClient = (route, currentUrl, horizontalDirection, verticalDirection) => {
     // Load template for route
@@ -173,6 +180,9 @@ const renderOnClient = (route, currentUrl, horizontalDirection, verticalDirectio
 
                         // Start marking navigation end
                         markNavigationEnd(horizontalDirection, verticalDirection);
+
+                        // Invoke post-navigation callback
+                        invokePostNavigationCallback(route, currentUrl);
                     },
                     appConfig.navigationAnimationDelay / 2
                 );
