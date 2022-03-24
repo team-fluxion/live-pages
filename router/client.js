@@ -285,22 +285,29 @@ const navigate = (pathname, state = {}) => {
 const handleGlobalClick = event => {
     const { currentTarget: { activeElement } } = event;
 
-    // Respond to events only from anchor tags
-    if (activeElement.tagName === 'A') {
-        // Stop the default behavior of the event
-        event.preventDefault();
+    // Do not proceed for tags apart from 'a'
+    if (activeElement.tagName !== 'A') {
+        return;
+    }
 
-        // Extract the `href` attribute
-        const href = activeElement.getAttribute('href');
+    // Extract the `href` attribute
+    const href = activeElement.getAttribute('href');
 
-        // Check whether URL is internal or external
-        if (isInternalUrl(url.resolve('/', href))) {
-            // Navigate internally for internal URLs
-            navigate(href);
-        } else {
-            // Navigate to the external URL
-            window.location.href = href;
-        }
+    // Do not proceed for tags with social links
+    if (href.indexOf(':') > -1) {
+        return;
+    }
+
+    // Stop the default behavior of the event
+    event.preventDefault();
+
+    // Check whether URL is internal or external
+    if (isInternalUrl(url.resolve('/', href))) {
+        // Navigate internally for internal URLs
+        navigate(href);
+    } else {
+        // Navigate to the external URL
+        window.location.href = href;
     }
 };
 
