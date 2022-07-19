@@ -54,6 +54,11 @@ During development, just running `npm run develop` in a terminal window should t
 
 If you just want to deploy your web app on a machine, simply running `npm run start` or `npm start` should take care of everything for you.
 
+## What *live-pages* isn't
+
+- A web framework to help you build your website
+- A CSS framework that helps you make your website pretty
+
 ## To-Do
 
 * Update documentation with details on recent features
