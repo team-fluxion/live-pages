@@ -59,6 +59,11 @@ If you just want to deploy your web app on a machine, simply running `npm run st
 - A web framework to help you build your website
 - A CSS framework that helps you make your website pretty
 
+## *live-pages* in action
+
+- [myTerminal's personal website](https://myterminal.me)
+- [Masjid Rahmah's official website](https://masjidrahmah.us)
+
 ## To-Do
 
 * Update documentation with details on recent features
