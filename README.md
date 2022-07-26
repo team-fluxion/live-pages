@@ -66,9 +66,5 @@ If you just want to deploy your web app on a machine, simply running `npm run st
 
 ## To-Do
 
-* Update documentation with details on recent features
-* Create a wiki
 * Implement pattern matching for routes
-* Implement master page/template
 * Externalize router
-* Make the example clearer
