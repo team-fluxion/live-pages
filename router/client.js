@@ -218,11 +218,15 @@ const getVerticalDirectionForNavigation = (
     }
 };
 
+// Function to conditionally prepend '/' to a URL
+const getConditionedUrl = (url) =>
+    url[0] !== '/' ? `/${url}` : url;
+
 // Function to handle route changes on client
 const handleRoute = ({ state }, horizontalDirection = false) => {
     // Retrieve path variables
     const { location: { pathname, search } } = document;
-    const interceptedPath = pathname.slice(0, 1) !== '/' ? `/${pathname}${search}` : `${pathname}${search}`;
+    const interceptedPath = getConditionedUrl(`${pathname}${search}`);
 
     // Find matching route, determine vertical direction
     const firstMatchingRoute = findChildRoute('/', appConfig.routes, interceptedPath);
