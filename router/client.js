@@ -269,8 +269,11 @@ const handleRoute = ({ state }, horizontalDirection = false) => {
 
 // Function to check whether a URL is internal
 const isInternalUrl = urlToMatch =>
-    urlToMatch.indexOf('://') < 0
-        && urlToMatch.indexOf('//');
+    findChildRoute(
+        '/',
+        appConfig.routes,
+        getConditionedUrl(urlToMatch)
+    );
 
 // Function to check whether a route is duplicate
 const isRouteDuplicate = pathname =>
