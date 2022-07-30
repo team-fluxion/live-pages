@@ -219,8 +219,8 @@ const getVerticalDirectionForNavigation = (
 };
 
 // Function to conditionally prepend '/' to a URL
-const getConditionedUrl = (url) =>
-    url[0] !== '/' ? `/${url}` : url;
+const getConditionedUrl = unconditionedUrl =>
+    (unconditionedUrl[0] !== '/' ? `/${unconditionedUrl}` : unconditionedUrl);
 
 // Function to handle route changes on client
 const handleRoute = ({ state }, horizontalDirection = false) => {
