@@ -1,7 +1,7 @@
 # live-pages
 
 [![Code Climate](https://codeclimate.com/github/team-fluxion/live-pages.png)](https://codeclimate.com/github/team-fluxion/live-pages)
-[![js-myterminal-style](https://img.shields.io/badge/code%20style-myterminal-blue.svg)](https://www.npmjs.com/package/eslint-config/myterminal)
+[![js-myterminal-style](https://img.shields.io/badge/code%20style-myterminal-blue.svg)](https://www.npmjs.com/package/eslint-config-myterminal)
 [![License](https://img.shields.io/github/license/team-fluxion/live-pages.svg)](https://opensource.org/licenses/MIT)
 
 A tool/template to quickly build text-driven websites
