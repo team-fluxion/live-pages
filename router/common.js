@@ -9,7 +9,7 @@ const axios = require('axios');
 const findChildRoute = (parentUrl, tree, urlToFind) => {
     for (let i = 0; i < tree.subRoutes.length; i += 1) {
         // Check if the URL pattern matches
-        if (urlToFind.indexOf(path.join(parentUrl, tree.subRoutes[i].url)) > -1) {
+        if (urlToFind.indexOf(path.join(parentUrl, tree.subRoutes[i].url)) === 0) {
             // Check if there are subroutes
             if (tree.subRoutes[i].subRoutes) {
                 // Return recursive matches
