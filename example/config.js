@@ -12,7 +12,7 @@ module.exports = {
     // Type of web-app, only used in HTML open-graph
     type: 'article',
     // Domain of the web-app, the final web-address
-    domain: 'http://localhost:8000',
+    appDomain: 'http://localhost:8000',
     // Name of the directory to hold static assets
     staticPath: 'assets',
     // Colors to use for the progressive web-app

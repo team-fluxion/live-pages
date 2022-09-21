@@ -31,8 +31,8 @@ const html = new HtmlWebpackPlugin({
         title: `${config.friendlyName}: ${config.description}`,
         description: config.description,
         type: config.type,
-        domain: config.domain,
-        baseUrl: `${config.domain}/${config.staticPath}/`
+        appDomain: config.appDomain,
+        baseUrl: `${config.appDomain}/${config.staticPath}/`
     },
     filename: 'index.html',
     chunks: ['app'],

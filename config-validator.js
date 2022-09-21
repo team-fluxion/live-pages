@@ -9,7 +9,7 @@ const knownConfigs = {
         'friendlyName',
         'description',
         'type',
-        'domain',
+        'appDomain',
         'staticPath',
         'colors',
         'pageElementSelector',

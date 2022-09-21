@@ -73,7 +73,7 @@ const getDataFromWebApiHandler = (template, route, url, appConfig, onDone) => {
     } else {
         // For client
         result = axios.post(
-            `${nodeUrl.resolve(appConfig.domain, route.data)}`,
+            `${nodeUrl.resolve(appConfig.appDomain, route.data)}`,
             { url, action, query }
         );
     }
