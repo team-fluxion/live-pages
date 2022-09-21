@@ -51,7 +51,7 @@ const serveRequest = ({ headers, url }, res) => {
     }
 };
 
-module.exports = url => {
+module.exports = portNumber => {
     // Validate configs
     if (!validate(config)) {
         return;
@@ -67,9 +67,9 @@ module.exports = url => {
 
     // Start the web server
     app.listen(
-        url,
+        portNumber,
         () => {
-            console.log(config.appName, 'started on', url);
+            console.log(config.appName, 'started on', portNumber);
         }
     );
 
