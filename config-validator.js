@@ -1,7 +1,5 @@
 /* global require module */
 
-const appConfig = require('./web/config');
-
 const knownConfigs = {
     1: [
         'configVersion',
@@ -30,7 +28,7 @@ const knownConfigs = {
 };
 
 // Function to validate app configs with known config specifications
-module.exports.validate = () => {
+module.exports.validate = appConfig => {
     // Gather required data
     const configVersion = appConfig.configVersion;
     const knownConfigKeys = knownConfigs[configVersion];
