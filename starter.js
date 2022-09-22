@@ -1,3 +1,3 @@
 /* global require */
 
-require('./')('8000');
+require('./start-web')('8000');
