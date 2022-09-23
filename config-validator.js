@@ -8,6 +8,8 @@ const knownConfigs = {
         'description',
         'type',
         'appDomain',
+        'appPort',
+        'socketPort',
         'sslCertificatePath',
         'dataDirectoryPath',
         'staticPath',
