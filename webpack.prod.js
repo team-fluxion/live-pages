@@ -12,6 +12,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonConfig = require('./webpack.common.js');
 const config = require('./web/config');
 
+const { getProcessedAppDomain } = require('./assets/common');
+
 const copy = new CopyWebpackPlugin([
     {
         from: `${templatesDir}/manifest.json`,
@@ -31,8 +33,8 @@ const html = new HtmlWebpackPlugin({
         title: `${config.friendlyName}: ${config.description}`,
         description: config.description,
         type: config.type,
-        appDomain: config.appDomain,
-        baseUrl: `${config.appDomain}/${config.staticPath}/`
+        appDomain: getProcessedAppDomain(config),
+        baseUrl: `${getProcessedAppDomain(config)}/${config.staticPath}/`
     },
     filename: 'index.html',
     chunks: ['app'],

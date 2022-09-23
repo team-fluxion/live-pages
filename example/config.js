@@ -12,7 +12,7 @@ module.exports = {
     // Type of web-app, only used in HTML open-graph
     type: 'article',
     // Domain of the web-app, the final web-address
-    appDomain: 'http://localhost',
+    appDomain: 'localhost',
     // Port number for web app
     appPort: 8000,
     // Port number for web socket

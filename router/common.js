@@ -5,6 +5,8 @@ const nodeUrl = require('url');
 const Promise = require('bluebird');
 const axios = require('axios');
 
+const { getProcessedAppDomain } = require('../assets/common');
+
 // Function to find a matching internal route
 const findChildRoute = (parentUrl, tree, urlToFind) => {
     for (let i = 0; i < tree.subRoutes.length; i += 1) {
@@ -73,7 +75,7 @@ const getDataFromWebApiHandler = (template, route, url, appConfig, onDone) => {
     } else {
         // For client
         result = axios.post(
-            `${nodeUrl.resolve(appConfig.appDomain, route.data)}`,
+            `${nodeUrl.resolve(getProcessedAppDomain(appConfig), route.data)}`,
             { url, action, query }
         );
     }
