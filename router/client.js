@@ -223,7 +223,7 @@ const getConditionedUrl = unconditionedUrl =>
     (unconditionedUrl[0] !== '/' ? `/${unconditionedUrl}` : unconditionedUrl);
 
 // Function to handle route changes on client
-const handleRoute = ({ state }, horizontalDirection = false) => {
+export const handleRoute = ({ state }, horizontalDirection = false) => {
     // Retrieve path variables
     const { location: { pathname, search } } = document;
     const interceptedPath = getConditionedUrl(`${pathname}${search}`);
