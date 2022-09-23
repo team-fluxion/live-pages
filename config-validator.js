@@ -8,6 +8,8 @@ const knownConfigs = {
         'description',
         'type',
         'appDomain',
+        'sslCertificatePath',
+        'dataDirectoryPath',
         'staticPath',
         'colors',
         'pageElementSelector',
