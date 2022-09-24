@@ -12,7 +12,16 @@ module.exports = {
     // Type of web-app, only used in HTML open-graph
     type: 'article',
     // Domain of the web-app, the final web-address
-    appDomain: 'http://localhost:8000',
+    appDomain: 'localhost',
+    // Port number for web app
+    appPort: 8000,
+    // Port number for web socket
+    socketPort: 8001,
+    // Directory path for SSl certificate, if any
+    sslCertificatePath: null,
+    // Relative directory path for the data directory, if any. This location is
+    // watched for changes in order to suggest the client for a data refresh
+    dataDirectoryPath: null,
     // Name of the directory to hold static assets
     staticPath: 'assets',
     // Colors to use for the progressive web-app
