@@ -17,7 +17,7 @@ export default (config, handleRoute) => {
             isPendingUpdate = true;
             confirm(
                 [
-                    'This page might have received an update!',
+                    'There may be an update!',
                     'Would you like to fetch the latest data?'
                 ],
                 {
