@@ -6,6 +6,8 @@
 
 A web-container for config-driven modern websites.
 
+> **PS:** Tested on Node version 12.22.9 and earlier only.
+
 ## Background
 
 As expectations from pages running inside web-browsers sky-rocketed, users started to expect too much from them, including minimal hops between pages, super pretty visuals, offline availability, and much more. This forced a lot more extra burden on the developers where now they often find themselves working on code that doesn't even remotely relate to the website in question. Much of this is repetitive, mostly working with boilerplate code that still needs to be just a little different for every single web app that gets deployed to production, moreso needing an update with another shift in technology trends.
