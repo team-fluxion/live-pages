@@ -4,29 +4,29 @@
 [![js-myterminal-style](https://img.shields.io/badge/code%20style-myterminal-blue.svg)](https://www.npmjs.com/package/eslint-config-myterminal)
 [![License](https://img.shields.io/github/license/team-fluxion/live-pages.svg)](https://opensource.org/licenses/MIT)
 
-A web-container for config-driven modern websites.
+A web container for config-driven modern websites.
 
-> **PS:** Tested on Node version 12.22.9 and earlier only.
+> **PS:** Tested on Node version 12.22.9 and older, and may not work with newer versions.
 
 ## Background
 
-As expectations from pages running inside web-browsers sky-rocketed, users started to expect too much from them, including minimal hops between pages, super pretty visuals, offline availability, and much more. This forced a lot more extra burden on the developers where now they often find themselves working on code that doesn't even remotely relate to the website in question. Much of this is repetitive, mostly working with boilerplate code that still needs to be just a little different for every single web app that gets deployed to production, moreso needing an update with another shift in technology trends.
+As expectations from pages running inside web browsers skyrocketed, users started to expect too much from them, including minimal hops between pages, super pretty visuals, offline availability, and much more. This forced a lot more extra burden on the developers where now they often find themselves working on code that doesn't even remotely relate to the website in question. Much of this is repetitive, mostly working with boilerplate code that still needs to be just a little different for every single web app deployed to production, more so needing an update with another shift in technology trends.
 
-*live-pages* aims to solve a hundred problems faced while developing a modern web app by abstracting as much part of that trivial code out into a wrapper so that you only have to worry about the actual stuff that the users eventually see.
+*live-pages* aims to solve a hundred problems while developing a modern web app by abstracting as much part of that trivial code into a wrapper so that you only have to worry about the actual stuff that the users eventually see.
 
 ## What does *live-pages* comes with?
 
-### Primarily, there's
+### Primarily, there's...
 
-* A well configured web-server using [Express](https://expressjs.com)
-* A comprehensive [webpack](https://webpack.js.org) configuration that takes care of all the heavy-lifting of building your web app
-* A simple-to-use router that remains invisible, is symmetrical across the client and the server, supports implicit loading indication and active link annotation along with transition animations and more
+* A well-configured web server using [Express](https://expressjs.com)
+* A comprehensive [webpack](https://webpack.js.org) configuration that takes care of all the heavy lifting of building your web app
+* A simple-to-use router that remains invisible, is symmetrical across the client and server, supports implicit loading indication and active link annotation along with transition animations and more
 * Automatic generation of service-worker scripts so that your implementation can also work offline as a progressive web app with no extra code
 * A single configuration file for your entire website
-* Push notifications to the browser when change to the data is detected
+* Push notifications to the browser when a change to the data is detected
 * [ample-alerts](https://npmjs.com/package/ample-alerts) as a themeable alert library to replace native web-browser alerts, confirmations, and prompts
 
-### And there's also
+### And there's also...
 
 * Centralized control over open-graph tags
 * Support for [Handlebars](https://handlebarsjs.com) templates for pages and views
@@ -44,13 +44,13 @@ and much more...
 
 At a minimum, you'll need [Node.js](https://nodejs.org) installed on both, the development and the hosting machine. You may refer to the [official website](https://nodejs.org) for steps on installing Node.js.
 
-You'll need a text-editor to configure your website with *live-pages* and a command terminal to be able to run the server(s).
+You'll need a text editor to configure your website with *live-pages* and a command terminal to be able to run the server(s).
 
 ## How to use
 
-*live-pages* acts as a container for your website, provides you with both the client and the server, and makes sure all the interaction between the two is seamless. You only have to focus on what's important: the client-side code comprising the pages and visuals. Your web app resides in directory called **web**, while *live-pages* provides you with commands to work with it.
+*live-pages* acts as a container for your website, provides you with both the client and the server, and ensures all the interaction between the two is seamless. You only have to focus on what's important: the client-side code comprising the pages and visuals. Your web app resides in a directory called **web**, while *live-pages* provides you with commands to work with it.
 
-As it goes without saying, before anything is usable, you need to install the dependencies that *live-pages* depends on. In order to do that, simply run `npm install` in a terminal anywhere in the project directory. Place your web app code in **web** directory at the root, optionally running an `npm install` for it too, if your website has NPM dependencies of its own. Once all this is done, *live-pages* will take care of the rest.
+As it goes without saying, before anything is usable, you need to install the dependencies that *live-pages* depends on. In order to do that, simply run `npm install` in a terminal anywhere in the project directory. Place your web app code in the **web** directory at the root, optionally running an `npm install` for it too, if your website has NPM dependencies of its own. Once all this is done, *live-pages* will take care of the rest.
 
 One quick way to get started is to run `npm run init` and the [example](example) directory will be cloned as **web** directory so that you can use the example and build from there right away. The sample web app contains plenty of comments to explain the **what**s and **how**s as much as possible.
 
@@ -67,4 +67,4 @@ If you just want to deploy your web app on a machine, simply running `npm run st
 ## To-Do
 
 * Implement pattern matching for routes
-* Externalize router
+* Externalize router into a reusable component
