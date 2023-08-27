@@ -6,7 +6,7 @@
 
 A web container for config-driven modern websites.
 
-> **PS:** Tested on Node version 12.22.9 and older, and may not work with newer versions.
+> **PS:** Tested on Node version 12.22.9 and older, and may not work with newer versions. If you face error with peer dependencies while running an `npm install`, try running `npm install --save --legacy-peer-deps` instead.
 
 ## Background
 
