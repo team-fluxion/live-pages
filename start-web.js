@@ -1,5 +1,6 @@
 /* global module require __dirname */
 
+const { exec } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
@@ -55,6 +56,19 @@ module.exports = portNumber => {
     // Validate configs
     if (!validate(config)) {
         return;
+    }
+
+    // Create link to data directory if needed
+    if (config.sourceForNestedDataDirectory
+        && !fs.existsSync(path.join(basePath, 'public/data'))) {
+        exec(`ln -s ${config.sourceForNestedDataDirectory} ${path.join(basePath, 'public/data')}`,
+             (err, stdout, stderr) => {
+                 if (err) {
+                     return -1;
+                 }
+
+                 return 0;
+             });
     }
 
     // Create web-app and perform init

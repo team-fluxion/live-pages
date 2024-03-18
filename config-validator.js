@@ -12,6 +12,7 @@ const knownConfigs = {
         'socketPort',
         'sslCertificatePath',
         'dataDirectoryPath',
+        'sourceForNestedDataDirectory',
         'staticPath',
         'colors',
         'pageElementSelector',

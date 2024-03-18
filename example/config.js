@@ -22,6 +22,8 @@ module.exports = {
     // Relative directory path for the data directory, if any. This location is
     // watched for changes in order to suggest the client for a data refresh
     dataDirectoryPath: null,
+    // Path to the directory to use for a symbolic link under '/public'
+    sourceForNestedDataDirectory: null,
     // Name of the directory to hold static assets
     staticPath: 'assets',
     // Colors to use for the progressive web-app
