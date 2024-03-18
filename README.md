@@ -62,6 +62,7 @@ If you just want to deploy your web app on a machine, simply running `npm run st
 ## *live-pages* in action
 
 - [myTerminal's personal website](https://myterminal.me)
+- [Jia Cloud's official website](https://jiacloud.net)
 - [Masjid Rahmah's official website](https://masjidrahmah.us)
 
 ## To-Do
