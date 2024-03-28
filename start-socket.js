@@ -89,7 +89,7 @@ module.exports = portNumber => {
         30000
     );
 
-    // Set up a watched on the data directory
+    // Set up a watcher on the data directory
     chokidar
         .watch(
             config.dataDirectoryPath,
