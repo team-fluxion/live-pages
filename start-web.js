@@ -105,9 +105,6 @@ module.exports = portNumber => {
     );
 
     // Serve index page
-    if (config.isOffline) {
-        app.get('*', showOffline);
-    } else {
-        app.get('*', serveRequest);
-    }
+    app.get('*', config.isOffline ? showOffline : serveRequest);
+
 };
