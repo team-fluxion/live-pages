@@ -1,6 +1,9 @@
 /* global require */
 
-const { appPort, socketPort } = require('./web/config');
+const { appPort, socketPort, dataDirectoryPath } = require('./web/config');
 
 require('./start-web')(appPort);
-require('./start-socket')(socketPort);
+
+if (dataDirectoryPath) {
+    require('./start-socket')(socketPort);
+}
