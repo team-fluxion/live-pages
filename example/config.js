@@ -19,6 +19,8 @@ module.exports = {
     socketPort: 8001,
     // Directory path for SSl certificate, if any
     sslCertificatePath: null,
+    // Circuit breaker switch
+    isOffline: false,
     // Relative directory path for the data directory, if any. This location is
     // watched for changes in order to suggest the client for a data refresh
     dataDirectoryPath: null,

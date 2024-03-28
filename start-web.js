@@ -27,6 +27,11 @@ const readFile = (basePath, filePath) => {
     }
 };
 
+const showOffline = (_, res) => {
+    res.set('Content-Type', 'text/html');
+    res.send(readFile(basePath, './web/offline.html'));
+};
+
 const serveRequest = ({ headers, url }, res) => {
     if (config.redirects[url]) {
         // Use the known redirect
@@ -100,5 +105,9 @@ module.exports = portNumber => {
     );
 
     // Serve index page
-    app.get('*', serveRequest);
+    if (config.isOffline) {
+        app.get('*', showOffline);
+    } else {
+        app.get('*', serveRequest);
+    }
 };

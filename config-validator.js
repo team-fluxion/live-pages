@@ -11,6 +11,7 @@ const knownConfigs = {
         'appPort',
         'socketPort',
         'sslCertificatePath',
+        'isOffline',
         'dataDirectoryPath',
         'sourceForNestedDataDirectory',
         'staticPath',
