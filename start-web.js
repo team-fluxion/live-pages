@@ -11,6 +11,7 @@ const Handlebars = require('handlebars');
 const { validate } = require('./config-validator');
 const { init, handleRoute } = require('./router/server');
 const config = require('./web/config');
+const { fillTemplateWithData } = require('./router/common');
 
 const basePath = path.join(__dirname, './');
 
@@ -47,13 +48,21 @@ const serveRequest = ({ headers, url }, res) => {
         // Gather landing HTML page string components
         const landingPageTemplate = readFile(basePath, 'public/index.html');
         const bodyTemplate = Handlebars.compile(readFile(basePath, 'web/body.html'));
-        const parentPageDomString = landingPageTemplate.replace(
-            '<!--body-tag-placeholder-->',
-            bodyTemplate()
-        );
 
-        // Handle route with server router
-        handleRoute(url, parentPageDomString, res, basePath);
+        // Fill body template with data
+        fillTemplateWithData(bodyTemplate, { data: config.dataForBody }, '/', config)
+            .then(
+                template => {
+                    // Replace placeholder with HTML DOM
+                    const parentPageDomString = landingPageTemplate.replace(
+                        '<!--body-tag-placeholder-->',
+                        template
+                    );
+
+                    // Handle route with server router
+                    handleRoute(url, parentPageDomString, res, basePath);
+                }
+            );
     }
 };
 

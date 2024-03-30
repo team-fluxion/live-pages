@@ -48,6 +48,9 @@ module.exports = {
     navigationAnimationDelay: 250,
     // Class to be appended to the active anchor tag, if present
     activeLinkClassName: 'live-pages-active-link',
+    // Data for <body>, which could be string, object, function, or a Web API response
+    // In case it is a Web API, you'll need to implement it under `webApi` to get the data
+    dataForBody: { appName: 'Demo App' },
     // Routes for the web-app
     routes: {
         // This is the mandatory route every web-app should have (`/`)

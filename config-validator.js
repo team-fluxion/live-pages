@@ -20,6 +20,7 @@ const knownConfigs = {
         'navigationClassNamesPrefix',
         'navigationAnimationDelay',
         'activeLinkClassName',
+        'dataForBody',
         'routes',
         'webApis',
         'dynamicElements',
