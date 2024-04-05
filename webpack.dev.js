@@ -13,6 +13,7 @@ const { getProcessedAppDomain } = require('./assets/common');
 const html = new HtmlWebpackPlugin({
     template: `${templatesDir}/index.ejs`,
     templateParameters: {
+        viewportTag: config.viewportTag,
         name: config.friendlyName,
         title: `[DEBUG] ${config.friendlyName}: ${config.description}`,
         description: config.description,

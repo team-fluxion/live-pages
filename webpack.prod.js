@@ -29,6 +29,7 @@ const copy = new CopyWebpackPlugin([
 const html = new HtmlWebpackPlugin({
     template: `${templatesDir}/index.ejs`,
     templateParameters: {
+        viewportTag: config.viewportTag,
         name: config.friendlyName,
         title: `${config.friendlyName}: ${config.description}`,
         description: config.description,

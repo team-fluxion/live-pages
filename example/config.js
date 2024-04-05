@@ -11,6 +11,8 @@ module.exports = {
     description: 'A framework to build text-driven websites',
     // Type of web-app, only used in HTML open-graph
     type: 'article',
+    // Whether to define viewport for smaller screens
+    viewportTag: true,
     // Domain of the web-app, the final web-address
     appDomain: 'localhost',
     // Port number for web app

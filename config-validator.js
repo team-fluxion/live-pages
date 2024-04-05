@@ -7,6 +7,7 @@ const knownConfigs = {
         'friendlyName',
         'description',
         'type',
+        'viewportTag',
         'appDomain',
         'appPort',
         'socketPort',
