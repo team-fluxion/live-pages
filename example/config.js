@@ -142,6 +142,10 @@ module.exports = {
                 `The currently active route is '${route.url}' and current URL is '${url}'`
         }
     ],
+    // Hook that runs on application start on server
+    onStart: () => {
+        console.log('Application has started!');
+    },
     // Callback to execute after each successful navigation on the client
     onNavigate: (route, url) => {
         console.log(`Navigated to "${url}"`);

@@ -25,6 +25,7 @@ const knownConfigs = {
         'routes',
         'webApis',
         'dynamicElements',
+        'onStart',
         'onNavigate',
         'additionalAssetsToInclude',
         'exceptionsForStaticDirectory',

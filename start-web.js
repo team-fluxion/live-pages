@@ -116,4 +116,8 @@ module.exports = portNumber => {
     // Serve index page
     app.get('*', config.isOffline ? showOffline : serveRequest);
 
+    // Run the 'onStart' hook
+    if (config.onStart) {
+        config.onStart();
+    }
 };
