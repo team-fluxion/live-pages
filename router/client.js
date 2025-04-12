@@ -3,7 +3,7 @@
 const path = require('path');
 const url = require('url');
 
-const { findChildRoute, fillTemplateWithData } = require('./common');
+const { findChildRoute, fillTemplateWithData, registerPartialsFromDir } = require('./common');
 const { addClassesToBody, removeClassesFromBody } = require('./dom');
 
 let appConfig;
@@ -321,6 +321,9 @@ const handleGlobalClick = event => {
 // Function to initialize the router
 export const init = config => {
     appConfig = config;
+
+    // Load the partial templates
+    registerPartialsFromDir();
 
     // Add weights to routes
     addWeightsToRoutes(appConfig.routes);

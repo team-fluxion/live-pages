@@ -5,7 +5,7 @@ const fs = require('fs');
 const cheerio = require('cheerio');
 const Handlebars = require('handlebars');
 
-const { findChildRoute, fillTemplateWithData } = require('./common');
+const { findChildRoute, fillTemplateWithData, registerPartialsFromDir } = require('./common');
 
 let appConfig;
 
@@ -88,6 +88,9 @@ const handleRoute = (currentUrl, parentPageDomString, res, basePath) => {
 
 const init = config => {
     appConfig = config;
+
+    // Load the partial templates
+    registerPartialsFromDir();
 };
 
 module.exports.handleRoute = handleRoute;

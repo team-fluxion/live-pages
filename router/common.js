@@ -1,9 +1,11 @@
-/* global require module */
+/* global require module __dirname */
 
+const fs = require('fs');
 const path = require('path');
 const nodeUrl = require('url');
 const Promise = require('bluebird');
 const axios = require('axios');
+const Handlebars = require('handlebars');
 
 const { getProcessedAppDomain } = require('../assets/common');
 
@@ -134,5 +136,28 @@ const fillTemplateWithData = (template, route, currentUrl, appConfig) =>
         }
     );
 
+// Function to register partial handlebars templates
+const registerPartialsFromDir = () => {
+    const partialsDir = path.join(__dirname, '../web/pages', 'partials');
+
+    if (!fs.existsSync(partialsDir) || !fs.statSync(partialsDir).isDirectory()) {
+        return;
+    }
+
+    const files = fs.readdirSync(partialsDir);
+
+    files.forEach(
+        file => {
+            const fullPath = path.join(partialsDir, file);
+
+            if (fs.statSync(fullPath).isFile() && path.extname(file) === '.handlebars') {
+                const template = fs.readFileSync(fullPath, 'utf8');
+                Handlebars.registerPartial(path.basename(file, '.handlebars'), template);
+            }
+        }
+    );
+};
+
 module.exports.findChildRoute = findChildRoute;
 module.exports.fillTemplateWithData = fillTemplateWithData;
+module.exports.registerPartialsFromDir = registerPartialsFromDir;
