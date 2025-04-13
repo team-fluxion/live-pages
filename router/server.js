@@ -9,6 +9,15 @@ const { findChildRoute, fillTemplateWithData } = require('./common');
 
 let appConfig;
 
+// Function to register partial handlebar templates
+const registerPartialTemplates = templates => {
+    templates.forEach(
+        ([name, template]) => {
+            Handlebars.registerPartial(name, require(`../web/pages/${template}`));
+        }
+    );
+};
+
 // Function to mark active link
 const markActiveLinks = (page, currentUrl) => {
     page(`a[href='${currentUrl}']`).addClass(appConfig.activeLinkClassName);
@@ -88,6 +97,9 @@ const handleRoute = (currentUrl, parentPageDomString, res, basePath) => {
 
 const init = config => {
     appConfig = config;
+
+    // Load the partial templates
+    registerPartialTemplates(appConfig.partialTemplates);
 };
 
 module.exports.handleRoute = handleRoute;

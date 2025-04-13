@@ -22,6 +22,7 @@ const knownConfigs = {
         'navigationAnimationDelay',
         'activeLinkClassName',
         'dataForBody',
+        'partialTemplates',
         'routes',
         'webApis',
         'dynamicElements',

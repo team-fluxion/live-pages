@@ -89,7 +89,12 @@ module.exports = {
             {
                 test: /\.handlebars$/,
                 exclude: /node_modules/,
-                loader: 'handlebars-loader'
+                loader: 'handlebars-loader',
+                options: {
+                    partialDirs: [
+                        path.resolve(__dirname, 'web/pages/partials')
+                    ]
+                }
             },
             {
                 test: /.html$/,
