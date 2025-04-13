@@ -1,4 +1,4 @@
-/* global require module */
+/* global require module __dirname */
 
 const path = require('path');
 const fs = require('fs');
@@ -9,13 +9,21 @@ const { findChildRoute, fillTemplateWithData } = require('./common');
 
 let appConfig;
 
-// Function to register partial handlebar templates
-const registerPartialTemplates = templates => {
-    templates.forEach(
-        ([name, template]) => {
-            Handlebars.registerPartial(name, require(`../web/pages/${template}`));
-        }
-    );
+// Function to register partial Handlebars templates from a specific directory
+const registerPartialTemplates = () => {
+    const partialsDirectory = path.join(__dirname, '..', 'web', 'pages', 'partials');
+
+    fs.readdirSync(partialsDirectory)
+        .forEach(
+            filename => {
+                if (filename.endsWith('.handlebars')) {
+                    Handlebars.registerPartial(
+                        path.basename(filename, '.handlebars'),
+                        require(path.join(partialsDirectory, filename))
+                    );
+                }
+            }
+        );
 };
 
 // Function to mark active link

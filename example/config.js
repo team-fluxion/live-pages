@@ -53,10 +53,6 @@ module.exports = {
     // Data for <body>, which could be string, object, function, or a Web API response
     // In case it is a Web API, you'll need to implement it under `webApi` to get the data
     dataForBody: { appName: 'Demo App' },
-    // Partial handlebar templates you need to use in other templates
-    partialTemplates: [
-        ['date', 'partials/date.handlebars']
-    ],
     // Routes for the web-app
     routes: {
         // This is the mandatory route every web-app should have (`/`)
